@@ -1,0 +1,30 @@
+[
+    {
+        "id" : "89fa17bb-099f-4943-84d3-cdfba7091154",
+        "codigo" : "NACIONAL",
+        "nombre" : "Administrador",
+        "descripcion" : "Personas Nacidas en Pais",
+        "activo" : true
+    },
+    {
+        "id" : "89fa17bb-099f-4943-84d3-cdfba7091154",
+        "codigo" : "EXTRANJERO",
+        "nombre" : "Postulante",
+        "descripcion" : "Personas no nacidas en el pais",
+        "activo" : false
+    },
+    {
+        "id" : "89fa17bb-099f-4943-84d3-cdfba7091154",
+        "codigo" : "EXTRANJERO_RESIDENTE",
+        "nombre" : "Postulante",
+        "descripcion" : "Personas no nacidas en el pais residentes",
+        "activo" : false
+    },
+    {
+        "id" : "89fa17bb-099f-4943-84d3-cdfba7091154",
+        "codigo" : "EXTRANJERO_NACIONALIZADO",
+        "nombre" : "Postulante",
+        "descripcion" : "Personas no nacidas en el pais nacionalizadas",
+        "activo" : false
+    }
+]

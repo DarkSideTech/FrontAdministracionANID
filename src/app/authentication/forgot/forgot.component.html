@@ -1,0 +1,72 @@
+<main class="d-flex align-items-center min-vh-100 py-3 py-md-0">
+  <div class="container">
+    <div class="row">
+      <div class="auth-card">
+        <div class="col-12">
+          <div class="card card-primary login-card">
+            <div class="card-header">
+              <div class="row">
+                <div class="col-md-12 brand-wrapper">
+                  <img
+                    src="assets/images/dst/anid/anid_rojo_azul.png"
+                    class="rounded mx-auto d-block"
+                    style="max-width: 150px"
+                    alt="logo"
+                  />
+                </div>
+                <div class="text-center col-md-12">
+                  <h3 class="titulo2"><span class="logo-name">Recuperar cuenta</span></h3>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <p class="text-muted">
+                Ingresa tu correo electrónico y te enviaremos las instrucciones para recuperar tu cuenta.
+              </p>
+              <form method="POST" class="form2">
+                <div class="form-group">
+                  <label for="email">Tu Correo</label>
+                  <img src="assets/icon/email.svg" class="login-icons" alt="icono email"/>
+                  <input
+                    id="email"
+                    type="email"
+                    class="form-control psl-5"
+                    name="email"
+                    tabindex="1"
+                    placeholder="Ejemplo@correo.cl"
+                    required
+                    autofocus
+                  />
+                </div>
+                <div class="text-center form-registro">
+                  <button
+                    type="submit"
+                    class="btn anid-btn-primary btn-lg btn-block"
+                    tabindex="4"
+                  >
+                    Enviar
+                    <img src="assets/icon/send.svg" class="btn-claveunica" alt="icono enviar">
+                  </button>
+                </div>
+              </form>
+              <div class="mt-3 text-center">
+                <a class="text-enlace fw-bold"routerLink="/authentication/signin">Volver al Login</a>
+              </div>
+            </div>
+            
+          </div>
+          <div class="row">
+          <div class="text-center">
+            <p>
+              <a class="link-opacity-10" href="https://ayuda.anid.cl"
+                >Departamento de Tecnologia y Procesos</a
+              >
+            </p>
+          </div>
+        </div>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</main>

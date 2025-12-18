@@ -1,0 +1,29 @@
+[
+    {
+        "id" : "89fa17bb-099f-4943-84d3-cdfba7091154",
+        "tipoEntidad" : "PERSONA",
+        "idEntidad" : "1",        
+        "codigo" : "JUAN_21",
+        "nombre" : "Juan Perez",
+        "descripcion" : "Creador de contenido",
+        "activo" : false
+    },
+    {
+        "id" : "89fa17bb-099f-4943-84d3-cdfba7091154",
+        "tipoEntidad" : "ORGANIZACION",
+        "idEntidad" : "2",        
+        "codigo" : "USACH",
+        "nombre" : "Universidad de Santiago de Chile",
+        "descripcion" : "Iniversidad",
+        "activo" : true
+    },
+    {
+        "id" : "89fa17bb-099f-4943-84d3-cdfba7091154",
+        "tipoEntidad" : "UNIDAD_ORGANIZACIONAL",
+        "idEntidad" : "3",        
+        "codigo" : "USACH_LAB3",
+        "nombre" : "Laboratorio de investigacion muy importante",
+        "descripcion" : "Laboratorio perteneciente a la USACH",
+        "activo" : true
+    }
+]

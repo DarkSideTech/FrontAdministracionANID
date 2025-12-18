@@ -1,0 +1,125 @@
+<nav class="navbar navbar-expand-lg main-navbar sticky">
+  <!-- BOTÓN DEL MENÚ (icono + texto) -->
+<li class="nav-item dropdown" ngbDropdown
+    #modoDropdown="ngbDropdown"
+    (mouseenter)="modoDropdown.open()"
+    (mouseleave)="modoDropdown.close()">
+
+  <a class="d-flex align-items-center dropdown-modomenu" style="cursor:pointer;" ngbDropdownToggle>
+    <svg width="25" height="25" viewBox="0 0 31 31" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0 0V13.7778H13.7778V0H0ZM10.3333 10.3333H3.44444V3.44444H10.3333V10.3333ZM0 17.2222V31H13.7778V17.2222H0ZM10.3333 27.5556H3.44444V20.6667H10.3333V27.5556ZM17.2222 0V13.7778H31V0H17.2222ZM27.5556 10.3333H20.6667V3.44444H27.5556V10.3333ZM17.2222 17.2222V31H31V17.2222H17.2222ZM27.5556 27.5556H20.6667V20.6667H27.5556V27.5556Z"
+            fill="currentColor"/>
+    </svg>
+    <span class="dropdown-text">Modo Menú</span>
+  </a>
+
+  <div ngbDropdownMenu class="dropdown-menu dropdown-menu-end">
+    <button class="menu-item" (click)="setMenu('horizontal')">Menú Horizontal</button>
+    <button class="menu-item" (click)="setMenu('vertical')">Menú Vertical</button>
+    <button class="menu-item" (click)="setMenu('floating')">Menú Flotante</button>
+  </div>
+
+</li>
+  <div class="nav-brand">
+    <a routerLink="/paneles/estadisticas-usuarios"><img alt="image" src="assets/images/banner/anidlogo.png" class="header-logo-gobcl" />
+    </a>
+  </div>
+  <div class="form-inline me-auto">
+    <ul class="navbar-nav">
+      <li>
+        <form class="form-inline me-auto">
+          <div class="search-element d-flex">
+            <img src="assets/icon/Lupa.svg" class="" alt="icono Lupa">
+            <input class="form-control1" type="search" placeholder="{{'HEADER.SEARCH.TEXT' | translate}}"
+              aria-label="Search" data-width="200">
+          </div>
+        </form>
+      </li>
+    </ul>
+  </div>
+  <ul class="navbar-nav navbar-right">
+    <div class="nav_icon">
+      <a class="" style="color: rgb(255, 255, 255);">
+        <svg id="Capa_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 35 35" width="24" height="24">
+          <path fill="currentColor" d="M17.5,35c2,0,3.6-1.6,3.6-3.6h-7.2c0,2,1.6,3.6,3.6,3.6ZM28.3,24.2v-9c0-5.5-2.9-10.1-8.1-11.3v-1.2c0-1.5-1.2-2.7-2.7-2.7s-2.7,1.2-2.7,2.7v1.2c-5.1,1.2-8.1,5.8-8.1,11.3v9l-3.6,3.6v1.8h28.7v-1.8l-3.6-3.6ZM24.7,26h-14.4v-10.8c0-4.5,2.7-8.1,7.2-8.1s7.2,3.6,7.2,8.1v10.8Z"/>
+        </svg>
+     </a>
+    </div>
+
+    <li class="dropdown dropdown-list-toggle" ngbDropdown #perfilDropdown="ngbDropdown">
+  <div class="dropdown_users">
+    <div class="drapdown_photo">
+      <img src="assets/images/users/pato.png">
+    </div>
+    <div class="dropdown_data">
+      <p class="text_dropdown">Universidad de Chile</p>
+      <a data-toggle="dropdown" class="nav-link-lg breadcrumb-item message-toggle remove-caret" ngbDropdownToggle>
+        <span class="perfil-text">
+          @if (perfilvalue !== undefined) {
+            {{perfilvalue}}
+          }
+          @if (perfilvalue === undefined) {
+            {{defaultPerfil}}
+          }
+        </span>
+      </a>
+      <p class="user_p">
+        {{ userLogued?.NombreADesplegar }}
+      </p>
+    </div>
+  </div>
+
+  <div class="dropdown-menu-end header-dropdown dropdown-menu-right lang-dropdown-list pullDown" ngbDropdownMenu>
+    @for (item of listPerfiles; track item) {
+      <a href="javascript:void(0);" class=" menu-item dropdown-item lang-item-list"
+         (click)="setPerfil(item.perfil, item.entidad)"
+         [ngClass]="{'active': perfilStoreValue === item.perfil + item.entidad}">
+        {{item.perfil}}
+      </a>
+    }
+  </div>
+
+  <!-- Flecha que gira al click -->
+  <div class="dropdown_header_icon">
+    <a href="javascript:void(0)"
+       class="dropdown_arrow"
+       ngbDropdownToggle
+       [ngClass]="{'rotated': perfilDropdown.isOpen()}">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+           xmlns="http://www.w3.org/2000/svg">
+        <path d="M16.59 8.29501L12 12.875L7.41 8.29501L6 9.70501L12 15.705L18 9.70501L16.59 8.29501Z"
+              fill="currentColor"/>
+      </svg>
+    </a>
+  </div>
+</li>
+    <li class="dropdown dropdown-list-toggle" ngbDropdown>
+      <a data-toggle="dropdown" class="nav-link nav-link-lg lang-toggle remove-caret" ngbDropdownToggle>
+        @if (flagvalue !== undefined) {
+        <img src="{{flagvalue}}" alt="Header Language" height="16">
+        }
+        @if (flagvalue === undefined) {
+        <img src="{{defaultFlag}}" alt="Header Language" height="16">
+        }
+      </a>
+      <div class="dropdown-menu-end dropdown-flag lang-dropdown-list pullDown" ngbDropdownMenu>
+        @for (item of listLang; track item) {
+        <a href="javascript:void(0);" class="menu-item dropdown-item lang-item-list"
+          (click)="setLanguage(item.text, item.lang, item.flag)" [ngClass]="{'active': langStoreValue === item.lang}">
+          <img src="{{item.flag}}" alt="user-image" class="msr-1" height="12"> <span
+            class="align-middle">{{item.text}}</span>
+        </a>
+        }
+      </div>
+    </li>
+    <li ngbDropdown><a ngbDropdownToggle data-toggle="dropdown"
+        class="nav-link dropdown-toggle nav-link-lg nav-link-user">
+        <a href="javascript:void(0);" class="has-icon" (click)="logout()">
+          Cerrar Sesion
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2C6.47 2 2 6.47 2 12C2 17.53 6.47 22 12 22C17.53 22 22 17.53 22 12C22 6.47 17.53 2 12 2ZM12 20C7.59 20 4 16.41 4 12C4 7.59 7.59 4 12 4C16.41 4 20 7.59 20 12C20 16.41 16.41 20 12 20ZM15.59 7L12 10.59L8.41 7L7 8.41L10.59 12L7 15.59L8.41 17L12 13.41L15.59 17L17 15.59L13.41 12L17 8.41L15.59 7Z" fill="currentColor"/>
+          </svg>
+        </a></a>
+    </li>
+  </ul>
+</nav>

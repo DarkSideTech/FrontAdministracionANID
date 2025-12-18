@@ -1,0 +1,17 @@
+<app-header (menuTypeChanged)="onMenuTypeChange($event)"></app-header>
+
+<!-- Sidebar dinámico -->
+<ng-container [ngSwitch]="menuType">
+  <app-sidebar *ngSwitchCase="'horizontal'"></app-sidebar>
+  <app-sidebar-vertical *ngSwitchCase="'vertical'"></app-sidebar-vertical>
+  <app-sidebar-floating *ngSwitchCase="'floating'"></app-sidebar-floating>
+  <ng-container *ngSwitchDefault></ng-container> <!-- NO mostrar nada -->
+</ng-container>
+
+<!-- Sidebar derecho -->
+<app-right-sidebar></app-right-sidebar>
+
+<!-- Contenido principal -->
+<div [dir]="direction">
+  <router-outlet></router-outlet>
+</div>

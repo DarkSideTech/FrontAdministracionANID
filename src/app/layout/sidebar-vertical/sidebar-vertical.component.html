@@ -1,0 +1,137 @@
+<div class="left-sidebar-container">
+  <div id="rightsidebar" class="sidebar-right">
+    <div class="menu-wrapper1">
+
+      <!-- TARJETA PERFIL -->
+      <div class="sidebar-card">
+        <div class="card-sidebar sidebar-perfil">
+          <div class="author-box-sidebar">
+            <img src="assets/images/users/pato.png" class="rounded-circle author-box-picture" alt="image">
+
+            <div class="clearfix">
+              <div class="author-sidebar-name">
+                <a href="#" onClick="return false;">Joel Serey</a>
+              </div>
+              <div class="author-sidebar-job">Consultor Tecnologia</div>
+            </div>
+          </div>
+
+          <div class="text-center">
+            <div class="author-sidebar-description">
+              <p class="author-sidebar-p">
+                Consultor tecnológico especializado en implementar tecnologías digitales a largo plazo.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MENÚ -->
+      <div class="menu1">
+        <ul class="list2">
+          <div class="menu2-sidebar-home">
+            <a routerLink="/paneles/estadisticas-usuarios" class="home-sidebar-vertical">
+            <svg class="home-sidebar"width="25" height="23" viewBox="0 0 27 23" xmlns="http://www.w3.org/2000/svg">
+              <path d="M13.3333 3.58667L20 9.58667V20H17.3333V12H9.33333V20H6.66667V9.58667L13.3333 3.58667ZM13.3333 0L0 12H4V22.6667H12V14.6667H14.6667V22.6667H22.6667V12H26.6667L13.3333 0Z" fill="currentColor"/>
+            </svg>
+            <p>Inicio</p>
+            <svg width="24" height="24" viewBox="0 0 24 24" class="ml-iconsidebar">
+              <path d="M16.59 8.29501L12 12.875L7.41 8.29501L6 9.70501L12 15.705L18 9.70501L16.59 8.29501Z" fill="currentColor"/>
+            </svg>
+
+          </a>
+
+          </div>
+          @for (sidebarItem of sidebarItems; track sidebarItem) {
+            <li class="parent menu2-sidebar" [class.active]="sidebarItem.active">
+              <!-- Ícono Home -->
+
+              <a
+                [routerLink]="sidebarItem.submenu.length > 0 ? null : sidebarItem.path"
+                class="menu-top1"
+                (click)="callToggleMenu($event, sidebarItem)"
+              >
+
+                <!-- ÍCONO CUSTOM -->
+                @if (sidebarItem.customSvg) {
+                  <span class="customSvg" [innerHTML]="sidebarItem.customSvg | safeHtml"></span>
+                }
+
+                <!-- TEXTO -->
+                <span class="hide-menu">{{ sidebarItem.title | translate }}</span>
+
+                <!-- BADGE -->
+                @if (sidebarItem.badge !== '') {
+                  <span [ngClass]="sidebarItem.badgeClass">{{ sidebarItem.badge }}</span>
+                }
+
+                <!-- FLECHA 1 -->
+                @if (sidebarItem.submenu.length > 0) {
+                  <svg width="24" height="24" viewBox="0 0 24 24" class="ml-iconsidebar">
+                    <path d="M16.59 8.29501L12 12.875L7.41 8.29501L6 9.70501L12 15.705L18 9.70501L16.59 8.29501Z" fill="currentColor"/>
+                  </svg>
+                }
+              </a>
+
+              <!-- SUBMENU NIVEL 1 -->
+              <ul class="ml-menu1">
+
+                @for (sidebarSubItem1 of sidebarItem.submenu; track sidebarSubItem1) {
+                  <li class="parent" [class.active]="sidebarSubItem1.active">
+
+                    <a
+                      [routerLink]="sidebarSubItem1.submenu.length > 0 ? null : sidebarSubItem1.path"
+                      class="ml-a1"
+                      (click)="callToggleMenu($event, sidebarSubItem1)"
+                    >
+                      {{ sidebarSubItem1.title | translate }}
+
+                      <svg width="24" height="24" class="ml-icona2">
+                        <path d="M9.7 6L8.29 7.41L12.87 12L8.29 16.59L9.7 18L15.7 12L9.7 6Z" fill="currentColor"/>
+                      </svg>
+                    </a>
+
+                    <!-- SUBMENU NIVEL 2 -->
+                    <ul class="ml-menu-21">
+                      @for (sidebarSubItem2 of sidebarSubItem1.submenu; track sidebarSubItem2) {
+
+                        <li class="parent detalle-menu21" [class.active]="sidebarSubItem2.active">
+
+                          <a
+                            [routerLink]="sidebarSubItem2.submenu.length > 0 ? null : sidebarSubItem2.path"
+                            (click)="callToggleMenu($event, sidebarSubItem2)"
+                          >
+                          <div class="punto"></div>
+                            {{ sidebarSubItem2.title | translate }}
+                          </a>
+
+                          <!-- SUBMENU NIVEL 3 -->
+                          <ul class="ml-menu-31">
+                            @for (sidebarSubItem3 of sidebarSubItem2.submenu; track sidebarSubItem3) {
+                              <li [class.active]="sidebarSubItem3.active">
+                                <a
+                                  [routerLink]="sidebarSubItem3.submenu.length > 0 ? null : sidebarSubItem3.path">
+                                  {{ sidebarSubItem3.title | translate }}
+                                </a>
+                              </li>
+                            }
+                          </ul>
+
+                        </li>
+                      }
+                    </ul>
+
+                  </li>
+                }
+
+              </ul>
+
+            </li>
+          }
+
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</div>

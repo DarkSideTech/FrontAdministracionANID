@@ -1,0 +1,35 @@
+[
+  {
+    "id": 0,
+    "codigo": "2024LP001",
+    "nombre": "Inversion Educacion",
+    "presupuesto": 200,
+    "preAfectado": 50,
+    "afectado": 40,
+    "comprometido": 30,
+    "devengado": 20,
+    "pagado": 10
+  },
+  {
+    "id": 1,
+    "codigo": "2024LC051",
+    "nombre": "Mantenimiento",
+    "presupuesto": 300,
+    "preAfectado": 260,
+    "afectado": 180,
+    "comprometido": 140,
+    "devengado": 80,
+    "pagado": 40
+  },
+  {
+    "id": 1,
+    "codigo": "2024LC051",
+    "nombre": "Remuneraciones",
+    "presupuesto": 600,
+    "preAfectado": 520,
+    "afectado": 510,
+    "comprometido": 400,
+    "devengado": 380,
+    "pagado": 250
+  }
+]

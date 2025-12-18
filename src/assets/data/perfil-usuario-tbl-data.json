@@ -1,0 +1,38 @@
+[
+    {
+        "id" : "89fa17bb-099f-4943-84d3-cdfba7091154",
+        "id_Entidad" : "ANID",
+        "id_Usuario" : "Administrador",
+        "nombre" : "Administrador",
+        "descripcion" : "Administrador del sistema",
+        "correoElectronico" : "usuario@test.cl",
+        "fechaInicioAutorizacion" : "2025-01-01T14:22:18Z",
+        "fechaTerminoAutorizacion" : "2025-05-01T14:22:18Z",
+        "fechaCreacion" : "2025-01-01T14:22:18Z",
+        "perfilBase" : false
+    },
+    {
+        "id" : "89fa17bb-099f-4943-84d3-cdfba7091154",
+        "id_Entidad" : "Persona",
+        "id_Usuario" : "Usuario1",
+        "nombre" : "Beneficiario",
+        "descripcion" : "Administrador del sistema",
+        "correoElectronico" : "usuario@test.cl",
+        "fechaInicioAutorizacion" : "2025-01-01T14:22:18Z",
+        "fechaTerminoAutorizacion" : "2025-03-01T14:22:18Z",
+        "fechaCreacion" : "2025-01-01T14:22:18Z",
+        "perfilBase" : false
+    },
+    {
+        "id" : "89fa17bb-099f-4943-84d3-cdfba7091154",
+        "id_Entidad" : "ANID",
+        "id_Usuario" : "Usuario2",
+        "nombre" : "Valida Enrrolamiento",
+        "descripcion" : "Administrador del sistema",
+        "correoElectronico" : "usuario@test.cl",
+        "fechaInicioAutorizacion" : "2025-01-01T14:22:18Z",
+        "fechaTerminoAutorizacion" : "2025-03-01T14:22:18Z",
+        "fechaCreacion" : "2025-01-01T14:22:18Z",
+        "perfilBase" : false
+    }    
+]

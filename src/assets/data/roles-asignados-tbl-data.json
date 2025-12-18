@@ -1,0 +1,30 @@
+[
+    {
+        "perfil": "ADMINISTRADO",
+        "rol": "ADMIN"
+    },
+    {
+        "perfil": "ADMINISTRADO",
+        "rol": "ADMIN2"
+    },
+    {
+        "perfil": "ADMINISTRADO",
+        "rol": "REVISOR2"
+    },
+    {
+        "perfil": "ADMINISTRADO",
+        "rol": "REVISOR"
+    },
+    {
+        "perfil": "POSTULANTE",
+        "rol": "LECTOR"
+    },
+    {
+        "perfil": "POSTULANTE",
+        "rol": "LECTOR2"
+    },
+    {
+        "perfil": "MINISTRO_DE_FE",
+        "rol": "REVISOR2"
+    }
+]

@@ -1,0 +1,62 @@
+[
+    {
+        "id" : "89fa17bb-099f-4943-84d3-cdfba7091154",
+        "codigo" : "ADMINISTRADOR",
+        "nombre" : "Administrador",
+        "descripcion" : "Administra todo",
+        "requiereAccionParaSerAsignado" : false,
+        "validaAsignacionDeRolesConRequerimientoActivo" : false,
+        "activaDetalleDeAutorizaciones" : false,
+        "activo" : true
+    },
+    {
+        "id" : "89fa17bb-099f-4943-84d3-cdfba7091154",
+        "codigo" : "BENEFICIARIO",
+        "nombre" : "Persona que puede postular y acceder a sistemas afines",
+        "descripcion" : "Revisa todo",
+        "requiereAccionParaSerAsignado" : false,
+        "validaAsignacionDeRolesConRequerimientoActivo" : false,
+        "activaDetalleDeAutorizaciones" : true,
+        "activo" : false
+    },
+    {
+        "id" : "89fa17bb-099f-4943-84d3-cdfba7091154",
+        "codigo" : "ADMINISTRADOR_ENTIDAD",
+        "nombre" : "Administrador de una entidad",
+        "descripcion" : "Administra todo de una entidad",
+        "requiereAccionParaSerAsignado" : true,
+        "validaAsignacionDeRolesConRequerimientoActivo" : false,
+        "activaDetalleDeAutorizaciones" : false,
+        "activo" : true
+    },
+    {
+        "id" : "89fa17bb-099f-4943-84d3-cdfba7091154",
+        "codigo" : "ASIGNA_PERFIL_USUARIO",
+        "nombre" : "Asigna perfiles-entidad a usuarios",
+        "descripcion" : "Asigna perfiles-entidades a usuarios",
+        "requiereAccionParaSerAsignado" : false,
+        "validaAsignacionDeRolesConRequerimientoActivo" : false,
+        "activaDetalleDeAutorizaciones" : true,
+        "activo" : false
+    },
+    {
+        "id" : "89fa17bb-099f-4943-84d3-cdfba7091154",
+        "codigo" : "VALIDADOR_ENRROLAMIENTO",
+        "nombre" : "Valida Enrrolamiento",
+        "descripcion" : "Permirte validar el enrrolamiento que lo requiera",
+        "requiereAccionParaSerAsignado" : true,
+        "validaAsignacionDeRolesConRequerimientoActivo" : false,
+        "activaDetalleDeAutorizaciones" : false,
+        "activo" : true
+    },
+    {
+        "id" : "89fa17bb-099f-4943-84d3-cdfba7091154",
+        "codigo" : "VALIDA_ASIGNACION_ROLES",
+        "nombre" : "Valida Asignacion Perfil",
+        "descripcion" : "Valida la asignacion de perfiles a entidades cuando lo requieren",
+        "requiereAccionParaSerAsignado" : false,
+        "validaAsignacionDeRolesConRequerimientoActivo" : true,
+        "activaDetalleDeAutorizaciones" : false,
+        "activo" : true
+    }
+]

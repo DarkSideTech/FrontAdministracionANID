@@ -1,0 +1,185 @@
+.modal-header,.modal-footer {
+  padding: 25px;
+}
+
+.modal-body {
+  padding-top: 15px;
+}
+
+.modal-footer {
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+.modal-header.editRowModal{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 15px;
+  margin-top: 30px;
+}
+.modal-header.editRowModal .modal-title{
+  margin: 0 auto;
+  font-weight: 700;
+  font-size: 17px;
+}
+.modal-header.editRowModal .close{
+  position: absolute;
+  right: 15px;
+  top: 15%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.modal-header {
+  border-bottom: none;
+
+
+  h5 {
+    font-size: 18px;
+  }
+  button.close {
+    border: none;
+    background: transparent;
+    font-size: 25px;
+  }
+  button.close:hover {
+    color: red;
+  }
+}
+
+.modal-body .row{
+  display: flex;
+  flex-wrap: wrap;
+}
+.modal-body .row > div{
+  flex: 0 0 100% !important;
+  max-width: 100% !important;
+  padding-left: 30px;
+  padding-right: 30px;
+  box-sizing: border-box;
+}
+.modal-body form.register-form{
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.modal-body label{
+  display: block;
+  font-weight: 700;
+  color: #373737;
+  font-size: 16px;
+  margin-bottom: 0.5rem;
+  letter-spacing: 0;
+}
+.modal-body .form-control,
+.modal-body select,
+.modal-body input[type="checkbox"]{
+    margin-bottom: 25px;
+}
+.modal-footer .btn-primary,
+.modal-footer .btn-light{
+  background-color: #0051A8;
+  border-color: #0051A8;
+  color: #ffffff !important;
+  border-radius: 0 !important;
+  padding: 8px 20px;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+  padding: 0.3rem 0.8rem;
+  height: 50px;
+  width: 45%;
+  margin: 0 !important;
+}
+.btn-primary:disabled{
+  opacity: 1 !important;
+  background-color: #E0E0E0 !important;
+  border: 1px solid #A6A6A6 !important;
+  color: #A6A6A6 !important;
+}
+.modal-footer .btn-primary,
+.modal-footer .btn-light:hover{
+  background-color: #003C7D;
+  border: 1px solid #003C7D;
+  color: #ffffff;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 10px 20px;
+  margin-top: 40px;
+  margin-bottom: 40px;
+  border-top: none;
+  
+}
+
+.modal-content {
+  max-width: 100%;
+  border: none;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+}
+
+.modal.show {
+  .modal-content {
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  }
+}
+.p-t-10{
+  font-size: 36px;
+  font-weight: 500 !important;
+}
+.input-group-append .calendar {
+  background-color: #0F69C4;
+  border: none;
+  color: #ffffff;
+  padding: 6px 12px;
+  border-radius: 0 !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+}
+.input-group-append .calendar i {
+  color: #ffffff;
+  font-size: 16px;
+}
+.input-group-append .calendar:hover{
+  background-color: #00254D !important; 
+  color: #ffffff;
+}
+.input-group-append .calendar:focus{
+  outline: none;
+  box-shadow: none;
+}
+.col-xl-5.col-lg-5.col-md-4.col-sm-4.col-xs-4.mb-1{
+  position: relative;
+}
+.col-xl-5 .form-text.text-danger{
+  position: absolute;
+  bottom: -1px; 
+  margin: 0;
+  font-size: 13px;
+}
+
+.modal-progress {
+  .modal-content {
+    position: relative;
+
+    &:after {
+      @include overlay(999);
+      @include background_spinner;
+      border-radius: 3px;
+    }
+  }
+}
+
+.modal-part {
+  display: none;
+}

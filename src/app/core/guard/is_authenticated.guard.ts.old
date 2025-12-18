@@ -1,0 +1,11 @@
+// import { inject } from "@angular/core";
+// import { CanMatchFn, Route, UrlSegment } from "@angular/router";
+// import { AuthService } from "@core/service/auth.service";
+
+// export const IsAuthenticated: CanMatchFn = (
+//     route: Route, 
+//     segments: UrlSegment[]
+// ) => {
+//   const authService = inject(AuthService);
+//   return null; //authService.IsLoggedIn();
+// }

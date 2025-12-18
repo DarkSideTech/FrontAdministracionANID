@@ -1,0 +1,52 @@
+﻿/*
+ *  Document   : _material.scss
+ *  Author     : RedStar Template
+ *  Description: This scss file for import material design icons classes
+ */
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  src: url(../fonts/roboto/Roboto-Regular.ttf) format('truetype');
+}
+
+.material-icons {
+  font-family: Material Icons;
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  display: inline-block;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "liga";
+  line-height: 1;
+  height: 24px;
+  &.md-18 {
+    font-size: 18px;
+  }
+  &.md-24 {
+    font-size: 24px;
+  }
+  &.md-26 {
+    font-size: 26px;
+  }
+  &.md-28 {
+    font-size: 28px;
+  }
+  &.md-30 {
+    font-size: 30px;
+  }
+  &.md-32 {
+    font-size: 32px;
+  }
+  &.md-36 {
+    font-size: 36px;
+  }
+  &.md-48 {
+    font-size: 48px;
+  }
+}

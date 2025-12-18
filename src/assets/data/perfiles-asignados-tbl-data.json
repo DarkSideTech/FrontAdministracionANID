@@ -1,0 +1,39 @@
+[
+    {
+        "rol": "ADMIN",
+        "perfilesAsignados": [
+            { "perfil": "ADMINISTRADO" }
+        ]
+    },
+    {
+        "rol": "ADMIN2",
+        "perfilesAsignados": [
+            { "perfil": "ADMINISTRADO" }
+        ]
+    },
+    {
+        "rol": "REVISOR",
+        "perfilesAsignados": [
+            { "perfil": "ADMINISTRADO" }
+        ]
+    },
+    {
+        "rol": "REVISOR2",
+        "perfilesAsignados": [
+            { "perfil": "ADMINISTRADO" },
+            { "perfil": "MINISTRO_DE_FE" }
+        ]
+    },
+    {
+        "rol": "LECTOR",
+        "perfilesAsignados": [
+            { "perfil": "POSTULANTE" }
+        ]
+    },
+    {
+        "rol": "LECTOR2",
+        "perfilesAsignados": [
+            { "perfil": "POSTULANTE" }
+        ]
+    }
+]

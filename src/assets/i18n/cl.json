@@ -1,0 +1,101 @@
+{
+  "HEADER":{
+    "SEARCH": {
+      "TEXT": "Buscar.."
+    }
+  },
+  "MENUITEMS": {
+    "USER":{
+      "POST": "Postulante"
+    },
+    "MAIN": {
+      "TEXT": "-- Principal"
+    },
+    "ACTIONS": {
+      "TEXT": "-- Acciones"
+    },
+    "PAGES": {
+      "TEXT": "-- Paginas"
+    },
+    "HOME": {
+      "TEXT": "Inicio",
+      "LIST": {
+        "DASHBOARD1": "Tablero Presupuesto",
+        "DASHBOARD2": "Tablero Recaudacion"
+      }
+    },
+    "DOMAIN":{
+      "TEXT": "Dominios",
+      "AUTORIZACION": {
+        "TEXT": "Autorizaciones",
+        "USUARIO": {
+          "TEXT": "Usuarios"
+        },
+        "PROVEEDOR": {
+          "TEXT": "Proveedores"
+        },
+        "ENTIDAD": {
+          "TEXT": "Entidades"
+        },
+        "ROL": {
+          "TEXT": "Roles"
+        },
+        "PERFIL": {
+          "TEXT": "Perfiles"
+        }
+      }
+    },
+    "APPS": {
+      "TEXT": "-- Aplicaciones"
+    },
+    "CALENDAR": {
+      "TEXT": "Calendario"
+    },
+    "EMAIL": {
+      "TEXT": "Email",
+      "LIST": {
+        "INBOX": "Bandeja de entrada",
+        "COMPOSE": "Componer",
+        "READ": "Leer el correo electrónico"
+      }
+    },
+    "MORE-APPS": {
+      "TEXT": "Más aplicaciones",
+      "LIST": {
+        "CHAT": "Charla",
+        "BLOG": "Blog",
+        "CONTACT-GRID": "Cuadrícula de contacto"
+      }
+    },
+    "COMPONENTS": {
+      "TEXT": "-- Componentes"
+    },
+    "WIDGETS": {
+      "TEXT": "Widgets",
+      "LIST": {
+        "CHART-WIDGET": "Widget de gráfico",
+        "DATA-WIDGET": "Widget de datos"
+      }
+    },
+    "FORMS": {
+      "TEXT": "Formularios",
+      "LIST": {
+        "BASIC": "Forma básica",
+        "ADVANCE": "Control avanzado",
+        "EXAMPLE": "Ejemplos de formularios",
+        "VALIDATION": "Validación de formulario",
+        "WIZARD": "Mago",
+        "INPUT-MASK": "Máscara de entrada",
+        "SELECT-ITEM": "Seleccione un artículo",
+        "EDITORS": "Editoras"
+      }
+    },
+    "TABLES": {
+      "TEXT": "Tabellen",
+      "LIST": {
+        "BASIC": "Tablas básicas",
+        "ADVANCE": "Tablas avanzadas"
+      }
+    }
+  }
+}

@@ -1,0 +1,26 @@
+[
+    {
+        "id" : "89fa17bb-099f-4943-84d3-cdfba7091154",
+        "codigo" : "CLAVE_UNICA",
+        "nombre" : "Clave Unica",
+        "descripcion" : "Clave Unica del Estado de Chile",
+        "apiDeAutenticacion" : "http://claveunica.chile.gov.cl",
+        "activo" : true
+    },
+    {
+        "id" : "89fa17bb-099f-4943-84d3-cdfba7091154",
+        "codigo" : "GOOGLE",
+        "nombre" : "Google",
+        "descripcion" : "Empresa Google",
+        "apiDeAutenticacion" : "http://clave.google.com",
+        "activo" : false
+    },
+    {
+        "id" : "89fa17bb-099f-4943-84d3-cdfba7091154",
+        "codigo" : "MICROSOFT",
+        "nombre" : "Microsoft Company",
+        "descripcion" : "Empresa Microsoft",
+        "apiDeAutenticacion" : "http://clave.microsoft.com",
+        "activo" : true
+    }
+]

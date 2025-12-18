@@ -1,0 +1,105 @@
+.author-box {
+  .author-box-left {
+    float: left;
+    text-align: center;
+    padding-left: 5px;
+
+    .btn {
+      padding: 5px 15px;
+      font-size: 16px;
+      border-radius: 0px !important;
+    }
+  }
+
+  .author-box-center {
+    text-align: center;
+
+
+    .btn {
+      padding: 5px 15px;
+      font-size: 16px;
+      border-radius: 0px !important;
+      line-height: 24px;
+    }
+  }
+
+  .author-box-picture {
+    width: 100px;
+    @include shadow;
+  }
+
+  .author-box-details {
+    margin-left: 135px;
+  }
+
+  .author-box-name {
+    font-size: 20px;
+
+    a {
+      font-weight: 600;
+      font-size: 20px;
+    }
+  }
+
+  .author-box-job {
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    font-size: 12px;
+    color: color(fontdark);
+  }
+
+  .author-box-description {
+    line-height: 26px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+}
+.author-box-p{
+  margin-bottom: 0 !important;
+}
+.author-box-contact{
+  margin-top: 40px;
+}
+
+@include media-breakpoint-down(xs) {
+  .author-box {
+    .author-box-left {
+      float: none;
+    }
+
+    .author-box-center {
+      float: none;
+    }
+
+    .author-box-details {
+      margin-left: 0;
+      margin-top: 15px;
+      text-align: center;
+    }
+  }
+}
+.clearfix{
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.body-perfil{
+  padding: 40px 20px !important;
+}
+.body-perfil2{
+  padding: 20px 40px !important;
+}
+.author-redes{
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  justify-content: center;
+}
+.conf-title{
+  font-size: 16px;
+  border-bottom: 1px solid #dee2e6;
+  padding-bottom: 10px;
+}
+
+
+
+

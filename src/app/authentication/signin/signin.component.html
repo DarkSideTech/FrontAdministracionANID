@@ -1,0 +1,142 @@
+<main class="d-flex align-items-center min-vh-100 py-3 py-md-0">
+  <div class="container">
+
+    <div class="card login-card mb-0 col-md-6">
+      <div class="row no-gutters">
+        <div class="col-md-12">
+          <div class="login-body">
+
+            <!-- Título dinámico -->
+            <div class="text-center body_one">
+              <div class="brand-wrapper">
+                <img src="assets/images/dst/anid/anid_rojo_azul.png"
+                     class="rounded mx-auto d-block"
+                     style="max-width: 150px"
+                     alt="logo" />
+              </div>
+              <div class="brand-wrapper">
+                <span class="logo-name">
+                  {{ active === 'claveunica' ? '¿Estás registrado?' : 'Inicia sesión' }}
+                </span>
+              </div>
+              <div>
+                <p class="login_text">
+                  {{ active === 'claveunica' ? 'Ingresa a tu escritorio' : '' }}
+                </p>
+              </div>
+            </div>
+
+            <!-- Pestañas -->
+            <div class="row justify-content-center">
+              <nav ngbNav #nav2="ngbNav" [(activeId)]="active" class="nav-tabs col-lg-12 mb-0 justify-content-center">
+
+                <!-- Clave Única -->
+                <ng-container ngbNavItem="claveunica">
+                  <a ngbNavLink (click)="selectTab('claveunica')">Clave Única</a>
+                  <ng-template ngbNavContent>
+                    <div class="col-lg-12 mb-0 text-center">
+                      <p class="text_login">Ingresa con tu Clave Única y accede a ANID</p>
+                      <button class="btn anid-btn-primary auth-form-btn" (click)="goNextStep()">
+                        <img src="assets/icon/Size=24px.svg" class="btn-claveunica" alt="icono Clave Única">
+                        Clave Única
+                      </button>
+                    </div>
+                  </ng-template>
+                </ng-container>
+
+                <!-- Extranjero -->
+                <ng-container ngbNavItem="extranjero">
+                  <a ngbNavLink (click)="selectTab('extranjero')">Extranjero</a>
+                  <ng-template ngbNavContent>
+                    <div class="col-lg-12 mb-0 text-center">
+
+                      <!-- Formulario de login -->
+                      <form class="validate-form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+                        <div class="row">
+
+                          <!-- Email -->
+                          <div class="col-lg-12">
+                            <div class="form-group position-relative">
+                              <label>Tu Correo</label>
+                              <img src="assets/icon/person_outline.svg" class="login-icons" alt="icono usuario"/>
+                              <input type="email" formControlName="username" class="form-control psl-5" placeholder="Ejemplo@correo.cl"/>
+
+                            </div>
+                          </div>
+
+                          <!-- Password -->
+                          <div class="col-lg-12">
+                            <div class="form-group position-relative">
+                              <label>Contraseña</label>
+                              <img src="assets/icon/https.svg" class="login-icons" alt="icono candado"/>
+                              <input type="password" formControlName="password" class="form-control psl-5" placeholder="Escribe tu contraseña"/>
+
+                            </div>
+                          </div>
+
+                          <!-- Checkbox -->
+                          <div class="col-lg-12">
+                            <div class="form-check mb-3 text-start">
+                              <input type="checkbox" formControlName="remember" class="form-check-input" id="customCheck1"/>
+                              <label class="form-check-label" for="customCheck1">Recuérdame</label>
+                            </div>
+                          </div>
+                          @if (error) {
+                            <div class="alert alert-danger mb-3 msl-3">
+                             {{ error }}
+                            </div>
+                          }
+
+                          <!-- Botón -->
+                          <div class="col-lg-12">
+                            <button type="submit" class="btn anid-btn-primary auth-form-btn btn_ext">
+                              Inicia sesión
+                            </button>
+                          </div>
+
+                        </div>
+
+                        <!-- Links -->
+                        <div class="row links_signin">
+                          <div class="col-12 text-center">
+                            <p class="mb-0 login-p">
+                              <a routerLink="/authentication/forgot" class="text-enlace fw-bold">¿Olvidaste tu contraseña?</a>
+                            </p>
+                          </div>
+                          <div class="col-12 text-center">
+                            <p class="mb-0 login-p2">
+                              <small class="text-dark msr-2"> ¿No tienes una cuenta?</small>
+                              <a routerLink="/authentication/signup" class="text-enlace fw-bold">Regístrate</a>
+                            </p>
+                          </div>
+                        </div>
+                      </form>
+
+                    </div>
+                  </ng-template>
+                </ng-container>
+
+              </nav>
+
+              <!-- Renderizador de contenido -->
+              <div [ngbNavOutlet]="nav2" class="col-lg-12 mb-0 d-flex justify-content-center align-items-center" style="min-height: 100px;"></div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Link empresa -->
+    <div class="row linkempresa">
+      <div class="text-center">
+        <p>
+          <a class="link-opacity-10" href="https://ayuda.anid.cl">
+            Departamento de Tecnología y Procesos
+          </a>
+        </p>
+      </div>
+    </div>
+
+  </div>
+</main>

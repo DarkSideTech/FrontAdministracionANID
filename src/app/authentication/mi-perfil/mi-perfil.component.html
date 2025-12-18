@@ -1,0 +1,371 @@
+<section class="main-content">
+  <ul class="breadcrumb breadcrumb-style">
+    <li class="breadcrumb-item">
+      <a routerLink="/paneles/estadisticas-usuarios" class="breadcrumb-p">
+        Home
+      </a>
+    </li>
+    <li class="breadcrumb-item bcrumb-1">Administración</li>
+    <li class="breadcrumb-item">Perfil Usuario</li>
+  </ul>
+
+  <div class="section-body">
+    <div class="row mt-sm-4">
+      <div class="col-12 col-md-12 col-lg-3">
+        <div class="card author-box">
+          <div class="card-body body-perfil">
+            <div class="author-box-center">
+              <img alt="image" src="assets/images/users/pato.png" class="rounded-circle author-box-picture">
+              <div class="clearfix">
+                <div class="author-box-name">
+                  <a href="#" onClick="return false;">Joel Serey</a>
+                </div>
+                <div class="author-box-job">Consultor Tecnologia</div>
+              </div>
+            </div>
+
+            <div class="text-center">
+              <div class="author-box-description">
+                <p class="author-box-p">
+                  Consultor tecnológico especializado en implementar tecnologías digitales a largo plazo.
+                </p>
+              </div>
+
+              <div class="author-box-contact">
+                <div class="mb-2 mt-3">
+                  <div class="text-small fw-bold">Informacion de Contacto</div>
+                </div>
+
+                <div class="author-redes">
+                  <a href="#" onClick="return false;" class="btn-social-icon btn-facebook">
+                    <i class="fab fa-facebook-f"></i>
+                  </a>
+                  <a href="#" onClick="return false;" class="btn-social-icon btn-twitter">
+                    <i class="fab fa-twitter"></i>
+                  </a>
+                  <a href="#" onClick="return false;" class="btn-social-icon btn-instagram">
+                    <i class="fab fa-instagram"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="card body-perfil">
+          <div class="conf-title">
+            <h4>Configuraciones</h4>
+          </div>
+
+          <div>
+            <div class="py-4">
+              <p class="clearfix">
+                <span class="float-start">Correo Electronico</span>
+                <span class="float-end text-muted">Validado</span>
+              </p>
+
+              <p class="clearfix">
+                <span class="float-start">Estado Perfil</span>
+                <span class="float-end text-muted">Activo</span>
+              </p>
+
+              <p class="clearfix">
+                <span class="float-start">Nuevas Postulaciones</span>
+                <span class="float-end text-muted">Puede Participar</span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CONTENIDO DERECHA -->
+      <div class="col-12 col-md-12 col-lg-9 bodyperfil-vertical">
+        <div class="card body-perfil2">
+          <div>
+            <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
+
+              <!-- TAB 1 -->
+              <li [ngbNavItem]="1">
+                <a ngbNavLink>Informacion Personal</a>
+                <ng-template ngbNavContent>
+                  <div class="tab-pane">
+                    <div class="perf-tab">
+
+                      <div class="col-md-5 col-6 b-r">
+                        <strong>Nombre Completo</strong><br>
+                        <p class="text-muted">Joel Serey</p>
+                      </div>
+
+                      <div class="col-md-5 col-6 b-r">
+                        <strong>Telefono</strong><br>
+                        <p class="text-muted">+569 1456 7890</p>
+                      </div>
+
+                      <div class="col-md-5 col-6 b-r">
+                        <strong>Correo Electrónico</strong><br>
+                        <p class="text-muted">jserey&#64;example.com</p>
+                      </div>
+
+                      <div class="col-md-5 col-6">
+                        <strong>Ubicacion</strong><br>
+                        <p class="text-muted">Santiago</p>
+                      </div>
+                    </div>
+
+                    <div class="perf-tab-sec tab-menuvertical">
+                      <div class="title-perfil"><h6>Configuraciones</h6></div>
+
+                      <div class="perf-table">
+                        <div class="col-md-5 col-6 b-r">
+                          <strong>Correo Electrónico</strong><br>
+                          <p class="text-muted">Validado</p>
+                        </div>
+                        <div class="col-md-5 col-6 b-r">
+                          <strong>Estado Perfil</strong><br>
+                          <p class="text-muted">Activo</p>
+                        </div>
+                        <div class="col-md-5 col-6 b-r">
+                          <strong>Nuevas Postulaciones</strong><br>
+                          <p class="text-muted">Puede Participar</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="perf-tab-sec">
+                      <div class="title-perf"><h6>Postulaciones Recientes</h6></div>
+                      <ul class="perf_punt">
+                        <li>Beca de estudios para Magister. 2023</li>
+                        <li>Investigacion cientifica sobre metariales nuevos. 2024</li>
+                        <li>Postulacion para arriendo de Telescopio Nacional. 2024</li>
+                      </ul>
+                    </div>
+
+                    <div class="perf-tab-sec">
+                      <div class="title-perf"><h6>Projectos Activos</h6></div>
+                      <ul class="perf_punt">
+                        <li>Doctorado Universidad de Chile. 2025</li>
+                        <li>Proyecto de investigacion de nuevos minerales para baterias solares.</li>
+                      </ul>
+                    </div>
+
+                    <div class="perf-tab-sec">
+                      <div class="title-perf"><h6>Entidades con Acceso Permitido</h6></div>
+                      <ul class="perf_punt">
+                        <li>Persona Natural - Administrador</li>
+                        <li>Universidad de Chile - Laboratorio 1 - Investigador</li>
+                        <li>Universidad de Chile - Laboratorio 2 - Ministro de Fé</li>
+                        <li>Universidad Catolica De Chile - Depto. Ciencias Sociales - Investigador</li>
+                      </ul>
+                    </div>
+                  </div>
+                </ng-template>
+              </li>
+
+              <!-- TAB 2 -->
+              <li [ngbNavItem]="2">
+                <a ngbNavLink>Modifica Información Personal</a>
+                <ng-template ngbNavContent>
+                  <div class="perf-tab-sec">
+                    <div class="title-perf"><h6>Modifica Perfil</h6></div>
+
+                    <div class="card-body">
+
+                      <div class="row">
+                        <div class="form-group col-md-6 col-12">
+                          <label>Primer Nombre</label>
+                          <input type="text" class="form-control" value="Joel">
+                          <div class="invalid-feedback">Debe ingresar un nombre válido</div>
+                        </div>
+
+                        <div class="form-group col-md-6 col-12">
+                          <label>Segundo Nombre</label>
+                          <input type="text" class="form-control" value="Esteban">
+                          <div class="invalid-feedback">Debe ingresar un nombre válido</div>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="form-group col-md-6 col-12">
+                          <label>Primer Apellido</label>
+                          <input type="text" class="form-control" value="Serey">
+                          <div class="invalid-feedback">Debe ser un apellido válido</div>
+                        </div>
+
+                        <div class="form-group col-md-6 col-12">
+                          <label>Segundo Apellido</label>
+                          <input type="text" class="form-control" value="González">
+                          <div class="invalid-feedback">Debe ser un apellido válido</div>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="form-group col-md-6 col-12">
+                          <label>Dirección</label>
+                          <input type="email" class="form-control" value="Camino del silencio 345">
+                          <div class="invalid-feedback">Dirección no válida</div>
+                        </div>
+
+                        <div class="form-group col-md-6 col-12">
+                          <label>Telefono</label>
+                          <input type="tel" class="form-control" value="+569 1456 7890">
+                        </div>
+
+                        <div class="form-group col-md-6 col-12">
+                          <label>Nacionalidad</label>
+                          <select class="form-control form-select" formControlName="nacionalidad">
+                            <option selected disabled>Seleccione...</option>
+                            <option value="1">Chilena</option>
+                            <option value="2">Argentina</option>
+                            <option value="3">Peruano</option>
+                            <option value="4">Mexicano</option>
+                          </select>
+                          <div class="invalid-feedback">Debe ser un apellido válido</div>
+                        </div>
+
+                        <div class="form-group col-md-6 col-12">
+                          <label>Tipo de Usuario</label>
+                          <select class="form-control form-select" formControlName="tipoUsuario">
+                            <option selected disabled>Seleccione...</option>
+                            <option value="1">Extranjero</option>
+                            <option value="2">Extranjero Residente</option>
+                            <option value="3">Extranjero Nacionalizado</option>
+                          </select>
+                          <div class="invalid-feedback">Debe ser un apellido válido</div>
+                        </div>
+
+                        <div class="form-group col-md-6 col-12">
+                          <label>Documento de Identidad</label>
+                          <input type="text" class="form-control" placeholder="Pasaporte / Dni / Otro">
+                          <div class="invalid-feedback">Debe ser un apellido válido</div>
+                        </div>
+
+                        <div class="form-group col-md-6 col-12">
+                          <label>Número de Documento</label>
+                          <input type="text" class="form-control" value="19.304.207-6">
+                          <div class="invalid-feedback">Debe ser un apellido válido</div>
+                        </div>
+
+                        <div class="form-group col-md-6 col-12">
+                          <label>Fecha de Nacimiento</label>
+                          <input type="date" class="form-control custom-date">
+                          <div class="invalid-feedback">Debe ser un apellido válido</div>
+                        </div>
+
+                        <div class="form-group col-md-6 col-12">
+                          <label>Sexo Declarativo</label>
+                          <select class="form-control form-select" formControlName="sexo">
+                            <option selected disabled>Seleccione...</option>
+                            <option value="1">Mujer</option>
+                            <option value="2">Hombre</option>
+                            <option value="3">No Declara</option>
+                          </select>
+                          <div class="invalid-feedback">Debe ser un apellido válido</div>
+                        </div>
+
+                        <div class="form-group col-md-6 col-12">
+                          <label>Sexo Registral</label>
+                          <select class="form-control form-select" formControlName="sexo">
+                            <option selected disabled>Seleccione...</option>
+                            <option value="1">F-Femenino</option>
+                            <option value="2">M-Masculino</option>
+                            <option value="3">X-No Binario</option>
+                            <option value="3">N-No Declara</option>
+                          </select>
+                          <div class="invalid-feedback">Debe ser un apellido válido</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="card-footer text-end">
+                    <button class="btn anid-btn-primary auth-form-btn">Guardar Cambios</button>
+                  </div>
+                </ng-template>
+              </li>
+
+              <!-- TAB 3 -->
+              <li [ngbNavItem]="3">
+                <a ngbNavLink>Modificar Correo</a>
+                <ng-template ngbNavContent>
+                  <div class="perf-tab-sec">
+                    <div class="title-perf"><h6>Modifica Correo Electrónico</h6></div>
+
+                    <div class="card-body">
+                      <div class="row tab-row">
+                        <div class="form-group col-md-12 col-12">
+                          <div class="author-box-description">
+                            <p>
+                              Al modificar la direccion de correo electrónico se le solicitará volver a validar, mientras no se valide el nuevo correo electrónico, seguirá activo el anterior.
+                            </p>
+                          </div>
+                        </div>
+
+                        <div class="form-group col-md-6 col-12">
+                          <label>Nuevo Correo Electronico</label>
+                          <input type="text" class="form-control">
+                          <div class="invalid-feedback">Debe ingresar un nombre válido</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="card-footer text-end">
+                    <button class="btn anid-btn-primary auth-form-btn">Guardar Cambios</button>
+                  </div>
+                </ng-template>
+              </li>
+
+              <!-- TAB 4 -->
+              <li [ngbNavItem]="4">
+                <a ngbNavLink>Modificar Clave</a>
+                <ng-template ngbNavContent>
+                  <div class="perf-tab-sec">
+                    <div class="title-perf"><h6>Modifica Clave de Accceso</h6></div>
+
+                    <div class="card-body">
+
+                      <div class="row">
+                        <div class="form-group col-md-6 col-12">
+                          <label>Clave Anterior</label>
+                          <input type="text" class="form-control">
+                          <div class="invalid-feedback">Clave ingresada no corresponde a la clave actual</div>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="form-group col-md-6 col-12">
+                          <label>Nueva Clave</label>
+                          <input type="text" class="form-control">
+                          <div class="invalid-feedback">Clave ingresada no cumple con los parámetros exigidos</div>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="form-group col-md-6 col-12">
+                          <label>Reingrese la nueva Clave</label>
+                          <input type="text" class="form-control">
+                          <div class="invalid-feedback">Clave ingresada es diferente a la ingresada</div>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+
+                  <div class="card-footer text-end">
+                    <button class="btn anid-btn-primary auth-form-btn">Modificar Clave de Acceso</button>
+                  </div>
+                </ng-template>
+              </li>
+
+            </ul>
+
+            <div [ngbNavOutlet]="nav" class="mt-2"></div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>

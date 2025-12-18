@@ -1,0 +1,727 @@
+/*
+ *  Document   : _leftsidebaroverlay.scss
+ *  Author     : RedStar Template
+ *  Description: This scss file for left side bar style classes
+ */
+.sidebar {
+  @include transition(all 0.5s);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 70px;
+  z-index: 2;
+  overflow: visible;
+
+  .menu-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    position: relative;
+    width: 100%;
+    background-color: #fff;
+    height: 70px;
+    padding: 10px;
+    top: 20px;
+  }
+
+  .home-sidebar {
+    flex-shrink: 0;
+    padding-left: 140px;
+    padding-right: 10px;
+    display: flex;
+    align-items: center;
+    border-right: 2px solid #B3BECB;
+    margin: 10px 0 10px 10px;
+  }
+
+  .menu {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+
+    .list {
+      display: flex;
+      flex-direction: row;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+
+      li.parent {
+        position: relative;
+
+        a.menu-top {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          white-space: nowrap;
+          padding: 9px;
+          color: #373737;
+          cursor: pointer;
+          text-decoration: none;
+
+          &:hover {
+            background-color: #CFE1F3;
+          }
+
+          .ml-icon {
+            transition: transform 0.2s ease-in-out;
+          }
+        }
+
+        &:hover > a.menu-top .ml-icon {
+          transform: rotate(180deg);
+        }
+
+        /* Submenus ocultos por defecto */
+        > .ml-menu,
+        > .ml-menu-2,
+        > .ml-menu-3 {
+          display: none;
+          position: absolute;
+          min-width: 200px;
+          width: max-content;
+          background: #fff;
+          color: #373737;
+          font-size: 16px;
+          line-height: 28px;
+          z-index: 999;
+          box-shadow: 0 8px 10px rgba(183, 192, 206, 0.2);
+          list-style: none;
+          padding: 0;
+        }
+
+        > .ml-menu-2 { left: 100%; top: 0; }
+        > .ml-menu-3 { left: 100%; top: 0; }
+
+        /* Mostrar submenús solo al hover */
+        &:hover > .ml-menu {
+          display: block;
+        }
+
+        > .ml-menu li.parent:hover > .ml-menu-2 {
+          display: block;
+        }
+
+        > .ml-menu-2 li.parent:hover > .ml-menu-3 {
+          display: block;
+        }
+
+        /* Links de submenu */
+        .ml-menu li a,
+        .ml-menu-2 li a,
+        .ml-menu-3 li a {
+          display: block;
+          padding: 10px;
+          color: #373737;
+          text-decoration: none;
+          white-space: nowrap;
+        }
+
+        .ml-menu li a:hover,
+        .ml-menu-2 li a:hover,
+        .ml-menu-3 li a:hover {
+          background-color: #CFE1F3;
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}
+/* =========================
+   RESTO DEL CSS ORIGINAL
+========================= */
+
+.ml-menu {
+  .ml-sub-menu {
+    &:before {
+      @include transform(scale(0));
+    }
+    &:after {
+      @include transform(scale(1));
+    }
+  }
+
+  .ml-sub-menu2 {
+    &:before {
+      @include transform(scale(1));
+    }
+    &:after {
+      @include transform(scale(0));
+    }
+  }
+
+  .ml-sub-menu3 {
+    &:before {
+      @include transform(scale(1));
+    }
+    &:after {
+      @include transform(scale(0));
+    }
+  }
+
+  :hover .ml-sub-menu {
+    &:after {
+      content: "\2013";
+      @include transform(scale(1));
+    }
+
+    &:before {
+      @include transform(scale(0));
+    }
+  }
+
+  :hover.ml-sub-menu2 {
+    &:after {
+      content: "\2013";
+      @include transform(scale(1));
+    }
+
+
+  }
+
+  .ml-menu-2 {
+    li:hover .ml-sub-menu2 {
+      &:after {
+        @include transform(scale(1));
+      }
+
+
+    }
+  }
+
+  .ml-menu-3 {
+    li:hover .ml-sub-menu3 {
+      &:after {
+        @include transform(scale(1));
+      }
+
+
+    }
+  }
+}
+.menu-top span{
+  font-weight: 700;
+  font-size: 16px;
+}
+.menu-top span:hover{
+  font-weight: 700;
+  font-size: 16px;
+
+}
+.menu-top svg{
+  color: color(anid) !important;
+}
+.ml-icon2{
+  color: color(anid);
+}
+.menu-toggle:hover{
+  background-color: #CFE1F3 !important;
+}
+.ml-a {
+  display: flex !important;
+  align-items: center !important;  /* centra verticalmente */
+  justify-content: space-between;
+  white-space: nowrap;
+  line-height: normal !important;
+  padding: 9px !important;
+  line-height: 1.5 !important;
+  height: 48px;
+}
+
+.ml-a span {
+  display: flex;
+  align-items: center;
+}
+
+.ml-icon2 {
+  width: 18px;
+  height: 18px;
+  display: block;
+  transform: translateY(-2px);
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
+.sidebar .menu {
+  width: auto !important;
+}
+@media (max-width: 1919px){
+  .sidebar .home-sidebar{
+    padding-left: 4px;
+
+  }
+  .dropdown-menu-end {
+    left: -10px !important;
+  }
+  .header-dropdown{
+    left: auto !important;
+  }
+
+}
+
+
+
+
+.vsidebar-container {
+  width: 260px;
+  background: #1d1d1d;
+  color: white;
+  padding: 10px;
+}
+
+.vsidebar-home {
+  display: flex;
+  justify-content: center;
+  padding: 12px 0;
+}
+
+.vsidebar-menu {
+  margin-top: 10px;
+}
+
+.vsidebar-level-1,
+.vsidebar-level-2,
+.vsidebar-level-3 {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.vsidebar-item {
+  position: relative;
+}
+
+.vsidebar-link,
+.vsidebar-link-2,
+.vsidebar-link-3 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 14px;
+  cursor: pointer;
+}
+
+.vsidebar-level-2,
+.vsidebar-level-3 {
+  display: none;
+  padding-left: 14px;
+}
+
+.vsidebar-item.open > .vsidebar-level-2,
+.vsidebar-item.open > .vsidebar-level-3 {
+  display: block;
+}
+
+/* ==============================  M E N U   V E R T I C A L  ============================== */
+
+.left-sidebar-container {
+  position: fixed;
+  left: 0;
+  top: 90px;
+  width: 300px;
+  background-color: #092039;
+  z-index: 1;
+  padding: 30px 10px;
+  height: calc(100vh - 90px);
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+.left-sidebar-container::-webkit-scrollbar {
+  display: none;
+}
+
+.main-content {
+  margin-left: 0;
+}
+body.menu-vertical-active .main-content {
+    margin-left: 300px;
+    padding-top: 120px;
+    padding-left: 40px;
+    padding-right: 40px;
+    width: calc(100% - 300px);
+    margin-right: 0;
+}
+body.menu-vertical-active .main-content .body-perfil{
+  display: none;
+
+}
+body.menu-vertical-active .main-content .author-box{
+  display: none;
+}
+body.menu-vertical-active .main-content .bodyperfil-vertical{
+  width: 100% !important;
+
+}
+
+
+/* MENÚS OCULTOS */
+.ml-menu1,
+.ml-menu-21,
+.ml-menu-31 {
+  display: none;
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+  user-select: none;
+}
+
+.parent.active > .ml-menu1,
+.parent.active > .ml-menu-21,
+.parent.active > .ml-menu-31 {
+  display: block;
+}
+
+/* SIDEBAR CARD */
+.sidebar-card {
+  display: flex;
+  flex-direction: column;
+  color: #fff;
+  padding: 0 10px;
+}
+
+.card-sidebar {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.author-box-sidebar {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+.author-box-sidebar img {
+  width: 90px;
+  height: 90px;
+  align-self: center;
+}
+
+.author-sidebar-name a {
+  font-size: 20px;
+  color: #fff;
+}
+.author-sidebar-job {
+  font-size: 12px;
+  color: color(grey-claro);
+}
+
+.author-sidebar-description {
+  margin-top: 20px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid #d9d9d96b;
+}
+.author-sidebar-p {
+  font-size: 16px;
+}
+
+/* SVG CUSTOM */
+.customSvg svg {
+  width: 22px;
+  height: 22px;
+  margin-right: 12px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+/* LISTAS */
+.list2 {
+  margin: 10px 0 0;
+  padding-left: 0;
+}
+
+.menu2-sidebar-home {
+  padding: 10px 0;
+}
+
+/* ITEM HOME */
+.home-sidebar-vertical {
+  display: flex;
+  align-items: center;
+  color: #fff;
+  padding: 10px;
+}
+.home-sidebar-vertical > * {
+  align-self: center;
+}
+.home-sidebar-vertical .home-sidebar {
+  margin: 0 10px 0 0;
+}
+
+.home-sidebar-vertical .ml-iconsidebar {
+  margin-left: auto;
+  display: none;
+}
+
+.home-sidebar-vertical:hover {
+  background-color: #334155 !important;
+  border-radius: 15px;
+  color: #fff !important;
+}
+
+.home-sidebar-vertical p {
+  margin: 3px 0 0 0;
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+  line-height: 1;
+}
+
+/* MENU 2 */
+.menu2-sidebar {
+  list-style: none;
+  padding: 10px 0;
+}
+
+.menu2-sidebar .menu-top1 {
+  display: flex;
+  align-items: center;
+  color: #fff;
+  width: 100%;
+  padding: 10px;
+  user-select: none;
+  transition:
+    background-color 0.5s ease-in-out,
+    border-radius 0.5s ease-in-out,
+    color 0.5s ease-in-out,
+    font-weight 0.5s ease-in-out;
+}
+
+.menu2-sidebar .menu-top1 span.hide-menu {
+  display: inline-flex;
+  align-items: center;
+  height: 1em;
+  line-height: 1;
+  margin-top: 1px;
+  padding: 0;
+}
+
+.menu2-sidebar .menu-top1 svg {
+  display: block;
+}
+.menu-top1 svg {
+  margin-left: auto;
+}
+
+.ml-menu1 {
+  margin-top: 15px;
+}
+.ml-menu1 li a {
+  color: #fff;
+  margin-left: 34px;
+  font-weight: 300 !important;
+}
+
+.ml-a1 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px 0;
+}
+
+.menu-top1:hover {
+  background-color: #334155 !important;
+  border-radius: 15px;
+  color: #fff !important;
+}
+
+.parent.active > .menu-top1 {
+  background-color: #334155!important;
+  border-radius: 15px;
+  font-weight: 700 !important;
+}
+
+.menu2-sidebar a {
+  cursor: pointer;
+}
+
+/* PUNTO */
+.punto {
+  width: 5px;
+  height: 5px;
+  background-color: #fff;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+/* SUBMENÚ DETALLADO */
+.detalle-menu21 a {
+  display: flex;
+  align-items: center;
+}
+.ml-menu-21 {
+  padding: 15px 0;
+  font-size: 14px;
+}
+
+.parent.active > .ml-a1 {
+  color: color(grey-claro) !important;
+}
+.ml-a1:hover {
+  color: color(grey-claro) !important;
+}
+
+/* ICONOS ROTACIÓN */
+.home-sidebar-vertical .ml-iconsidebar,
+.ml-iconsidebar {
+  margin-left: auto;
+  transition: transform 0.3s ease;
+  transform: rotate(-90deg);
+}
+
+.parent.active > .menu-top1 .ml-iconsidebar {
+  transform: rotate(0deg);
+}
+
+.ml-icona2 {
+  transform: rotate(0deg);
+  transition: transform 0.3s ease;
+}
+.parent.active > .ml-a1 .ml-icona2 {
+  transform: rotate(90deg);
+}
+
+/* DETALLE MENÚ */
+.detalle-menu21 {
+  padding: 5px 0;
+}
+.detalle-menu21:hover a {
+  color: color(grey-claro) !important;
+}
+.detalle-menu21:hover a .punto {
+  background-color: color(grey-claro) !important;
+}
+
+
+/* ==============================  M E N U   F L O T A N T E  ============================== */
+/* BOTÓN */
+
+.menusidebar-flotante {
+  position: fixed;
+  top: 90px;
+  z-index: 1;
+  background-color: #fff;
+  width: 100%;
+  height: 70px;
+  display: flex;
+  align-items: center;
+}
+
+/* BOTÓN */
+.btn-open-sidebar {
+  padding: 10px 20px;
+  border-radius: 10px;
+  background-color: color(primary);
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: 0.2s ease;
+}
+
+.boton-flotante {
+  position: absolute;
+  right: 25px;
+}
+
+.boton-flotante.active {
+  background-color: #092039;
+}
+
+
+
+/* CONTENEDOR GENERAL SIDEBAR */
+.home-sidebar-floating{
+  color: white;
+  padding-top: 5px;
+  padding-bottom: 10px;
+  padding-right: 20px;
+  padding-left: 20px;
+  width: 100%;
+  display: flex;
+  border-bottom: 1px solid #ffffff8a;
+  margin-bottom: 5px;
+  align-items: center;
+
+}
+.home-sidebar-floating .home-sidebarfloating{
+  margin-right: 10px;
+}
+.home-sidebar-floating .home-inicio{
+  font-size: 14px;
+  line-height: 1;
+}
+.home-sidebar-floating:hover{
+  background: #334155;
+  color: white !important;
+
+}
+
+.float-sidebar-container {
+  position: fixed;
+  top: 170px;
+  right: 25px;
+  z-index: 1;
+}
+
+.floating-panels {
+  position: relative;
+}
+
+/* CADA PANEL */
+.list23 {
+  position: absolute;
+  width: 250px;
+  background: #0f172a;
+  border-radius: 14px;
+  box-shadow: 0 20px 50px rgba(0,0,0,.5);
+  padding: 6px 0;
+  overflow: hidden;
+}
+
+/* ITEMS */
+.menu2-floating {
+  list-style: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  transition: .2s ease;
+  color: white;
+}
+
+.menu2-floating:hover {
+  background: #334155;
+}
+.menu2-floating:hover .menu-top12{
+  color: white;
+}
+.menu2-floating.active{
+  background: #334155;
+}
+
+.menu-top12 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  text-decoration: none;
+  color: inherit;
+  padding:  0px 10px;
+}
+
+.hide-menu {
+  font-size: 14px;
+  letter-spacing: .2px;
+}
+
+.ml-iconsidebar {
+  transform: rotate(-90deg);
+}
+
+.sidebar-floating .customSvg svg {
+  width: 13px;
+  height: 13px;
+}

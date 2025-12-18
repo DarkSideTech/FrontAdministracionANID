@@ -1,0 +1,30 @@
+.breadcrumb {
+  background-color: transparent;
+  padding: 0.75rem 0rem;
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  .breadcrumb-item {
+    i {
+      margin-right: 5px;
+    }
+  }
+  .breadcrumb-item {
+    display: flex;
+    align-items: center;
+  }
+  .breadcrumb-item + .breadcrumb-item::before {
+    content: '\f054';
+    color: #6c757d;
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    font-size: 12px;
+  }
+  .bcrumb-1 {
+    a {
+      color: color(anid);
+      display: flex;
+    }
+  }
+}
+

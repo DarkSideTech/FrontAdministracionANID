@@ -1,0 +1,38 @@
+[
+    {
+        "id" : "89fa17bb-099f-4943-84d3-cdfba7091154",
+        "codigoPerfil" : "ADMINISTRADOR",
+        "codigoEntidad" : "ANID",
+        "activo" : true
+    },
+    {
+        "id" : "89fa17bb-099f-4943-84d3-cdfba7091154",
+        "codigoPerfil" : "ADMINISTRADOR_ANID",
+        "codigoEntidad" : "ANID",
+        "activo" : true
+    },
+    {
+        "id" : "89fa17bb-099f-4943-84d3-cdfba7091154",
+        "codigoPerfil" : "VALIDADOR",
+        "codigoEntidad" : "ANID",
+        "activo" : true
+    },
+    {
+        "id" : "89fa17bb-099f-4943-84d3-cdfba7091154",
+        "codigoPerfil" : "VALIDADOR_ENRROLAMIENTO",
+        "codigoEntidad" : "ANID",
+        "activo" : true
+    },
+    {
+        "id" : "89fa17bb-099f-4943-84d3-cdfba7091154",
+        "codigoPerfil" : "POSTULANTE",
+        "codigoEntidad" : "PERSONA",
+        "activo" : true
+    },
+    {
+        "id" : "89fa17bb-099f-4943-84d3-cdfba7091154",
+        "codigoPerfil" : "VALIDADOR",
+        "codigoEntidad" : "PERSONA",
+        "activo" : true
+    }
+]

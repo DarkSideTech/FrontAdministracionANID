@@ -1,0 +1,44 @@
+[
+    {
+        "id" : "1",
+        "idPersona" : 1,
+        "nombreUsuario" : "Usuario1",
+        "nombreADesplegar" : "Primer Usuario",
+        "descripcion" : "Usuario registrado primero",
+        "direccionDeCorreoElectronico" : "usuario1@uno.cl",
+        "direccionDeCorreoConfirmada" : false,
+        "claveDeAcceso" : "clave1",
+        "numeroDeTelefono" : "12345678",
+        "numeroDeTelefonoConfirmado" : false,
+        "permiteSesionesDeVariosPerfiles" : false,
+        "activo" : true
+    },
+    {
+        "id" : "2",
+        "idPersona" : 2,
+        "nombreUsuario" : "Usuario2",
+        "nombreADesplegar" : "Segundo Usuario",
+        "descripcion" : "Usuario registrado segundo",
+        "direccionDeCorreoElectronico" : "usuario2@dos.cl",
+        "direccionDeCorreoConfirmada" : true,
+        "claveDeAcceso" : "clave2",
+        "numeroDeTelefono" : "12345678",
+        "numeroDeTelefonoConfirmado" : false,
+        "permiteSesionesDeVariosPerfiles" : true,
+        "activo" : false
+    },
+    {
+        "id" : "3",
+        "idPersona" : 3,
+        "nombreUsuario" : "Usuario3",
+        "nombreADesplegar" : "Tercer Usuario",
+        "descripcion" : "Usuario registrado tercero",
+        "direccionDeCorreoElectronico" : "usuario3@tres.cl",
+        "direccionDeCorreoConfirmada" : false,
+        "claveDeAcceso" : "clave3",
+        "numeroDeTelefono" : "12345678",
+        "numeroDeTelefonoConfirmado" : true,
+        "permiteSesionesDeVariosPerfiles" : true,
+        "activo" : true
+    }
+]

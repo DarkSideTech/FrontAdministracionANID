@@ -1,0 +1,48 @@
+$colors: (
+  primary: #0F69C4,
+  secondary: #6c757d,
+  success: #2E7D32,
+  success2:#C8E6C9,
+  info: #3abaf4,
+  warning: #ffa426,
+  danger: #CD1E2C,
+  danger2:#FFCDD2,
+  light: #e3eaef,
+  grey: #868e96,
+  grey-claro: #ffffff9d,
+  whitesmoke: #f7f9f9,
+  dark: #191d21,
+  muted: #98a6ad,
+  body: #f6f6f6,
+  font: #000000,
+  fontdark: #00254D,
+  white: #ffffff,
+  pink: #fa62bb,
+  anid: #0051A8,
+  focus:#FFBE5C,
+  enlace:#1D70B8,
+);
+
+$grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+) !default;
+
+@function color($key) {
+  @return map-get($colors, $key);
+}
+
+@function color_lighten($key, $amount) {
+  @return lighten(map-get($colors, $key), $amount);
+}
+
+@function color_darken($key, $amount) {
+  @return darken(map-get($colors, $key), $amount);
+}
+
+@function to_opacity($color, $opacity) {
+  @return rgba(color($color), $opacity);
+}

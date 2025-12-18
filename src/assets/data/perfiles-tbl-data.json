@@ -1,0 +1,51 @@
+[
+    {
+        "id" : "89fa17bb-099f-4943-84d3-cdfba7091154",
+        "codigo" : "ADMINISTRADOR",
+        "nombre" : "Administrador",
+        "descripcion" : "Administrador del sistema",
+        "activo" : true
+    },
+    {
+        "id" : "89fa17bb-099f-4943-84d3-cdfba7091154",
+        "codigo" : "ADMINISTRADOR_ANID",
+        "nombre" : "Administrador ANID",
+        "descripcion" : "Administrador ANID",
+        "activo" : true
+    },
+    {
+        "id" : "89fa17bb-099f-4943-84d3-cdfba7091154",
+        "codigo" : "POSTULANTE",
+        "nombre" : "Postulante",
+        "descripcion" : "Puede postular a los productos ANID",
+        "activo" : false
+    },
+    {
+        "id" : "89fa17bb-099f-4943-84d3-cdfba7091154",
+        "codigo" : "VALIDADOR",
+        "nombre" : "Validador de Asignaciones",
+        "descripcion" : "Perfil orientado a la validacion de asignaciones de Roles",
+        "activo" : true
+    },
+    {
+        "id" : "89fa17bb-099f-4943-84d3-cdfba7091154",
+        "codigo" : "VALIDADOR_ENRROLAMIENTO",
+        "nombre" : "Validador de Enrrolamiento",
+        "descripcion" : "Perfil orientado a la validacion de enrrolamiento de nuevos usuarios dependiendo del tipo de usuario",
+        "activo" : true
+    },
+    {
+        "id" : "89fa17bb-099f-4943-84d3-cdfba7091154",
+        "codigo" : "REPRESENTANTE_LEGAL",
+        "nombre" : "Representa legal",
+        "descripcion" : "Perfil que corresponde a un representante de una institucion legamente documentado",
+        "activo" : true
+    },
+    {
+        "id" : "89fa17bb-099f-4943-84d3-cdfba7091154",
+        "codigo" : "REPRESENTANTE_INSTITUCIONAL",
+        "nombre" : "Representante Institucional",
+        "descripcion" : "Perfil que corresponde a un representante de una organizacion que no necesita una validacion legal",
+        "activo" : true
+    }
+]

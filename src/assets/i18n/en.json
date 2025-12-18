@@ -1,0 +1,101 @@
+{
+  "HEADER":{
+    "SEARCH": {
+      "TEXT": "Search.."
+    }
+  },
+  "MENUITEMS": {
+    "USER":{
+      "POST": "Manager"
+    },
+    "MAIN": {
+      "TEXT": "-- Main"
+    },
+    "ACTIONS": {
+      "TEXT": "-- Actions"
+    },
+    "PAGES": {
+      "TEXT": "-- Pages"
+    },
+    "HOME": {
+      "TEXT": "Home",
+      "LIST": {
+        "DASHBOARD1": "Main Board",
+        "DASHBOARD2": "Board Collection"
+      }
+    },
+    "DOMAIN":{
+      "TEXT": "Domains",
+      "AUTORIZACION": {
+        "TEXT": "Authorizations",
+        "USUARIO": {
+          "TEXT": "Users"
+        },
+        "PROVEEDOR": {
+          "TEXT": "Suppliers"
+        },
+        "ENTIDAD": {
+          "TEXT": "Entities"
+        },
+        "ROL": {
+          "TEXT": "Roles"
+        },
+        "PERFIL": {
+          "TEXT": "Profiles"
+        }
+      }
+    },
+    "APPS": {
+      "TEXT": "-- Apps"
+    },
+    "CALENDAR": {
+      "TEXT": "Calendar"
+    },
+    "EMAIL": {
+      "TEXT": "Email",
+      "LIST": {
+        "INBOX": "Inbox",
+        "COMPOSE": "Compose",
+        "READ": "Read Email"
+      }
+    },
+    "MORE-APPS": {
+      "TEXT": "More Apps",
+      "LIST": {
+        "CHAT": "Chat",
+        "BLOG": "Blog",
+        "CONTACT-GRID": "Contact Grid"
+      }
+    },
+    "COMPONENTS": {
+      "TEXT": "-- Components"
+    },
+    "WIDGETS": {
+      "TEXT": "Widgets",
+      "LIST": {
+        "CHART-WIDGET": "Chart-Widget",
+        "DATA-WIDGET": "Data-Widget"
+      }
+    },
+    "FORMS": {
+      "TEXT": "Forms",
+      "LIST": {
+        "BASIC": "Basic Form",
+        "ADVANCE": "Advance Control",
+        "EXAMPLE": "Form Examples",
+        "VALIDATION": "Form Validation",
+        "WIZARD": "Wizard",
+        "INPUT-MASK": "Input Mask",
+        "SELECT-ITEM": "Select Item",
+        "EDITORS": "Editors"
+      }
+    },
+    "TABLES": {
+      "TEXT": "Tables",
+      "LIST": {
+        "BASIC": "Basic Tables",
+        "ADVANCE": "Advance Tables"
+      }
+    }
+  }
+}

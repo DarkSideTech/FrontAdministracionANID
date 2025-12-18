@@ -1,0 +1,37 @@
+[
+    {
+        "id" : "89fa17bb-099f-4943-84d3-cdfba7091154",
+        "usuarioAsigna": "USUARIO_ANID_1",                        
+        "entidad": "ANID",                
+        "perfil": "ADMINISTRADOR_ANID",
+        "rol": "ADMINISTRADOR_ANID"
+    },
+    {
+        "id" : "89fa17bb-099f-4943-84d3-cdfba7091154",
+        "usuarioAsigna": "USUARIO_ANID_1",
+        "entidad": "ANID",                
+        "perfil": "VALIDADOR",
+        "rol": "VALIDA_ASIGNACIONES_PERFILES"
+    },
+    {
+        "id" : "89fa17bb-099f-4943-84d3-cdfba7091154",
+        "usuarioAsigna": "USUARIO_ANID_1",                        
+        "entidad": "ANID",                
+        "perfil": "VALIDADOR_ENRROLAMIENTO",
+        "rol": "VALIDADOR_ENRROLAMIENTO"
+    },
+    {
+        "id" : "89fa17bb-099f-4943-84d3-cdfba7091154",
+        "usuarioAsigna": "JUAN_PABLO_USACH",                        
+        "entidad": "USACH",                
+        "perfil": "VALIDADOR",
+        "rol": "VALIDA_ASIGNACIONES_PERFILES"
+    },
+    {
+        "id" : "89fa17bb-099f-4943-84d3-cdfba7091154",
+        "usuarioAsigna": "MANUEL_ALMENDARES",                        
+        "entidad": "PERSONA",                
+        "perfil": "VALIDADOR",
+        "rol": "VALIDA_ASIGNACIONES_PERFILES"
+    }
+]

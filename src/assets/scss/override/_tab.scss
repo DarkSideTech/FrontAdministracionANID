@@ -1,0 +1,110 @@
+.tab-content {
+  &.no-padding {
+    > .tab-pane {
+      padding: 0;
+    }
+  }
+
+  > .tab-pane {
+    line-height: 28px;
+  }
+}
+.perf-tab{
+  border: 1px solid #dee2e6;
+  border-radius: 10px;
+  padding: 20px 20px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.perf-table{
+  padding: 20px 20px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.perf-tab-sec{
+  border: 1px solid #dee2e6;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+  position: relative;
+  overflow: hidden;
+}
+.title-perf{
+  background-color: color(primary);
+  padding: 10px 20px;
+}
+.title-perf h6{
+  color: #ffffff;
+  margin-bottom: 0;
+}
+.title-perfil{
+  background-color: rgb(246, 246, 246);
+  padding: 10px 20px;
+}
+.title-perfil h6{
+  color: #000000;
+  margin-bottom: 0;
+}
+.perf-tab-sec ul{
+  list-style: none;
+}
+.perf-tab-sec ul li {
+  position: relative;
+  padding-left: 20px;
+  margin-bottom: 10px;
+
+}
+.perf-tab-sec ul li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 10px;
+  height: 10px;
+  background-color: #dee2e6;
+  border-radius: 50%;
+}
+.perf_punt{
+  margin-top: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+.tab-row{
+  display: flex;
+  flex-direction: column;
+}
+.ngx-datatable.material .datatable-header .resize-handle {
+  border-right: none !important;
+}
+
+/* Palomita */
+.datatable-checkbox input[type='checkbox']:checked::after {
+  content: "";
+  position: absolute;
+  left: 5px;
+  top: 1px;
+  width: 6px;
+  height: 10px;
+  border: solid #0F69C4;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+.datatable-header .datatable-checkbox input[type='checkbox']:checked {
+  background-color: #ffffff;
+
+}
+.datatable-header .datatable-checkbox input[type='checkbox']:checked::after {
+  top: 3px !important;
+
+}
+.datatable-header .datatable-checkbox input[type=checkbox] {
+  border: 2px solid rgb(255, 255, 255);
+  background-color: rgba(255, 255, 255, 0);
+}
+
+
