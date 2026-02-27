@@ -1,13 +1,13 @@
-import { Component, OnInit, ViewChild, } from '@angular/core';
+import { Component, inject, OnInit, ViewChild, } from '@angular/core';
 import { UntypedFormGroup, UntypedFormBuilder, UntypedFormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { DatatableComponent, SelectionType, NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
 import { TranslateModule } from '@ngx-translate/core';
-import { ServicioDeDominioService } from '@core/service/controllers/servicio-de-dominio.service';
 import { AuthService } from '@core/service/auth.service';
 import { OrganizacionPorUsuario } from '@core/models/servicioDeDominioController';
 import { LoginOrganizacion } from '@core/models/accountController';
+import { ServiciosDeDominioService } from '@core/service/controllers/servicios-de-dominio.service';
 
 @Component({
   selector: 'app-selecciona-entidad',
@@ -24,6 +24,9 @@ import { LoginOrganizacion } from '@core/models/accountController';
   styleUrl: './selecciona-entidad.component.scss'
 })
 export class SeleccionaEntidadComponent implements OnInit  {
+
+  servicioDeDominio = inject(ServiciosDeDominioService);
+  authService = inject(AuthService);
 
   @ViewChild(DatatableComponent, { static: false }) table!: DatatableComponent;
 
@@ -46,12 +49,18 @@ export class SeleccionaEntidadComponent implements OnInit  {
   ];
 
   selection!: SelectionType;
+
   constructor(
     private fb: UntypedFormBuilder,
     private router: Router,
-    private authService: AuthService,
-    private servicioDeDominio: ServicioDeDominioService
   ) {
+
+    this.servicioDeDominio.buscarOrganizacionesPor_Id_Usuario(this.authService.currentUserValue.Id).subscribe(datos => {
+      console.log('Organizaciones obtenidas:', datos);
+      // this.data = datos;
+      // this.filteredData = datos;
+    });
+
     this.seleccionaEntidadForm = this.fb.group({
       codigo_Organizacion: new UntypedFormControl(),
       nombre_Organizacion: new UntypedFormControl(),
@@ -62,9 +71,8 @@ export class SeleccionaEntidadComponent implements OnInit  {
     this.selection = SelectionType.checkbox;
   }
 
-  // select record using check box
+  
   onSelect({ selected }: { selected: any }) {
-    // Detectar si estamos en la tabla asign_material
     const esAsignMaterial = true; // como esta función solo se llama desde esa tabla, lo asumimos
 
     if (esAsignMaterial) {
@@ -80,8 +88,8 @@ export class SeleccionaEntidadComponent implements OnInit  {
     this.isRowSelected = this.selected.length > 0;
   }
 
-  ngOnInit() {
-    console.log('checkAuthStatus en selecciona-entidad:', this.authService.checkAuthStatus());
+   ngOnInit() {
+     console.log('checkAuthStatus en selecciona-entidad:', this.authService.checkAuthStatus());
     // this.authService.checkAuthStatus().subscribe({
     //   next: (response) => {
     //     // Maneja el resultado exitoso
@@ -99,11 +107,11 @@ export class SeleccionaEntidadComponent implements OnInit  {
     //     console.log('Llamada al servicio completada.');
     //   }
     // });
-    this.fetch();
-    this.seleccionaEntidadForm = this.fb.group({
-        codigo_Organizacion: [''],
-        nombre_Organizacion: [''],
-    });
+  //   this.fetch();
+  //   this.seleccionaEntidadForm = this.fb.group({
+  //       codigo_Organizacion: [''],
+  //       nombre_Organizacion: [''],
+  //   });
   }
 
   onSubmit() {
@@ -112,24 +120,24 @@ export class SeleccionaEntidadComponent implements OnInit  {
   }
 
   // fetch data
-  fetch() {
-    this.servicioDeDominio
-      .buscarOrganizacionesPor_Id_Usuario(this.authService.currentUserValue.Id).subscribe(datos => {
-        this.data = datos;
-        this.filteredData = datos;
-        setTimeout(() => {
-          this.loadingIndicator = false;
-        }, 500);
-        console.log('Resultado de buscarrDatos dentro de fetch:', datos); 
+  // fetch() {
+  //   this.servicioDeDominio
+  //     .buscarOrganizacionesPor_Id_Usuario(this.authService.currentUserValue.Id).subscribe(datos => {
+  //       this.data = datos;
+  //       this.filteredData = datos;
+  //       setTimeout(() => {
+  //         this.loadingIndicator = false;
+  //       }, 500);
+  //       console.log('Resultado de buscarrDatos dentro de fetch:', datos); 
 
-        if(this.data.length === 1){
-          this.loginOrganizacion.organizacion = this.data[0].codigo_Organizacion;
-          // this.authService
-          //   .loginOrganizacion(this.loginOrganizacion);
-        }
+  //       if(this.data.length === 1){
+  //         this.loginOrganizacion.organizacion = this.data[0].codigo_Organizacion;
+  //         // this.authService
+  //         //   .loginOrganizacion(this.loginOrganizacion);
+  //       }
 
-      });
-  }
+  //     });
+  // }
 
   // filter table data
   filterDatatable(event: any) {
