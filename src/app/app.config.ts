@@ -1,11 +1,10 @@
-import { HTTP_INTERCEPTORS, HttpClient, provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient, HttpFeature, HttpFeatureKind, provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
 import { ApplicationConfig, importProvidersFrom } from '@angular/core';
 import { APP_ROUTE } from './app.routes';
 import { provideRouter } from '@angular/router';
-import { provideAnimations } from '@angular/platform-browser/animations';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { JwtInterceptor } from '@core/interceptor/jwt.interceptor';
-import { ErrorInterceptor } from '@core/interceptor/error.interceptor';
+//import { ErrorInterceptor } from '@core/interceptor/error.interceptor';
 import { DirectionService, LanguageService } from '@core';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -21,13 +20,15 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
 
 export const appConfig: ApplicationConfig = {
     providers: [
-        provideHttpClient(withFetch(), withInterceptors([authInterceptor])),
+        provideHttpClient(
+            withFetch(),
+            withInterceptors([authInterceptor])
+        ),
         provideRouter(APP_ROUTE),
         provideToastr(),
-        provideAnimations(),
         { provide: LocationStrategy, useClass: HashLocationStrategy },
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
-        { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+        //{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
         DirectionService, LanguageService,
         importProvidersFrom(
             TranslateModule.forRoot({

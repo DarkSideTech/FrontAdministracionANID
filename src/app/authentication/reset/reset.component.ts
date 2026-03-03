@@ -6,7 +6,6 @@ import { RouterLink } from '@angular/router';
     selector: 'app-reset',
     templateUrl: './reset.component.html',
     styleUrls: ['./reset.component.sass'],
-    standalone: true,
     imports: [FormsModule, RouterLink]
 })
 export class ResetComponent implements OnInit {

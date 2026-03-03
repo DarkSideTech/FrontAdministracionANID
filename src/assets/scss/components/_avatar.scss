@@ -1,7 +1,10 @@
+@use "../mixin";
+@use "../variable";
+
 .avatar {
-  background: color(primary);
+  background: variable.color(primary);
   border-radius: 50%;
-  color: color(light);
+  color: variable.color(light);
   display: inline-block;
   font-size: 16px;
   font-weight: 300;
@@ -73,15 +76,15 @@
     width: 0.5em;
 
     &.online {
-      background: color(success);
+      background: variable.color(success);
     }
 
     &.busy {
-      background: color(danger);
+      background: variable.color(danger);
     }
 
     &.away {
-      background: color(warning);
+      background: variable.color(warning);
     }
   }
 
@@ -109,7 +112,7 @@
     right: 0;
     background-color: #fff;
     color: #000;
-    @include shadow;
+    @include mixin.shadow;
     border-radius: 50%;
     text-align: center;
     line-height: 25px;

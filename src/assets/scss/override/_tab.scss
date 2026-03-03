@@ -1,3 +1,5 @@
+@use "../variable";
+
 .tab-content {
   &.no-padding {
     > .tab-pane {
@@ -34,7 +36,7 @@
   overflow: hidden;
 }
 .title-perf{
-  background-color: color(primary);
+  background-color: variable.color(primary);
   padding: 10px 20px;
 }
 .title-perf h6{

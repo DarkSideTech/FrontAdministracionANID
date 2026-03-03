@@ -10,19 +10,18 @@ import { TranslateModule } from '@ngx-translate/core';
 import { NgScrollbar } from 'ngx-scrollbar';
 
 @Component({
-  selector: 'app-asigna-rol-a-valida-asignacion',
-  standalone: true,
-  imports: [
-    RouterLink,
-    NgxDatatableModule,
-    FormsModule,
-    ReactiveFormsModule,
-    ToastrModule,
-    TranslateModule,
-    NgScrollbar
-  ],
-  templateUrl: './asigna-rol-a-valida-asignacion.component.html',
-  styleUrl: './asigna-rol-a-valida-asignacion.component.scss'
+    selector: 'app-asigna-rol-a-valida-asignacion',
+    imports: [
+        RouterLink,
+        NgxDatatableModule,
+        FormsModule,
+        ReactiveFormsModule,
+        ToastrModule,
+        TranslateModule,
+        NgScrollbar
+    ],
+    templateUrl: './asigna-rol-a-valida-asignacion.component.html',
+    styleUrl: './asigna-rol-a-valida-asignacion.component.scss'
 })
 export class AsignaRolAValidaAsignacionComponent implements OnInit  {
 

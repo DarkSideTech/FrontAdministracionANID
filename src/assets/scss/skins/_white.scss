@@ -1,3 +1,5 @@
+@use "../variable";
+
 $color-white: #ffffff;
 $color-primary: #0051A8;
 
@@ -28,18 +30,18 @@ $color-primary: #0051A8;
 
   a {
     &:hover {
-      color: color(grey);
+      color: variable.color(grey);
     }
   }
 
   .btn-primary1 {
     background-color: transparent !important;
-    color: color(anid)!important;
-    border: 3px solid color(anid) !important;
+    color: variable.color(anid)!important;
+    border: 3px solid variable.color(anid) !important;
     &:hover {
-      background-color: color(anid) !important;
+      background-color: variable.color(anid) !important;
       color: white !important;
-      border: 3px solid color(anid) !important;
+      border: 3px solid variable.color(anid) !important;
     }
 
     &.disabled {

@@ -5,7 +5,6 @@ import { RouterLink } from '@angular/router';
     selector: 'app-blank',
     templateUrl: './blank.component.html',
     styleUrls: ['./blank.component.sass'],
-    standalone: true,
     imports: [RouterLink]
 })
 export class BlankComponent implements OnInit {

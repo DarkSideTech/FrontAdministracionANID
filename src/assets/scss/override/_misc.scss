@@ -1,3 +1,6 @@
+@use "../mixin";
+@use "../variable";
+
 .btn:focus,
 .btn:active,
 .btn:active:focus,
@@ -5,17 +8,17 @@
 .form-control:focus {
   box-shadow: none !important;
   outline: none;
-  border: 1px solid color(fontdark);
-  outline: 3px solid color(focus);
+  border: 1px solid variable.color(fontdark);
+  outline: 3px solid variable.color(focus);
 }
 .form-control:hover {
-  border: 2px solid color(anid);
+  border: 2px solid variable.color(anid);
 }
 .form-control {
   cursor: pointer;
 }
 a {
-  color: color(primary);
+  color: variable.color(primary);
   font-weight: 500;
   transition: all 0.5s;
   -webkit-transition: all 0.5s;
@@ -86,101 +89,101 @@ a {
 }
 
 .bg-primary {
-  background-color: color(primary) !important;
+  background-color: variable.color(primary) !important;
 }
 
 .bg-secondary {
-  background-color: color(secondary) !important;
+  background-color: variable.color(secondary) !important;
 }
 
 .bg-success {
-  background-color: color(success) !important;
+  background-color: variable.color(success) !important;
 }
 
 .bg-info {
-  background-color: color(info) !important;
+  background-color: variable.color(info) !important;
 }
 
 .bg-warning {
-  background-color: color(warning) !important;
+  background-color: variable.color(warning) !important;
 }
 
 .bg-danger {
-  background-color: color(danger) !important;
+  background-color: variable.color(danger) !important;
 }
 
 .bg-light {
-  background-color: color(light) !important;
+  background-color: variable.color(light) !important;
 }
 
 .bg-dark {
-  background-color: color(dark) !important;
+  background-color: variable.color(dark) !important;
 }
 
 .text-primary,
 .text-primary-all *,
 .text-primary-all *:before,
 .text-primary-all *:after {
-  color: color(primary) !important;
+  color: variable.color(primary) !important;
 }
 
 .text-secondary,
 .text-secondary-all *,
 .text-secondary-all *:before,
 .text-secondary-all *:after {
-  color: color(secondary) !important;
+  color: variable.color(secondary) !important;
 }
 
 .text-success,
 .text-success-all *,
 .text-success-all *:before,
 .text-success-all *:after {
-  color: color(success) !important;
+  color: variable.color(success) !important;
 }
 
 .text-info,
 .text-info-all *,
 .text-info-all *:before,
 .text-info-all *:after {
-  color: color(info) !important;
+  color: variable.color(info) !important;
 }
 
 .text-warning,
 .text-warning-all *,
 .text-warning-all *:before,
 .text-warning-all *:after {
-  color: color(warning) !important;
+  color: variable.color(warning) !important;
 }
 
 .text-danger,
 .text-danger-all *,
 .text-danger-all *:before,
 .text-danger-all *:after {
-  color: color(danger) !important;
+  color: variable.color(danger) !important;
 }
 
 .text-light,
 .text-light-all *,
 .text-light-all *:before,
 .text-light-all *:after {
-  color: color(light) !important;
+  color: variable.color(light) !important;
 }
 
 .text-white,
 .text-white-all *,
 .text-white-all *:before,
 .text-white-all *:after {
-  color: color(white) !important;
+  color: variable.color(white) !important;
 }
 
 .text-dark,
 .text-dark-all *,
 .text-dark-all *:before,
 .text-dark-all *:after {
-  color: color(dark) !important;
+  color: variable.color(dark) !important;
 }
 .text-enlace{
-  color:color(enlace)!important;
+  color:variable.color(enlace)!important;
   text-decoration: underline;
   font-weight: 700;
   margin-left: 5px;
@@ -197,7 +200,7 @@ a {
   line-height: 34px;
 }
 
-@include media-breakpoint-down(xs) {
+@include mixin.media-breakpoint-down(xs) {
   .lead {
     font-size: 17px;
     line-height: 30px;
@@ -220,11 +223,11 @@ ol {
 }
 
 .shadow {
-  @include shadow;
+  @include mixin.shadow;
 }
 
 .text-muted {
-  color: color(muted) !important;
+  color: variable.color(muted) !important;
 }
 .img-round-sm {
   border-radius: 50%;

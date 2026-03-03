@@ -6,7 +6,6 @@ import { FormsModule } from '@angular/forms';
     selector: 'app-page404',
     templateUrl: './page404.component.html',
     styleUrls: ['./page404.component.sass'],
-    standalone: true,
     imports: [FormsModule, RouterLink]
 })
 export class Page404Component implements OnInit {

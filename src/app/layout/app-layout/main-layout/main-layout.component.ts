@@ -7,25 +7,23 @@ import { HeaderComponent } from '../../header/header.component';
 import { DirectionService, InConfiguration } from '@core';
 import { ConfigService } from '@config/config.service';
 
-import { CommonModule } from '@angular/common';
+
 import { SidebarVerticalComponent } from '../../sidebar-vertical/sidebar-vertical.component';
 import { SidebarFloatingComponent } from '../../sidebar-floating/sidebar-floating.component';
 
 
 @Component({
-  selector: 'app-main-layout',
-  templateUrl: './main-layout.component.html',
-  styleUrls: [],
-  standalone: true,
-  imports: [
-    CommonModule,
+    selector: 'app-main-layout',
+    templateUrl: './main-layout.component.html',
+    styleUrls: [],
+    imports: [
     HeaderComponent,
     SidebarComponent,
     SidebarVerticalComponent,
     SidebarFloatingComponent,
     RightSidebarComponent,
-    RouterOutlet,
-  ],
+    RouterOutlet
+]
 })
 export class MainLayoutComponent {
   direction!: Direction;

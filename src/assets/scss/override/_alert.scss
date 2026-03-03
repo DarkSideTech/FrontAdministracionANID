@@ -1,3 +1,5 @@
+@use "../variable";
+
 .alert {
   color: #fff;
   border: none;
@@ -45,36 +47,36 @@
   }
 
   &.alert-primary {
-    background-color: color(primary);
+    background-color: variable.color(primary);
   }
 
   &.alert-secondary {
-    background-color: color(secondary);
+    background-color: variable.color(secondary);
   }
 
   &.alert-success {
-    background-color: color(success);
+    background-color: variable.color(success);
   }
 
   &.alert-info {
-    background-color: color(info);
+    background-color: variable.color(info);
   }
 
   &.alert-warning {
-    background-color: color(warning);
+    background-color: variable.color(warning);
   }
 
   &.alert-danger {
-    background-color: color(danger);
+    background-color: variable.color(danger);
   }
 
   &.alert-light {
-    background-color: color(light);
-    color: color(dark);
+    background-color: variable.color(light);
+    color: variable.color(dark);
   }
 
   &.alert-dark {
-    background-color: color(dark);
+    background-color: variable.color(dark);
   }
 }
 .alert-dismissible .close {

@@ -1,31 +1,34 @@
+@use "../mixin";
+@use "../variable";
+
 .page-item {
   .page-link {
-    color: color(primary);
+    color: variable.color(primary);
     border-radius: 3px;
     margin: 0 3px;
-    @include box-shadow(2px, 2px, 2px, rgba(0, 0, 0, 0.2));
+    @include mixin.box-shadow(2px, 2px, 2px, rgba(0, 0, 0, 0.2));
   }
 
   &.active .page-link {
-    background-color: color(primary);
-    border-color: color(primary);
+    background-color: variable.color(primary);
+    border-color: variable.color(primary);
   }
 
   &.disabled .page-link {
     border-color: transparent;
-    background-color: color_lighten(primary, 31.7%);
-    color: color(primary);
+    background-color: variable.color_lighten(primary, 31.7%);
+    color: variable.color(primary);
     opacity: 0.6;
   }
 }
 
 .page-link {
   border-color: transparent;
-  background-color: color_lighten(primary, 31.7%);
+  background-color: variable.color_lighten(primary, 31.7%);
   font-weight: 600;
 
   &:hover {
-    background-color: color(primary);
+    background-color: variable.color(primary);
     color: #fff;
     border-color: transparent;
   }

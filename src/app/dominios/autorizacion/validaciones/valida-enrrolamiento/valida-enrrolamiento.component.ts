@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, } from '@angular/core';
-import { UntypedFormGroup, UntypedFormBuilder, UntypedFormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, UntypedFormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { DatatableComponent, SelectionType, NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
@@ -9,18 +9,17 @@ import { v4 as uuidv4 } from 'uuid';
 import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
-  selector: 'app-valida-enrrolamiento',
-  standalone: true,
-  imports: [
-    RouterLink,
-    NgxDatatableModule,
-    FormsModule,
-    ReactiveFormsModule,
-    ToastrModule,
-    TranslateModule,
-  ],
-  templateUrl: './valida-enrrolamiento.component.html',
-  styleUrl: './valida-enrrolamiento.component.scss'
+    selector: 'app-valida-enrrolamiento',
+    imports: [
+        RouterLink,
+        NgxDatatableModule,
+        FormsModule,
+        ReactiveFormsModule,
+        ToastrModule,
+        TranslateModule,
+    ],
+    templateUrl: './valida-enrrolamiento.component.html',
+    styleUrl: './valida-enrrolamiento.component.scss'
 })
 export class ValidaEnrrolamientoComponent implements OnInit  {
 

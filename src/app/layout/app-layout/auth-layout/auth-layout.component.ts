@@ -1,16 +1,15 @@
 import { Direction } from '@angular/cdk/bidi';
-import { Component, Inject, Renderer2 } from '@angular/core';
-import { DOCUMENT } from '@angular/common';
+import { Component, Inject, Renderer2, DOCUMENT } from '@angular/core';
+
 import { RouterOutlet } from '@angular/router';
 import { DirectionService, InConfiguration } from '@core';
 import { ConfigService } from '@config/config.service';
 
 @Component({
-  selector: 'app-auth-layout',
-  templateUrl: './auth-layout.component.html',
-  styleUrls: [],
-  standalone: true,
-  imports: [RouterOutlet],
+    selector: 'app-auth-layout',
+    templateUrl: './auth-layout.component.html',
+    styleUrls: [],
+    imports: [RouterOutlet]
 })
 export class AuthLayoutComponent {
   direction!: Direction;

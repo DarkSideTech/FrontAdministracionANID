@@ -1,3 +1,5 @@
+@use "../mixin";
+
 table.dataTable {
   border-collapse: collapse !important;
 
@@ -25,7 +27,7 @@ table.dataTable {
   }
 
   .badge-shadow {
-    @include box-shadow(0, 0.5rem, 1rem, rgba(0, 0, 0, 0.15));
+    @include mixin.box-shadow(0, 0.5rem, 1rem, rgba(0, 0, 0, 0.15));
   }
 
   .tblHrdcheckbox {
@@ -52,7 +54,7 @@ div.dataTables_wrapper div.dataTables_processing {
   width: 50px !important;
   height: 50px;
   border: none;
-  @include shadow;
+  @include mixin.shadow;
   top: 50% !important;
   left: 50% !important;
   -webkit-transform: translate(-50%, -50%) !important;

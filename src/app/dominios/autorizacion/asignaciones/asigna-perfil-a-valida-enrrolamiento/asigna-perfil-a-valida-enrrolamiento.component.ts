@@ -9,18 +9,17 @@ import { v4 as uuidv4 } from 'uuid';
 import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
-  selector: 'app-asigna-perfil-a-valida-enrrolamiento',
-  standalone: true,
-  imports: [
-    RouterLink,
-    NgxDatatableModule,
-    FormsModule,
-    ReactiveFormsModule,
-    ToastrModule,
-    TranslateModule
-  ],
-  templateUrl: './asigna-perfil-a-valida-enrrolamiento.component.html',
-  styleUrl: './asigna-perfil-a-valida-enrrolamiento.component.scss'
+    selector: 'app-asigna-perfil-a-valida-enrrolamiento',
+    imports: [
+        RouterLink,
+        NgxDatatableModule,
+        FormsModule,
+        ReactiveFormsModule,
+        ToastrModule,
+        TranslateModule
+    ],
+    templateUrl: './asigna-perfil-a-valida-enrrolamiento.component.html',
+    styleUrl: './asigna-perfil-a-valida-enrrolamiento.component.scss'
 })
 export class AsignaPerfilAValidaEnrrolamientoComponent implements OnInit  {
 

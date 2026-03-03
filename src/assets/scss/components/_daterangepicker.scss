@@ -1,3 +1,5 @@
+@use "../variable";
+
 .daterangepicker {
   &.dropdown-menu {
     width: auto;
@@ -18,18 +20,18 @@
 
 .ranges {
   li {
-    color: color(primary);
+    color: variable.color(primary);
 
     &:hover,
     &.active {
-      background-color: color(primary);
+      background-color: variable.color(primary);
     }
   }
 }
 
 .daterangepicker td.active,
 .daterangepicker td.active:hover {
-  background-color: color(primary);
+  background-color: variable.color(primary);
 }
 // Range CSS
 .custom-day {

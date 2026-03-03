@@ -1,5 +1,8 @@
+@use "../mixin";
+@use "../variable";
+
 .invoice {
-  @include card-base;
+  @include mixin.card-base;
   padding: 40px;
 
   .invoice-title {
@@ -27,13 +30,13 @@
 
     .invoice-detail-name {
       letter-spacing: 0.3px;
-      color: color(muted);
+      color: variable.color(muted);
       margin-bottom: 4px;
     }
 
     .invoice-detail-value {
       font-size: 18px;
-      color: color(fontdark);
+      color: variable.color(fontdark);
       font-weight: 700;
 
       &.invoice-detail-value-lg {
@@ -43,7 +46,7 @@
   }
 }
 
-@include media-breakpoint-only(md) {
+@include mixin.media-breakpoint-only(md) {
   .table-invoice {
     table {
       min-width: 800px;

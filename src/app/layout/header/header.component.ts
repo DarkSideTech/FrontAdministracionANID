@@ -1,4 +1,4 @@
-import { DOCUMENT, NgClass } from '@angular/common';
+import { NgClass } from '@angular/common';
 import {
   Component,
   Inject,
@@ -7,11 +7,11 @@ import {
   Renderer2,
   AfterViewInit,
   Output,
-  EventEmitter
+  EventEmitter,
+  DOCUMENT
 } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { NgScrollbar } from 'ngx-scrollbar';
 import { NgbDropdown, NgbDropdownToggle, NgbDropdownMenu } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
 import { FeatherModule } from 'angular-feather';
@@ -19,22 +19,20 @@ import { AuthService, InConfiguration, LanguageService, RightSidebarService, Use
 import { ConfigService } from '@config/config.service';
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.sass'],
-  standalone: true,
-  imports: [
-    FeatherModule,
-    FormsModule,
-    NgbDropdown,
-    NgbDropdownToggle,
-    NgbDropdownMenu,
-    NgClass,
-    NgScrollbar,
-    RouterLink,
-    TranslateModule,
-  ],
-  providers: [RightSidebarService]
+    selector: 'app-header',
+    templateUrl: './header.component.html',
+    styleUrls: ['./header.component.sass'],
+    imports: [
+        FeatherModule,
+        FormsModule,
+        NgbDropdown,
+        NgbDropdownToggle,
+        NgbDropdownMenu,
+        NgClass,
+        RouterLink,
+        TranslateModule,
+    ],
+    providers: [RightSidebarService]
 })
 export class HeaderComponent implements OnInit, AfterViewInit {
 

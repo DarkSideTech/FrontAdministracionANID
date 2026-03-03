@@ -6,8 +6,7 @@ import { RouterLink } from '@angular/router';
     selector: 'app-forgot',
     templateUrl: './forgot.component.html',
     styleUrls: ['./forgot.component.sass'],
-    standalone: true,
-    imports: [FormsModule, RouterLink],
+    imports: [FormsModule, RouterLink]
 })
 export class ForgotComponent implements OnInit {
   constructor() {}

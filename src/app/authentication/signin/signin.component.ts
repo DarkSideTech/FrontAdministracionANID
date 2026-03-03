@@ -22,21 +22,20 @@ import { AuthService } from '@core';
 import { Login } from '@core/models/accountController';
 
 @Component({
-  selector: 'app-signin',
-  templateUrl: './signin.component.html',
-  styleUrls: ['./signin.component.scss'],
-  standalone: true,
-  imports: [
-    FormsModule,
-    ReactiveFormsModule,
-    RouterModule,
-    FeatherModule,
-    NgbNav,
-    NgbNavItem,
-    NgbNavLink,
-    NgbNavContent,
-    NgbNavOutlet
-  ],
+    selector: 'app-signin',
+    templateUrl: './signin.component.html',
+    styleUrls: ['./signin.component.scss'],
+    imports: [
+        FormsModule,
+        ReactiveFormsModule,
+        RouterModule,
+        FeatherModule,
+        NgbNav,
+        NgbNavItem,
+        NgbNavLink,
+        NgbNavContent,
+        NgbNavOutlet
+    ]
 })
 export class SigninComponent implements OnInit {
 
@@ -90,29 +89,42 @@ export class SigninComponent implements OnInit {
     this.login.password = this.f['password'].value;
 
     this.authService
-      .login(this.login!)
-      .subscribe({
-        next: (res) => {
-          if (res) {
-            if (res) {
-              const token = this.authService.currentUserValue.Token;
-              console.log('Usuario despues de ir al servicio de login:', this.authService.currentUserValue);
-              if (token) {
-                this.router.navigate(['/authentication/selecciona-entidad']);
-              }
-            } else {
-              this.error = 'Invalid Login';
-            }
-          } else {
-            this.error = 'Invalid Login';
-          }
-        },
-        error: (error) => {
-          console.error(error);
-          this.error = 'No se puede validar credenciales en este momento, consulte con algun administrador';
-          this.submitted = false;
-        },
-      });
+      .login({ email: this.login.email, password: this.login.password })
+        .subscribe({
+                next: (data) => {
+                  console.log('Login response data:', data);
+                  if (this.authService.isAuthenticated()) {
+                    this.router.navigate(['/authentication/selecciona-entidad']);
+                  }
+                },
+                error: (error) => {
+                  this.error = error;
+                  console.error('There was an error!', error);
+                }
+              });
+
+      // .subscribe({
+      //   next: (res) => {
+      //     if (res) {
+      //       if (res) {
+      //         const token = this.authService.currentUserValue.Token;
+      //         console.log('Usuario despues de ir al servicio de login:', this.authService.currentUserValue);
+      //         if (token) {
+      //           this.router.navigate(['/authentication/selecciona-entidad']);
+      //         }
+      //       } else {
+      //         this.error = 'Invalid Login';
+      //       }
+      //     } else {
+      //       this.error = 'Invalid Login';
+      //     }
+      //   },
+      //   error: (error) => {
+      //     console.error(error);
+      //     this.error = 'No se puede validar credenciales en este momento, consulte con algun administrador';
+      //     this.submitted = false;
+      //   },
+      // });
   }
 
   /*********************

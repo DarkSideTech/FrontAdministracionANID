@@ -9,18 +9,17 @@ import { v4 as uuidv4 } from 'uuid';
 import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
-  selector: 'app-proveedor',
-  standalone: true,
-  imports: [
-    RouterLink,
-    NgxDatatableModule,
-    FormsModule,
-    ReactiveFormsModule,
-    ToastrModule,
-    TranslateModule,
-  ],
-  templateUrl: './proveedor.component.html',
-  styleUrl: './proveedor.component.scss'
+    selector: 'app-proveedor',
+    imports: [
+        RouterLink,
+        NgxDatatableModule,
+        FormsModule,
+        ReactiveFormsModule,
+        ToastrModule,
+        TranslateModule,
+    ],
+    templateUrl: './proveedor.component.html',
+    styleUrl: './proveedor.component.scss'
 })
 export class ProveedorComponent implements OnInit  {
 

@@ -1,28 +1,26 @@
 import { Component, OnInit, ViewChild, } from '@angular/core';
-import { UntypedFormGroup, UntypedFormBuilder, UntypedFormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, UntypedFormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { DatatableComponent, SelectionType, NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
-import { NgbCalendar, NgbDate, NgbDatepicker, NgbDateStruct, NgbInputDatepicker, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbCalendar, NgbDate, NgbDateStruct, NgbInputDatepicker, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import Swal from 'sweetalert2';
 import { v4 as uuidv4 } from 'uuid';
 import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
-  selector: 'app-crea-perfil-usuario-entidad',
-  standalone: true,
-  imports: [
-    RouterLink,
-    NgbDatepicker,
-    NgbInputDatepicker,
-    NgxDatatableModule,
-    FormsModule,
-    ReactiveFormsModule,
-    ToastrModule,
-    TranslateModule,
-  ],
-  templateUrl: './crea-perfil-usuario-entidad.component.html',
-  styleUrl: './crea-perfil-usuario-entidad.component.scss'
+    selector: 'app-crea-perfil-usuario-entidad',
+    imports: [
+        RouterLink,
+        NgbInputDatepicker,
+        NgxDatatableModule,
+        FormsModule,
+        ReactiveFormsModule,
+        ToastrModule,
+        TranslateModule,
+    ],
+    templateUrl: './crea-perfil-usuario-entidad.component.html',
+    styleUrl: './crea-perfil-usuario-entidad.component.scss'
 })
 export class CreaPerfilUsuarioEntidadComponent implements OnInit  {
 

@@ -1,3 +1,6 @@
+@use "../mixin";
+@use "../variable";
+
 .section {
   position: relative;
   z-index: 1;
@@ -17,7 +20,7 @@
       display: inline-block;
       font-size: 24px;
       margin-top: 3px;
-      color: color(fontdark);
+      color: variable.color(fontdark);
     }
 
     .section-header-back {
@@ -25,7 +28,7 @@
 
       .btn {
         &:hover {
-          background-color: color(primary);
+          background-color: variable.color(primary);
           color: #fff;
         }
       }
@@ -58,7 +61,7 @@
 
   .section-title {
     font-size: 18px;
-    color: color(dark);
+    color: variable.color(dark);
     font-weight: 600;
     position: relative;
     margin: 30px 0 25px 0;
@@ -86,7 +89,7 @@
   }
 }
 
-@include media-breakpoint-down(xs) {
+@include mixin.media-breakpoint-down(xs) {
   .section {
     .section-title {
       font-size: 14px;

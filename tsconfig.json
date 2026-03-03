@@ -6,7 +6,7 @@
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
     "esModuleInterop": true,
-    "strict": false, //true,
+    "strict": false,
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
@@ -14,23 +14,35 @@
     "sourceMap": true,
     "declaration": false,
     "experimentalDecorators": true,
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "importHelpers": true,
     "target": "ES2022",
     "module": "ES2022",
     "useDefineForClassFields": false,
-    "lib": [
-      "ES2022",
-      "dom"
-    ],
+    "skipLibCheck": true,
     "paths": {
-      "@core": ["app/core"],
-      "@core/*": ["app/core/*"],
-      "@shared": ["app/shared"],
-      "@shared/*": ["app/shared/*"],
-      "@config": ["app/config"],
-      "@config/*": ["app/config/*"],
-    },
+      "@core": [
+        "app/core"
+      ],
+      "@core/*": [
+        "app/core/*"
+      ],
+      "@shared": [
+        "app/shared"
+      ],
+      "@shared/*": [
+        "app/shared/*"
+      ],
+      "@config": [
+        "app/config"
+      ],
+      "@config/*": [
+        "app/config/*"
+      ],
+      "chart.js/dist/types/utils": [
+        "node_modules/chart.js/types/utils"
+      ]
+    }
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

@@ -1,21 +1,19 @@
-import { CommonModule } from '@angular/common';
-import { Component, Inject } from '@angular/core';
+
+import { Component, Inject, DOCUMENT } from '@angular/core';
 import { Event, Router, NavigationStart, NavigationEnd, RouterModule } from '@angular/router';
-import { DOCUMENT } from '@angular/common';
+
 import { PageLoaderComponent } from './layout/page-loader/page-loader.component';
 import { DominiosModule } from './dominios/dominios.module';
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [
-    CommonModule,
+    selector: 'app-root',
+    imports: [
     RouterModule,
     PageLoaderComponent,
     DominiosModule
-  ],
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
+],
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
 

@@ -1,10 +1,13 @@
+@use "../mixin";
+@use "../variable";
+
 /*
  *  Document   : _leftsidebaroverlay.scss
  *  Author     : RedStar Template
  *  Description: This scss file for left side bar style classes
  */
 .sidebar {
-  @include transition(all 0.5s);
+  @include mixin.transition(all 0.5s);
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -135,46 +138,46 @@
 .ml-menu {
   .ml-sub-menu {
     &:before {
-      @include transform(scale(0));
+      @include mixin.transform(scale(0));
     }
     &:after {
-      @include transform(scale(1));
+      @include mixin.transform(scale(1));
     }
   }
 
   .ml-sub-menu2 {
     &:before {
-      @include transform(scale(1));
+      @include mixin.transform(scale(1));
     }
     &:after {
-      @include transform(scale(0));
+      @include mixin.transform(scale(0));
     }
   }
 
   .ml-sub-menu3 {
     &:before {
-      @include transform(scale(1));
+      @include mixin.transform(scale(1));
     }
     &:after {
-      @include transform(scale(0));
+      @include mixin.transform(scale(0));
     }
   }
 
   :hover .ml-sub-menu {
     &:after {
       content: "\2013";
-      @include transform(scale(1));
+      @include mixin.transform(scale(1));
     }
 
     &:before {
-      @include transform(scale(0));
+      @include mixin.transform(scale(0));
     }
   }
 
   :hover.ml-sub-menu2 {
     &:after {
       content: "\2013";
-      @include transform(scale(1));
+      @include mixin.transform(scale(1));
     }
 
 
@@ -183,7 +186,7 @@
   .ml-menu-2 {
     li:hover .ml-sub-menu2 {
       &:after {
-        @include transform(scale(1));
+        @include mixin.transform(scale(1));
       }
 
 
@@ -193,7 +196,7 @@
   .ml-menu-3 {
     li:hover .ml-sub-menu3 {
       &:after {
-        @include transform(scale(1));
+        @include mixin.transform(scale(1));
       }
 
 
@@ -210,10 +213,10 @@
 
 }
 .menu-top svg{
-  color: color(anid) !important;
+  color: variable.color(anid) !important;
 }
 .ml-icon2{
-  color: color(anid);
+  color: variable.color(anid);
 }
 .menu-toggle:hover{
   background-color: #CFE1F3 !important;
@@ -404,7 +407,7 @@ body.menu-vertical-active .main-content .bodyperfil-vertical{
 }
 .author-sidebar-job {
   font-size: 12px;
-  color: color(grey-claro);
+  color: variable.color(grey-claro);
 }
 
 .author-sidebar-description {
@@ -556,10 +559,10 @@ body.menu-vertical-active .main-content .bodyperfil-vertical{
 }
 
 .parent.active > .ml-a1 {
-  color: color(grey-claro) !important;
+  color: variable.color(grey-claro) !important;
 }
 .ml-a1:hover {
-  color: color(grey-claro) !important;
+  color: variable.color(grey-claro) !important;
 }
 
 /* ICONOS ROTACIÓN */
@@ -587,10 +590,10 @@ body.menu-vertical-active .main-content .bodyperfil-vertical{
   padding: 5px 0;
 }
 .detalle-menu21:hover a {
-  color: color(grey-claro) !important;
+  color: variable.color(grey-claro) !important;
 }
 .detalle-menu21:hover a .punto {
-  background-color: color(grey-claro) !important;
+  background-color: variable.color(grey-claro) !important;
 }
 
 
@@ -612,7 +615,7 @@ body.menu-vertical-active .main-content .bodyperfil-vertical{
 .btn-open-sidebar {
   padding: 10px 20px;
   border-radius: 10px;
-  background-color: color(primary);
+  background-color: variable.color(primary);
   color: white;
   border: none;
   cursor: pointer;

@@ -1,3 +1,6 @@
+@use "../mixin";
+@use "../variable";
+
 .swal-button {
   border-radius: 3px;
   font-size: 16px;
@@ -7,8 +10,8 @@
   }
 
   &.swal-button--confirm {
-    @include button-shadow(primary);
-    background-color: color(primary);
+    @include mixin.button-shadow(primary);
+    background-color: variable.color(primary);
 
     &:focus {
       opacity: 0.8;

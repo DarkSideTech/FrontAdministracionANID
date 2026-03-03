@@ -7,13 +7,12 @@ import { FeatherModule } from 'angular-feather';
     selector: 'app-signup',
     templateUrl: './signup.component.html',
     styleUrls: ['./signup.component.sass'],
-    standalone: true,
     imports: [
         FormsModule,
         ReactiveFormsModule,
         FeatherModule,
         RouterLink,
-    ],
+    ]
 })
 export class SignupComponent implements OnInit {
 

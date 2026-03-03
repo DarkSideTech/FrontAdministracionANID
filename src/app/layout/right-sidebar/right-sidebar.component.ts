@@ -1,4 +1,4 @@
-import { DOCUMENT, NgClass } from '@angular/common';
+import { NgClass } from '@angular/common';
 import {
   Component,
   Inject,
@@ -8,6 +8,7 @@ import {
   Renderer2,
   HostListener,
   ChangeDetectionStrategy,
+  DOCUMENT
 } from '@angular/core';
 
 import { ConfigService } from '../../config/config.service';
@@ -15,13 +16,12 @@ import { NgScrollbar } from 'ngx-scrollbar';
 import { InConfiguration, RightSidebarService } from '@core';
 
 @Component({
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  selector: 'app-right-sidebar',
-  templateUrl: './right-sidebar.component.html',
-  styleUrls: ['./right-sidebar.component.sass'],
-  standalone: true,
-  imports: [NgClass, NgScrollbar],
-  providers: [RightSidebarService]
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-right-sidebar',
+    templateUrl: './right-sidebar.component.html',
+    styleUrls: ['./right-sidebar.component.sass'],
+    //imports: [NgClass, NgScrollbar],
+    providers: [RightSidebarService]
 })
 export class RightSidebarComponent implements OnInit, AfterViewInit {
   selectedBgColor = 'white';
@@ -93,7 +93,7 @@ export class RightSidebarComponent implements OnInit, AfterViewInit {
       this.isDarTheme = this.config.layout.variant === 'dark' ? true : false;
     }
   }
-  @HostListener('window:resize', ['$event'])
+  @HostListener('window:resize')
   windowResizecall() {
     this.setMenuHeight();
   }

@@ -1,5 +1,5 @@
 import { Router, NavigationEnd, RouterLink, RouterLinkActive } from '@angular/router';
-import { DOCUMENT, NgClass } from '@angular/common';
+import { NgClass } from '@angular/common';
 import {
   Component,
   Inject,
@@ -8,26 +8,24 @@ import {
   Renderer2,
   HostListener,
   OnDestroy,
+  DOCUMENT
 } from '@angular/core';
 import { ROUTES } from './sidebar-items';
 import { RouteInfo } from './sidebar.metadata';
 import { TranslateModule } from '@ngx-translate/core';
 import { FeatherModule } from 'angular-feather';
-import { NgScrollbar } from 'ngx-scrollbar';
 import { AuthService } from '@core';
 @Component({
-  selector: 'app-sidebar',
-  templateUrl: './sidebar.component.html',
-  styleUrls: ['./sidebar.component.sass'],
-  standalone: true,
-  imports: [
-    RouterLink,
-    NgScrollbar,
-    RouterLinkActive,
-    NgClass,
-    FeatherModule,
-    TranslateModule,
-  ],
+    selector: 'app-sidebar',
+    templateUrl: './sidebar.component.html',
+    styleUrls: ['./sidebar.component.sass'],
+    imports: [
+        RouterLink,
+        RouterLinkActive,
+        NgClass,
+        FeatherModule,
+        TranslateModule,
+    ]
 })
 export class SidebarComponent implements OnInit, OnDestroy {
   public sidebarItems!: RouteInfo[];
@@ -63,7 +61,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
       }
     });
   }
-  @HostListener('window:resize', ['$event'])
+  @HostListener('window:resize')
   windowResizecall() {
     if (window.innerWidth < 1025) {
       this.renderer.removeClass(this.document.body, 'side-closed');

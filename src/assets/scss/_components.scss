@@ -34,64 +34,64 @@
  * 	  1.29 Widget
  */
 
-@import '_variable';
-@import '_mixin';
+@use '_variable';
+@use '_mixin';
 
 /* 1.1 Article */
-@import 'components/_article';
+@use 'components/_article';
 /* 1.2 Auth */
-@import 'components/_auth';
+@use 'components/_auth';
 /* 1.3 Author */
-@import 'components/_author';
+@use 'components/_author';
 /* 1.4 Avatar */
-@import 'components/_avatar';
+@use 'components/_avatar';
 /* 1.5 Browser */
-@import 'components/_browser';
+@use 'components/_browser';
 /* 1.6 Calendar */
-@import 'components/_calendar';
+@use 'components/_calendar';
 /* 1.7 Chart */
-@import 'components/_chart';
+@use 'components/_chart';
 /* 1.8 Chat */
-@import 'components/_chat';
+@use 'components/_chat';
 /* 1.9 checkbox */
-@import 'components/_checkbox';
+@use 'components/_checkbox';
 /* 1.10 contact */
-@import 'components/_contact';
+@use 'components/_contact';
 /* 1.11 contact grid */
-@import 'components/_contactgrid';
+@use 'components/_contactgrid';
 /* 1.12 DataTables */
-@import 'components/_datatables';
+@use 'components/_datatables';
 /* 1.13 Date Range Picker */
-@import 'components/_daterangepicker';
+@use 'components/_daterangepicker';
 /* 1.14 dragdrop */
-@import 'components/_dragdrop';
+@use 'components/_dragdrop';
 /* 1.15 editors */
-@import 'components/_editors';
+@use 'components/_editors';
 /* 1.16 Email */
-@import 'components/_email';
+@use 'components/_email';
 /* 1.17 Gallery */
-@import 'components/_gallery';
+@use 'components/_gallery';
 /* 1.18 Image Preview */
-@import 'components/_imagepreview';
+@use 'components/_imagepreview';
 /* 1.19 Invoice */
-@import 'components/_invoice';
+@use 'components/_invoice';
 /* 1.20 note */
-@import 'components/_note';
+@use 'components/_note';
 /* 1.21 Pricing */
-@import 'components/_pricing';
+@use 'components/_pricing';
 /* 1.22 Profile */
-@import 'components/_profile';
+@use 'components/_profile';
 /* 1.23 PWStrength */
-@import 'components/_pwstrength';
+@use 'components/_pwstrength';
 /* 1.24 Setting Sidebar */
-@import 'components/_settingSidebar';
+@use 'components/_settingSidebar';
 /* 1.25 Summary */
-@import 'components/_summary';
+@use 'components/_summary';
 /* 1.26 Sweet Alert */
-@import 'components/_sweetalert';
+@use 'components/_sweetalert';
 /* 1.27 Time Picker */
-@import 'components/_timepicker';
+@use 'components/_timepicker';
 /* 1.28 User Item */
-@import 'components/_useritem';
+@use 'components/_useritem';
 /* 1.29 Widget */
-@import 'components/_widget';
+@use 'components/_widget';

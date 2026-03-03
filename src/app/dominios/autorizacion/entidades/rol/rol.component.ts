@@ -9,18 +9,17 @@ import { v4 as uuidv4 } from 'uuid';
 import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
-  selector: 'app-rol',
-  standalone: true,
-  imports: [
-    RouterLink,
-    NgxDatatableModule,
-    FormsModule,
-    ReactiveFormsModule,
-    ToastrModule,
-    TranslateModule,
-  ],
-  templateUrl: './rol.component.html',
-  styleUrl: './rol.component.scss'
+    selector: 'app-rol',
+    imports: [
+        RouterLink,
+        NgxDatatableModule,
+        FormsModule,
+        ReactiveFormsModule,
+        ToastrModule,
+        TranslateModule,
+    ],
+    templateUrl: './rol.component.html',
+    styleUrl: './rol.component.scss'
 })
 export class RolComponent implements OnInit  {
 

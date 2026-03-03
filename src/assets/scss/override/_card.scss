@@ -1,5 +1,8 @@
+@use "../mixin";
+@use "../variable";
+
 .card {
-  @include card_base();
+  @include mixin.card_base();
 
   .card-header,
   .card-body,
@@ -31,7 +34,7 @@
 
     p {
       font-weight: 400;
-      color: color(fontdark) !important;
+      color: variable.color(fontdark) !important;
       font-size: 16px;
       margin-bottom: 30px;
     }
@@ -92,8 +95,8 @@
           padding-right: 13px !important;
 
           &.active {
-            @include button-shadow(primary);
-            background-color: color(primary);
+            @include mixin.button-shadow(primary);
+            background-color: variable.color(primary);
             color: #fff;
           }
         }
@@ -153,7 +156,7 @@
 
   &.card-progress {
     &:after {
-      @include overlay();
+      @include mixin.overlay();
       z-index: 99;
     }
 
@@ -192,27 +195,27 @@
   }
 
   &.card-secondary {
-    border-top: 2px solid color(fontdark);
+    border-top: 2px solid variable.color(fontdark);
   }
 
   &.card-success {
-    border-top: 2px solid color(success);
+    border-top: 2px solid variable.color(success);
   }
 
   &.card-danger {
-    border-top: 2px solid color(danger);
+    border-top: 2px solid variable.color(danger);
   }
 
   &.card-warning {
-    border-top: 2px solid color(warning);
+    border-top: 2px solid variable.color(warning);
   }
 
   &.card-info {
-    border-top: 2px solid color(info);
+    border-top: 2px solid variable.color(info);
   }
 
   &.card-dark {
-    border-top: 2px solid color(dark);
+    border-top: 2px solid variable.color(dark);
   }
 
   &.card-hero {
@@ -220,8 +223,8 @@
       padding: 40px;
       background-image: linear-gradient(
         to bottom,
-        color(primary),
-        color_lighten(primary, 10%)
+        variable.color(primary),
+        variable.color_lighten(primary, 10%)
       );
       color: #fff;
       overflow: hidden;
@@ -241,7 +244,7 @@
 
       .card-icon {
         float: right;
-        color: color_lighten(primary, 8%);
+        color: variable.color_lighten(primary, 8%);
         margin: -60px;
 
         .ion,
@@ -278,7 +281,7 @@
   &.card-statistic-1 .card-header h4,
   &.card-statistic-2 .card-header h4 {
     line-height: 1.2;
-    color: color(muted);
+    color: variable.color(muted);
   }
 
   &.card-statistic-1 .card-body,
@@ -290,7 +293,7 @@
   &.card-statistic-2 .card-body {
     font-size: 26px;
     font-weight: 700;
-    color: color(fontdark);
+    color: variable.color(fontdark);
     padding-bottom: 0;
   }
 
@@ -672,7 +675,7 @@
   margin: 5px 0 23px;
 }
 
-@include media-breakpoint-down(xs) {
+@include mixin.media-breakpoint-down(xs) {
   .card {
     &.card-large-icons {
       display: inline-block;
@@ -692,7 +695,7 @@
   }
 }
 
-@include media-breakpoint-down(sm) {
+@include mixin.media-breakpoint-down(sm) {
   .card {
     .card-header {
       height: auto;
@@ -710,7 +713,7 @@
   }
 }
 
-@include media-breakpoint-only(md) {
+@include mixin.media-breakpoint-only(md) {
   .card {
     .card-stats {
       .card-stats-items {

@@ -1,3 +1,6 @@
+@use "../mixin";
+@use "../variable";
+
 // @import '@swimlane/ngx-datatable/index.css';
 // @import '@swimlane/ngx-datatable/themes/material.css';
 // @import '@swimlane/ngx-datatable/assets/icons.css';
@@ -106,7 +109,7 @@
 }
 
 .table-links {
-  color: color(fontdark);
+  color: variable.color(fontdark);
   font-size: 12px;
   margin-top: 5px;
   opacity: 0;
@@ -127,25 +130,25 @@ table tr:hover .table-links {
 .tblEditBtn {
   background-color: transparent !important;
   box-shadow: none !important;
-  color: color(success);
+  color: variable.color(success);
   padding: 0px 2px !important;
 }
 
 .tblEditBtn svg {
-  color: color(success);
+  color: variable.color(success);
   width: 35px;
   height: 35px;
   position: relative;
   line-height: 1;
-  background-color: color(success2);
+  background-color: variable.color(success2);
   border-color: transparent;
   padding: 5px;
   height: 100%;
   border-radius: 5px;
 }
 .tblEditBtn :hover {
-  background-color: color(success);
-  color: color(white);
+  background-color: variable.color(success);
+  color: variable.color(white);
 }
 
 .tblEditBtn:focus {
@@ -160,20 +163,20 @@ table tr:hover .table-links {
   padding: 0px 2px !important;
 }
 .tblDelBtn svg {
-  color: color(danger);
+  color: variable.color(danger);
   width: 35px;
   height: 35px;
   position: relative;
   line-height: 1;
-  background-color: color(danger2);
+  background-color: variable.color(danger2);
   border-color: transparent;
   padding: 5px;
   height: 100%;
   border-radius: 5px;
 }
 .tblDelBtn :hover {
-  background-color: color(danger);
-  color: color(white);
+  background-color: variable.color(danger);
+  color: variable.color(white);
 }
 .tblDelBtn:focus {
   outline: none !important;
@@ -185,11 +188,11 @@ table tr:hover .table-links {
 .tblEditBtn1 {
   background-color: transparent !important;
   box-shadow: none !important;
-  color: color(success);
+  color: variable.color(success);
   padding: 0px 2px !important;
 }
 .tblEditBtn1 svg {
-  color: color(success);
+  color: variable.color(success);
   width: 35px;
   height: 35px;
   position: relative;
@@ -208,11 +211,11 @@ table tr:hover .table-links {
 .tblDelBtn2 {
   background-color: transparent !important;
   box-shadow: none !important;
-  color: color(danger);
+  color: variable.color(danger);
   padding: 0px 2px !important;
 }
 .tblDelBtn2 svg {
-  color: color(danger);
+  color: variable.color(danger);
   width: 35px;
   height: 35px;
   position: relative;
@@ -306,7 +309,7 @@ table tr:hover .table-links {
 
   .datatable-header-cell {
     line-height: 2.4 !important;
-    background-color: color(primary) !important;
+    background-color: variable.color(primary) !important;
 
   }
   .datatable-header-cell span {
@@ -378,7 +381,7 @@ table tr:hover .table-links {
       background: #ffffff;
 
       &:hover {
-        border: 2px solid color(primary);
+        border: 2px solid variable.color(primary);
       }
 
       &:focus {
@@ -407,7 +410,7 @@ table tr:hover .table-links {
     margin: 0;
     font-size: 16px;
     font-weight: normal;
-    color: color(dark);
+    color: variable.color(dark);
   }
 }
 
@@ -505,7 +508,7 @@ table tr:hover .table-links {
   background-color: transparent !important;
   margin: 2px !important;
   line-height: 30px !important;
-  color: color(anid);
+  color: variable.color(anid);
 svg {
     display: flex;
     justify-content: center;
@@ -524,7 +527,7 @@ svg {
   background-color: transparent !important;
   margin: 2px !important;
   line-height: 30px !important;
-  color: color(anid);
+  color: variable.color(anid);
   svg {
     display: flex;
     justify-content: center;
@@ -638,7 +641,7 @@ svg {
   background: currentColor;
 }
 
-@include media-breakpoint-down(xs) {
+@include mixin.media-breakpoint-down(xs) {
   .table-responsive {
     table {
       min-width: 800px;
@@ -670,7 +673,7 @@ svg {
 }
 .page-count{
   font-size: 14px;
-  color: color(dark);
+  color: variable.color(dark);
 }
 /* Ocultar icono por defecto del datatable */
 .datatable-icon-right::before,
@@ -699,7 +702,7 @@ svg {
   width: 25px;
   height: 25px;
   fill: currentColor;
-  color: color(anid);
+  color: variable.color(anid);
   transition: transform 0.4s ease-in-out;
 }
 

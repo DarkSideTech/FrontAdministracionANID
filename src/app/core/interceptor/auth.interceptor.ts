@@ -1,30 +1,59 @@
-import { HttpInterceptorFn, HttpErrorResponse, HttpRequest, HttpHandlerFn, HttpEvent } from '@angular/common/http';
-import { inject } from '@angular/core';
-import { AuthService } from '@core/service/auth.service';
-import { catchError, switchMap, throwError, Observable } from 'rxjs';
+import { HttpErrorResponse, HttpHandlerFn, HttpInterceptorFn, HttpRequest } from "@angular/common/http";
+import { inject } from "@angular/core";
+import { AuthService } from "@core/service/auth.service";
+import { BehaviorSubject, catchError, filter, switchMap, take, throwError } from "rxjs";
 
-export const authInterceptor: HttpInterceptorFn = (req: HttpRequest<any>, next: HttpHandlerFn): Observable<HttpEvent<any>> => {
-  const authService = inject(AuthService);
+let isRefreshing = false;
+const refreshTokenSubject = new BehaviorSubject<string | null>(null);
 
-  return next(req).pipe(
-    catchError((error) => {
-      // Si es un 401 y no es la petición de refresco misma, intentamos refrescar.
-      if (error instanceof HttpErrorResponse && error.status === 401 && !req.url.includes('refreshtoken')) {
-        return authService.refreshToken().pipe(
-          switchMap(() => {
-            // Reintentamos la petición original. El navegador adjuntará las nuevas cookies.
-            return next(req);
-          }),
-          catchError((errRefresh) => {
-            // Si el refresh falla, redirigimos al login
-            console.log("Refresh token failed in interceptor, logging out.", errRefresh);
-            //authService.logout();
-            return throwError(() => errRefresh);
-          })
-        );
-      } else {
-        return throwError(() => error);
-      }
-    })
-  );
+export const authInterceptor: HttpInterceptorFn = (req, next) => {
+    const authService = inject(AuthService);
+    const token = authService.accessToken;
+
+    let authReq = req;
+    if (token) {
+        authReq = addTokenHeader(req, token);
+    }
+
+    return next(authReq).pipe(
+        catchError((error) => {
+            if (error instanceof HttpErrorResponse && error.status === 401) {
+                return handle401Error(authReq, next, authService);
+            }
+            return throwError(() => error);
+        })
+    );
 };
+
+const addTokenHeader = (request: HttpRequest<any>, token: string) => {
+  return request.clone({
+    setHeaders: { Authorization: `Bearer ${token}` }
+  });
+};
+
+function handle401Error(req: HttpRequest<any>, next: HttpHandlerFn, authService: AuthService) {
+  if (!isRefreshing) {
+    isRefreshing = true;
+    refreshTokenSubject.next(null);
+
+    return authService.refreshToken().pipe(
+      switchMap((res: any) => {
+        isRefreshing = false;
+        refreshTokenSubject.next(res.accessToken);
+        return next(addTokenHeader(req, res.accessToken));
+      }),
+      catchError((err) => {
+        isRefreshing = false;
+        authService.logout(); // Limpiar y redirigir si el refresh falla
+        return throwError(() => err);
+      })
+    );
+  } else {
+    // Si ya hay un refresco en curso, esperamos a que el BehaviorSubject tenga valor
+    return refreshTokenSubject.pipe(
+      filter(token => token !== null),
+      take(1),
+      switchMap(token => next(addTokenHeader(req, token!)))
+    );
+  }
+}

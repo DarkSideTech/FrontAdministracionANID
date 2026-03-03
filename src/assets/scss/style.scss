@@ -19,115 +19,115 @@
 
 /*                 [2. Fonts]                   				*/
 // @import "fonts/_material.scss";
-@import "fonts/fontawesome/fontawesome.scss";
-@import "fonts/fontawesome/regular.scss";
-@import "fonts/fontawesome/solid.scss";
-@import "fonts/fontawesome/brands.scss";
+@use "fonts/fontawesome/fontawesome.scss";
+@use "fonts/fontawesome/regular.scss";
+@use "fonts/fontawesome/solid.scss";
+@use "fonts/fontawesome/brands.scss";
 
 /*                 [3. Common ]                   			*/
 /* Variable */
-@import "_variable";
+@use "_variable";
 /* Mixin */
-@import "_mixin";
+@use "_mixin";
 /* Helper classes */
-@import "_helpers";
+@use "_helpers";
 /* Custom Style */
-@import "_custom";
+@use "_custom";
 
 /*                 [4. Components ]                   			*/
-@import "_components";
+@use "_components";
 
 /*                 [5. Override Classes ]                       */
 /* 5.1 Accordion */
-@import "override/_accordion";
+@use "override/_accordion";
 /* 5.2 Alert */
-@import "override/_alert";
+@use "override/_alert";
 /* 5.3 Badge */
-@import "override/_badge";
+@use "override/_badge";
 /* 5.4 Breadcrumb */
-@import "override/_breadcrumb";
+@use "override/_breadcrumb";
 /* 5.5 Button */
-@import "override/_button";
+@use "override/_button";
 /* 5.6 Card */
-@import "override/_card";
+@use "override/_card";
 /* 5.7 Carousel */
-@import "override/_carousel";
+@use "override/_carousel";
 /* 5.8 Dropdown */
-@import "override/_dropdown";
+@use "override/_dropdown";
 /* 5.9 Form */
-@import "override/_form";
+@use "override/_form";
 /* 5.10 Grid */
-@import "override/_grid";
+@use "override/_grid";
 /* 5.11 Icons */
-@import "override/_icons";
+@use "override/_icons";
 /* 5.12 Jumbotron */
-@import "override/_jumbotron";
+@use "override/_jumbotron";
 /* 5.13 List */
-@import "override/_list";
+@use "override/_list";
 /* 5.14 Media */
-@import "override/_media";
+@use "override/_media";
 /* 5.15 Misc */
-@import "override/_misc";
+@use "override/_misc";
 /* 5.16 Modal */
-@import "override/_modal";
+@use "override/_modal";
 /* 5.17 Nav */
-@import "override/_nav";
+@use "override/_nav";
 /* 5.18 Navbar */
-@import "override/_navbar";
+@use "override/_navbar";
 /* 5.19 Pagination */
-@import "override/_pagination";
+@use "override/_pagination";
 /* 5.20 Popover */
-@import "override/_popover";
+@use "override/_popover";
 /* 5.21 Progress Bar */
-@import "override/_progressbar";
+@use "override/_progressbar";
 /* 5.22 Rating */
-@import "override/_rating";
+@use "override/_rating";
 /* 5.23 Dropdown */
-@import "override/_tab";
+@use "override/_tab";
 /* 5.24 Table */
-@import "override/_table";
+@use "override/_table";
 /* 5.25 Tooltip */
-@import "override/_tooltip";
+@use "override/_tooltip";
 /* 5.26 Timeline */
-@import "override/_timeline";
+@use "override/_timeline";
 /* 5.26 Scrollbar */
-@import "override/_scrollbar";
+@use "override/_scrollbar";
 
 /*                 [6. Layout ]                       */
 /* 6.1 Misc */
-@import "layouts/misc";
+@use "layouts/misc" as misc2;
 /* 6.2 Section */
-@import "layouts/section";
+@use "layouts/section";
 /* 6.3 Page */
-@import "layouts/page";
+@use "layouts/page";
 /* 6.4 Layout */
-@import "layouts/layout";
+@use "layouts/layout";
 /* 6.5 Animation */
-@import "layouts/animation";
+@use "layouts/animation";
 /* 6.6 Sidebar */
-@import "layouts/sidebar";
+@use "layouts/sidebar";
 
 /*                 [7. Theme ]                       */
 /* 7.1 Dark Sidebar */
-@import "skins/_darksidebar";
+@use "skins/_darksidebar";
 /* 7.2 Light Sidebar */
-@import "skins/_lightsidebar";
+@use "skins/_lightsidebar";
 /* 7.3 Purple Theme */
-@import "skins/purple";
+@use "skins/purple";
 /* 7.4 Cyan Theme */
-@import "skins/cyan";
+@use "skins/cyan";
 /* 7.5 Green Theme */
-@import "skins/green";
+@use "skins/green";
 /* 7.6 Red Theme */
-@import "skins/red";
+@use "skins/red";
 /* 7.7 Orange Theme */
-@import "skins/orange";
+@use "skins/orange";
 /* 7.8 White Theme */
-@import "skins/white";
+@use "skins/white";
 /* 7.9 Black Theme */
-@import "skins/black";
+@use "skins/black";
 /* 7.10 Dark Template */
-@import "skins/dark";
+@use "skins/dark";
 
 /*                 [8. RTL ]                       */
 // @import "rtl/rtl"; // Remove comment for RTL template

@@ -1,3 +1,6 @@
+@use "../mixin";
+@use "../variable";
+
 
 
 .main-sidebar,
@@ -67,7 +70,7 @@ body.layout-2 {
           }
 
           &:hover {
-            color: color(primary);
+            color: variable.color(primary);
             background-color: transparent;
           }
         }
@@ -104,7 +107,7 @@ body.layout-3 {
   }
 
   .navbar.navbar-secondary {
-    @include shadow;
+    @include mixin.shadow;
     background-color: #ffffff;
     top: 90px;
     padding: 0;
@@ -114,7 +117,7 @@ body.layout-3 {
       > .nav-item {
         &.active {
           > .nav-link {
-            color: color(primary);
+            color: variable.color(primary);
 
             &:before {
               left: 35px;
@@ -136,7 +139,7 @@ body.layout-3 {
         }
 
         > .nav-link {
-          color: color_lighten(font, 10%);
+          color: variable.color_lighten(font, 10%);
           font-size: 13px;
           letter-spacing: 0.3px;
           height: 70px;
@@ -151,7 +154,7 @@ body.layout-3 {
             margin-right: 35px;
 
             &:after {
-              @include dropdown-indicator;
+              @include mixin.dropdown-indicator;
               right: -20px;
             }
           }
@@ -163,7 +166,7 @@ body.layout-3 {
             right: initial;
             bottom: 0;
             height: 2px;
-            background-color: color(primary);
+            background-color: variable.color(primary);
             transition: all 0.5s;
           }
 
@@ -177,7 +180,7 @@ body.layout-3 {
           }
 
           &:hover {
-            color: color(dark) !important;
+            color: variable.color(dark) !important;
           }
         }
 
@@ -186,7 +189,7 @@ body.layout-3 {
 
           .nav-item {
             .nav-link {
-              color: color(font);
+              color: variable.color(font);
               font-weight: 600;
               letter-spacing: 0.3px;
               padding: 7px !important;
@@ -195,7 +198,7 @@ body.layout-3 {
 
               &.has-dropdown {
                 &:after {
-                  @include dropdown-indicator();
+                  @include mixin.dropdown-indicator();
                   right: 15px;
                 }
               }
@@ -203,8 +206,8 @@ body.layout-3 {
 
             &:hover {
               > .nav-link {
-                background-color: color_lighten(light, 7.6%);
-                color: color(dark);
+                background-color: variable.color_lighten(light, 7.6%);
+                color: variable.color(dark);
               }
 
               > .dropdown-menu {
@@ -217,7 +220,7 @@ body.layout-3 {
 
           .nav-item.active > .nav-link,
           .nav-item .nav-link:focus {
-            background-color: color(primary);
+            background-color: variable.color(primary);
             color: #fff;
           }
         }
@@ -307,7 +310,7 @@ body.layout-3 {
 
       &.menu-header {
         padding: 3px 15px;
-        color: color_lighten(font, 10%);
+        color: variable.color_lighten(font, 10%);
         font-size: 10px;
         text-transform: uppercase;
         letter-spacing: 1.3px;
@@ -397,11 +400,11 @@ body.layout-3 {
         a {
           // color: color(primary);
           font-weight: 600;
-          background-color: color_lighten(light, 7.6%);
+          background-color: variable.color_lighten(light, 7.6%);
         }
 
         ul.dropdown-menu {
-          background-color: color_lighten(light, 7.6%);
+          background-color: variable.color_lighten(light, 7.6%);
         }
       }
 
@@ -411,7 +414,7 @@ body.layout-3 {
         li {
           a {
             &:hover {
-              background-color: color_lighten(light, 7.6%);
+              background-color: variable.color_lighten(light, 7.6%);
             }
           }
         }
@@ -429,17 +432,17 @@ body.layout-3 {
 
         li {
           a {
-            color: color_darken(font, 5%);
+            color: variable.color_darken(font, 5%);
             height: 35px;
             padding-left: 50px;
             font-weight: 400;
 
             &:hover {
-              color: color(primary);
+              color: variable.color(primary);
               background-color: inherit;
 
               &:before {
-                color: color(primary);
+                color: variable.color(primary);
                 font-weight: 600;
                 left: 35px;
               }
@@ -458,11 +461,11 @@ body.layout-3 {
           }
 
           &.active > a {
-            color: color(primary);
+            color: variable.color(primary);
             font-weight: 600;
 
             &:before {
-              color: color(primary);
+              color: variable.color(primary);
               font-weight: 600;
             }
           }
@@ -529,7 +532,7 @@ body:not(.sidebar-mini) .sidebar-style-1 {
     li {
       &.active {
         a {
-          background-color: color(primary);
+          background-color: variable.color(primary);
           color: #fff;
         }
 
@@ -537,10 +540,10 @@ body:not(.sidebar-mini) .sidebar-style-1 {
           &.dropdown-menu {
             li {
               a {
-                color: color_lighten(primary, 28%);
+                color: variable.color_lighten(primary, 28%);
 
                 &:hover {
-                  background-color: color(primary);
+                  background-color: variable.color(primary);
                   color: #fff;
                 }
               }

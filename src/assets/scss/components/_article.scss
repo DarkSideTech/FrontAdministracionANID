@@ -1,6 +1,9 @@
+@use "../mixin";
+@use "../variable";
+
 .article {
-  @include shadow;
-  @include card-base;
+  @include mixin.shadow;
+  @include mixin.card-base;
 
   .article-header {
     height: 170px;
@@ -91,7 +94,7 @@
     }
 
     p {
-      color: color(fontdark);
+      color: variable.color(fontdark);
     }
 
     .article-cta {
@@ -109,11 +112,11 @@
         text-transform: uppercase;
         margin-bottom: 5px;
         letter-spacing: 1px;
-        color: color(fontdark);
+        color: variable.color(fontdark);
 
         a {
           font-size: 10px;
-          color: color(fontdark);
+          color: variable.color(fontdark);
           font-weight: 700;
         }
       }
@@ -132,7 +135,7 @@
       }
 
       p {
-        color: color(fontdark);
+        color: variable.color(fontdark);
       }
     }
 
@@ -161,7 +164,7 @@
   }
 }
 
-@include media-breakpoint-down(xs) {
+@include mixin.media-breakpoint-down(xs) {
   .article {
     .article-style-c {
       .article-header {
@@ -171,7 +174,7 @@
   }
 }
 
-@include media-breakpoint-only(md) {
+@include mixin.media-breakpoint-only(md) {
   .article {
     margin-bottom: 40px;
 

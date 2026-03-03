@@ -1,3 +1,6 @@
+@use "../mixin";
+@use "../variable";
+
 .author-box {
   .author-box-left {
     float: left;
@@ -25,7 +28,7 @@
 
   .author-box-picture {
     width: 100px;
-    @include shadow;
+    @include mixin.shadow;
   }
 
   .author-box-details {
@@ -45,7 +48,7 @@
     font-weight: 600;
     letter-spacing: 0.5px;
     font-size: 12px;
-    color: color(fontdark);
+    color: variable.color(fontdark);
   }
 
   .author-box-description {
@@ -61,7 +64,7 @@
   margin-top: 40px;
 }
 
-@include media-breakpoint-down(xs) {
+@include mixin.media-breakpoint-down(xs) {
   .author-box {
     .author-box-left {
       float: none;

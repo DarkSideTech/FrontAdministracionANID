@@ -1,10 +1,12 @@
+@use "variables";
+
 // List Icons
 // -------------------------
 @use 'sass:math';
 
-.#{$fa-css-prefix}-ul {
+.#{variables.$fa-css-prefix}-ul {
   list-style-type: none;
-  margin-left: math.div($fa-li-width * 5, 4);
+  margin-left: math.div(variables.$fa-li-width * 5, 4);
   padding-left: 0;
 
   > li {
@@ -12,10 +14,10 @@
   }
 }
 
-.#{$fa-css-prefix}-li {
-  left: -$fa-li-width;
+.#{variables.$fa-css-prefix}-li {
+  left: -(variables.$fa-li-width);
   position: absolute;
   text-align: center;
-  width: $fa-li-width;
+  width: variables.$fa-li-width;
   line-height: inherit;
 }

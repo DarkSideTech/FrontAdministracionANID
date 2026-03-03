@@ -1,3 +1,5 @@
+@use "../variable";
+
 /*
  *  Document   : _calendar.scss
  *  Author     : RedStar Template
@@ -173,7 +175,7 @@
 
 .fc-view {
   border-color: #f2f2f2;
-  color: color(fontdark) !important;
+  color: variable.color(fontdark) !important;
   font-weight: 500;
   padding: 10px;
 
@@ -182,7 +184,7 @@
 
     th {
       border-color: #f2f2f2;
-      color: color(fontdark) !important;
+      color: variable.color(fontdark) !important;
       font-weight: 500;
     }
   }
@@ -263,7 +265,7 @@ tr:first-child > td > .fc-day-grid-event {
   border-radius: 0;
 
   &.fc-state-active {
-    background-color: color(primary);
+    background-color: variable.color(primary);
     color: #fff;
   }
 }

@@ -1,6 +1,9 @@
+@use "../mixin";
+@use "../variable";
+
 .buttons {
   .btn {
-    @include children-margin;
+    @include mixin.children-margin;
   }
 }
 
@@ -150,14 +153,14 @@
 }
 .btn-secondary,
 .btn-secondary.disabled {
-  @include button-shadow(secondary, 7%);
-  background-color: color(secondary);
-  border-color: color(secondary);
+  @include mixin.button-shadow(secondary, 7%);
+  background-color: variable.color(secondary);
+  border-color: variable.color(secondary);
 
   &:hover,
   &:focus,
   &:active {
-    background-color: color_darken(secondary, 26%) !important;
+    background-color: variable.color_darken(secondary, 26%) !important;
     color: #fff !important;
   }
 }
@@ -167,22 +170,22 @@
   &:hover,
   &:focus,
   &:active {
-    background-color: color(secondary) !important;
+    background-color: variable.color(secondary) !important;
     color: #fff !important;
   }
 }
 
 .btn-success,
 .btn-success.disabled {
-  @include button-shadow(success);
-  background-color: color(success);
-  border-color: color(success);
+  @include mixin.button-shadow(success);
+  background-color: variable.color(success);
+  border-color: variable.color(success);
   color: #fff;
 
   &:hover,
   &:focus,
   &:active {
-    background-color: color_darken(success, 5%) !important;
+    background-color: variable.color_darken(success, 5%) !important;
     color: #fff !important;
   }
 }
@@ -192,7 +195,7 @@
   &:hover,
   &:focus,
   &:active {
-    background-color: color(success) !important;
+    background-color: variable.color(success) !important;
     color: #fff !important;
   }
 }
@@ -200,11 +203,11 @@
 .btn-danger,
 .btn-danger.disabled {
   background-color: transparent !important;
-  color: color(anid)!important;
-  border: 3px solid color(anid) !important;
+  color: variable.color(anid)!important;
+  border: 3px solid variable.color(anid) !important;
 
   &:hover {
-    background-color: color(anid) !important;
+    background-color: variable.color(anid) !important;
     color: white !important;
   }
 }
@@ -214,22 +217,22 @@
   &:hover,
   &:focus,
   &:active {
-    background-color: color_darken(danger, 13%) !important;
+    background-color: variable.color_darken(danger, 13%) !important;
     color: #fff !important;
   }
 }
 
 .btn-dark,
 .btn-dark.disabled {
-  @include button-shadow(dark, 40%);
-  background-color: color(dark);
-  border-color: color(dark);
+  @include mixin.button-shadow(dark, 40%);
+  background-color: variable.color(dark);
+  border-color: variable.color(dark);
   color: #fff;
 
   &:hover,
   &:focus,
   &:active {
-    background-color: color_darken(dark, 20%) !important;
+    background-color: variable.color_darken(dark, 20%) !important;
   }
 }
 
@@ -238,7 +241,7 @@
   &:hover,
   &:focus,
   &:active {
-    background-color: color_darken(dark, 20%) !important;
+    background-color: variable.color_darken(dark, 20%) !important;
     color: #fff !important;
   }
 }
@@ -246,35 +249,35 @@
 
 .btn-light,
 .btn-light.disabled {
-  background-color: color(light);
-  border-color: color(light);
-  color: color(dark);
+  background-color: variable.color(light);
+  border-color: variable.color(light);
+  color: variable.color(dark);
 }
 
 .btn-outline-light,
 .btn-outline-light.disabled {
-  border-color: color(light);
-  color: color(light);
+  border-color: variable.color(light);
+  color: variable.color(light);
 
   &:hover,
   &:focus,
   &:active {
-    background-color: color(light) !important;
+    background-color: variable.color(light) !important;
     color: #fff !important;
   }
 }
 
 .btn-warning,
 .btn-warning.disabled {
-  @include button-shadow(warning);
-  background-color: color(warning);
-  border-color: color(warning);
+  @include mixin.button-shadow(warning);
+  background-color: variable.color(warning);
+  border-color: variable.color(warning);
   color: #fff;
 
   &:hover,
   &:focus,
   &:active {
-    background-color: color_darken(warning, 5%) !important;
+    background-color: variable.color_darken(warning, 5%) !important;
     color: #fff !important;
   }
 }
@@ -284,22 +287,22 @@
   &:hover,
   &:focus,
   &:active {
-    background-color: color(warning) !important;
+    background-color: variable.color(warning) !important;
     color: #fff !important;
   }
 }
 
 .btn-info,
 .btn-info.disabled {
-  @include button-shadow(info);
-  background-color: color(info);
-  border-color: color(info);
+  @include mixin.button-shadow(info);
+  background-color: variable.color(info);
+  border-color: variable.color(info);
   color: #fff;
 
   &:hover,
   &:focus,
   &:active {
-    background-color: color_darken(info, 10%) !important;
+    background-color: variable.color_darken(info, 10%) !important;
   }
 }
 
@@ -308,7 +311,7 @@
   &:hover,
   &:focus,
   &:active {
-    background-color: color_darken(info, 10%) !important;
+    background-color: variable.color_darken(info, 10%) !important;
     color: #fff !important;
   }
 }
@@ -316,48 +319,48 @@
 .btn-primary1,
 .btn-primary1.disabled {
   background-color: transparent !important;
-  color: color(anid)!important;
-  border: 3px solid color(anid) !important;
+  color: variable.color(anid)!important;
+  border: 3px solid variable.color(anid) !important;
 
 
   &:hover {
-    background-color: color(anid) !important;
+    background-color: variable.color(anid) !important;
     color: white !important;
-    border: 3px solid color(anid) !important;
+    border: 3px solid variable.color(anid) !important;
   }
 }
 
 .anid-btn-primary,
 .anid-btn-primary.disabled {
-  background-color: color(anid);
-  border-color: color(anid);
-  color: color(white) !important;
+  background-color: variable.color(anid);
+  border-color: variable.color(anid);
+  color: variable.color(white) !important;
   border-radius: 0 !important;
 
   &:focus {
-    background-color: color_darken(anid, 10%) !important;
+    background-color: variable.color_darken(anid, 10%) !important;
 
     &:active {
-      background-color: color_darken(anid, 10%) !important;
+      background-color: variable.color_darken(anid, 10%) !important;
     }
   }
 
   &:active,
   &:hover {
-    background-color: color_darken(anid, 10%) !important;
+    background-color: variable.color_darken(anid, 10%) !important;
     color: #fff !important;
   }
 }
 
 .btn-outline-primary,
 .btn-outline-primary.disabled {
-  border-color: color(primary);
-  color: color(primary);
+  border-color: variable.color(primary);
+  color: variable.color(primary);
 
   &:hover,
   &:focus,
   &:active {
-    background-color: color(primary) !important;
+    background-color: variable.color(primary) !important;
     color: #fff;
   }
 }
@@ -371,7 +374,7 @@
   &:focus,
   &:active {
     background-color: #fff;
-    color: color(primary);
+    color: variable.color(primary);
   }
 }
 
@@ -420,7 +423,7 @@
 .btn-group {
   .btn {
     &.active {
-      background-color: color(primary);
+      background-color: variable.color(primary);
       color: #fff;
     }
   }
@@ -457,7 +460,7 @@
 }
 .rounded-button {
   border-radius: 50%;
-  border: 3px solid color(anid);
+  border: 3px solid variable.color(anid);
   width: 40px;
   height: 40px;
   padding: 0;

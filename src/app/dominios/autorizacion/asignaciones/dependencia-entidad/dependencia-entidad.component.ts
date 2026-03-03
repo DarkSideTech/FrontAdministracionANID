@@ -10,19 +10,18 @@ import { TranslateModule } from '@ngx-translate/core';
 import { NgScrollbar } from 'ngx-scrollbar';
 
 @Component({
-  selector: 'app-dependencia-entidad',
-  standalone: true,
-  imports: [
-    RouterLink,
-    NgxDatatableModule,
-    FormsModule,
-    ReactiveFormsModule,
-    ToastrModule,
-    TranslateModule,
-    NgScrollbar
-  ],
-  templateUrl: './dependencia-entidad.component.html',
-  styleUrl: './dependencia-entidad.component.scss'
+    selector: 'app-dependencia-entidad',
+    imports: [
+        RouterLink,
+        NgxDatatableModule,
+        FormsModule,
+        ReactiveFormsModule,
+        ToastrModule,
+        TranslateModule,
+        NgScrollbar
+    ],
+    templateUrl: './dependencia-entidad.component.html',
+    styleUrl: './dependencia-entidad.component.scss'
 })
 export class DependenciaEntidadComponent implements OnInit  {
 

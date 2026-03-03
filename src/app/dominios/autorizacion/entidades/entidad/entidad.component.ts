@@ -9,18 +9,17 @@ import { v4 as uuidv4 } from 'uuid';
 import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
-  selector: 'app-entidad',
-  standalone: true,
-  imports: [
-    RouterLink,
-    NgxDatatableModule,
-    FormsModule,
-    ReactiveFormsModule,
-    ToastrModule,
-    TranslateModule,
-  ],
-  templateUrl: './entidad.component.html',
-  styleUrl: './entidad.component.scss'
+    selector: 'app-entidad',
+    imports: [
+        RouterLink,
+        NgxDatatableModule,
+        FormsModule,
+        ReactiveFormsModule,
+        ToastrModule,
+        TranslateModule,
+    ],
+    templateUrl: './entidad.component.html',
+    styleUrl: './entidad.component.scss'
 })
 export class EntidadComponent implements OnInit  {
 

@@ -1,3 +1,6 @@
+@use "../mixin";
+@use "../variable";
+
 .user-item {
   text-align: center;
 
@@ -12,7 +15,7 @@
 
     .user-name {
       font-weight: 600;
-      color: color(dark);
+      color: variable.color(dark);
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -30,7 +33,7 @@
   }
 }
 
-@include media-breakpoint-down(xs) {
+@include mixin.media-breakpoint-down(xs) {
   .user-progress .media,
   .user-details .media {
     text-align: center;

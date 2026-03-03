@@ -1,27 +1,23 @@
-import { Router, NavigationEnd, RouterLink, RouterLinkActive } from '@angular/router';
-import { DOCUMENT, NgClass } from '@angular/common';
-import { Component, Inject, ElementRef, OnInit, Renderer2, HostListener, OnDestroy } from '@angular/core';
+import { Router, NavigationEnd, RouterLink } from '@angular/router';
+import { NgClass } from '@angular/common';
+import { Component, Inject, ElementRef, OnInit, Renderer2, HostListener, OnDestroy, DOCUMENT } from '@angular/core';
 import { ROUTES } from '../sidebar/sidebar-items';
 import { RouteInfo } from '../sidebar/sidebar.metadata';
 import { TranslateModule } from '@ngx-translate/core';
 import { FeatherModule } from 'angular-feather';
-import { NgScrollbar } from 'ngx-scrollbar';
 import { AuthService } from '@core';
 import { SafeHtmlPipe } from '../sidebar/pipes/safe-html.pipe';
 
 @Component({
-  selector: 'app-sidebar-vertical',
-  standalone: true,
-  imports: [
-    RouterLink,
-    NgScrollbar,
-    RouterLinkActive,
-    NgClass,
-    FeatherModule,
-    TranslateModule,
-    SafeHtmlPipe
-  ],
-  templateUrl: './sidebar-vertical.component.html'
+    selector: 'app-sidebar-vertical',
+    imports: [
+        RouterLink,
+        NgClass,
+        FeatherModule,
+        TranslateModule,
+        SafeHtmlPipe
+    ],
+    templateUrl: './sidebar-vertical.component.html'
 })
 export class SidebarVerticalComponent implements OnInit, OnDestroy {
   public sidebarItems!: RouteInfo[];
@@ -47,7 +43,7 @@ export class SidebarVerticalComponent implements OnInit, OnDestroy {
     });
   }
 
-  @HostListener('window:resize', ['$event'])
+  @HostListener('window:resize')
   windowResizecall() {
     if (window.innerWidth < 1025) {
       this.renderer.removeClass(this.document.body, 'side-closed');

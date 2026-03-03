@@ -1,3 +1,6 @@
+@use "../mixin";
+@use "../variable";
+
 :root {
   /* Colors */
   --primary: color(primary);
@@ -14,7 +17,7 @@ body {
   height: 100%;
 }
 body {
-background-color: color(body);
+background-color: variable.color(body);
   font-family: 'Roboto', sans-serif;
   font-size: 16px;
   font-weight: 400;
@@ -23,7 +26,7 @@ background-color: color(body);
 
 a.bb {
   text-decoration: none;
-  border-bottom: 1px solid color(primary);
+  border-bottom: 1px solid variable.color(primary);
   padding-bottom: 1px;
 }
 
@@ -45,7 +48,7 @@ a.bb {
   text-transform: uppercase;
   letter-spacing: 1px;
   font-weight: 700;
-  color: color(fontdark);
+  color: variable.color(fontdark);
 }
 
 .text-time {
@@ -129,12 +132,12 @@ a.bb {
 
 .text-title {
   font-size: 14px;
-  color: color(fontdark);
+  color: variable.color(fontdark);
   font-weight: 600;
 }
 
 .img-shadow {
-  @include shadow;
+  @include mixin.shadow;
 }
 
 .colors {
@@ -231,8 +234,8 @@ pre {
     text-align: center;
 
     &.circle-primary {
-      border-color: color(primary);
-      color: color(primary);
+      border-color: variable.color(primary);
+      color: variable.color(primary);
     }
   }
 }
@@ -248,41 +251,41 @@ pre {
 }
 
 .shadow-primary {
-  @include shadow-lighten(primary);
+  @include mixin.shadow-lighten(primary);
 }
 
 .shadow-secondary {
-  @include shadow-lighten(secondary, 7%);
+  @include mixin.shadow-lighten(secondary, 7%);
 }
 
 .shadow-success {
-  @include shadow-lighten(success);
+  @include mixin.shadow-lighten(success);
 }
 
 .shadow-warning {
-  @include shadow-lighten(warning);
+  @include mixin.shadow-lighten(warning);
 }
 
 .shadow-danger {
-  @include shadow-lighten(danger);
+  @include mixin.shadow-lighten(danger);
 }
 
 .shadow-info {
-  @include shadow-lighten(info);
+  @include mixin.shadow-lighten(info);
 }
 
 .shadow-light {
-  @include shadow-lighten(light, 1%);
+  @include mixin.shadow-lighten(light, 1%);
 }
 
 .shadow-dark {
-  @include shadow-lighten(dark, 40%);
+  @include mixin.shadow-lighten(dark, 40%);
 }
 
 .is-online {
   width: 10px;
   height: 10px;
-  background-color: color(success);
+  background-color: variable.color(success);
   border-radius: 50%;
   display: inline-block;
 }
@@ -308,7 +311,7 @@ pre {
     right: 8px;
     width: 7px;
     height: 7px;
-    background-color: color(warning);
+    background-color: variable.color(warning);
     border-radius: 50%;
     animation: pulsate 1s ease-out;
     animation-iteration-count: infinite;
@@ -323,7 +326,7 @@ pre {
   }
 }
 
-@include media-breakpoint-down(xs) {
+@include mixin.media-breakpoint-down(xs) {
   .fc-overflow {
     width: 100%;
     overflow: auto;

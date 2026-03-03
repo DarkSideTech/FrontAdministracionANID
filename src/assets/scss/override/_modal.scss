@@ -1,3 +1,5 @@
+@use "../mixin";
+
 .modal-header,.modal-footer {
   padding: 25px;
 }
@@ -173,8 +175,8 @@
     position: relative;
 
     &:after {
-      @include overlay(999);
-      @include background_spinner;
+      @include mixin.overlay(999);
+      @include mixin.background_spinner;
       border-radius: 3px;
     }
   }

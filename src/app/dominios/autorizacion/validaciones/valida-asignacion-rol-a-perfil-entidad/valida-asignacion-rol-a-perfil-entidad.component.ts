@@ -9,18 +9,17 @@ import { v4 as uuidv4 } from 'uuid';
 import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
-  selector: 'app-valida-asignacion-rol-a-perfil-entidad',
-  standalone: true,
-  imports: [
-    RouterLink,
-    NgxDatatableModule,
-    FormsModule,
-    ReactiveFormsModule,
-    ToastrModule,
-    TranslateModule,
-  ],
-  templateUrl: './valida-asignacion-rol-a-perfil-entidad.component.html',
-  styleUrl: './valida-asignacion-rol-a-perfil-entidad.component.scss'
+    selector: 'app-valida-asignacion-rol-a-perfil-entidad',
+    imports: [
+        RouterLink,
+        NgxDatatableModule,
+        FormsModule,
+        ReactiveFormsModule,
+        ToastrModule,
+        TranslateModule,
+    ],
+    templateUrl: './valida-asignacion-rol-a-perfil-entidad.component.html',
+    styleUrl: './valida-asignacion-rol-a-perfil-entidad.component.scss'
 })
 export class ValidaAsignacionRolAPerfilEntidadComponent implements OnInit  {
 

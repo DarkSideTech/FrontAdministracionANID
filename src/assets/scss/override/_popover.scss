@@ -1,5 +1,7 @@
+@use "../mixin";
+
 .popover {
-  @include shadow;
+  @include mixin.shadow;
   border-color: transparent;
 
   .manual-arrow {

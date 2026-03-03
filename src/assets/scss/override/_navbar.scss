@@ -1,3 +1,7 @@
+@use "sass:color";
+@use "../mixin";
+@use "../variable";
+
 .navbar {
   height: 90px !important;
   right: 0px;
@@ -13,8 +17,8 @@
   background-color: #092039 !important;
 
   &.active {
-    background-color: color(primary);
-    @include shadow(to_opacity(primary, 0.2));
+    background-color: variable.color(primary);
+    @include mixin.shadow(variable.to_opacity(primary, 0.2));
   }
 }
 
@@ -117,7 +121,7 @@
         letter-spacing: 1.3px;
         font-weight: 600;
         font-size: 10px;
-        color: color_lighten(font, 30%);
+        color: variable.color_lighten(font, 30%);
       }
 
       .search-item {
@@ -127,13 +131,13 @@
           display: block;
           padding: 13px 18px;
           text-decoration: none;
-          color: color(fontdark);
+          color: variable.color(fontdark);
           font-weight: 600;
           display: flex;
           align-items: center;
 
           &:hover {
-            background-color: color_lighten(primary, 32%);
+            background-color: variable.color_lighten(primary, 32%);
           }
 
           &:not(.search-close) {
@@ -168,7 +172,7 @@
   }
 
   .nav-link {
-    color: darken(#fff, 5%);
+    color: color.adjust(#fff, $lightness: -5%);
     padding-left: 12px !important;
     padding-right: 12px !important;
     height: 100%;
@@ -217,7 +221,7 @@
       overflow: hidden;
 
       .flag-icon {
-        @include shadow;
+        @include mixin.shadow;
         border-radius: 50%;
         line-height: 18px;
         height: 22px;
@@ -284,7 +288,7 @@
   display: flex;
 }
 
-@include media-breakpoint-down(xs) {
+@include mixin.media-breakpoint-down(xs) {
   body.search-show .navbar .form-inline{
     display: block;
   }
@@ -326,13 +330,13 @@
   }
 }
 
-@include media-breakpoint-only(sm) {
+@include mixin.media-breakpoint-only(sm) {
   .navbar .form-inline .search-element {
     display: block;
   }
 }
 
-@include media-breakpoint-only(md) {
+@include mixin.media-breakpoint-only(md) {
   .collapse {
     position: relative;
 
@@ -348,7 +352,7 @@
     position: relative;
 
     .navbar-nav {
-      @include shadow(0 0 30px);
+      @include mixin.shadow(0 0 30px);
       position: absolute;
       top: 40px;
       left: 0;
@@ -370,18 +374,18 @@
 
         .nav-link {
           background-color: #fff;
-          color: color(font);
+          color: variable.color(font);
 
           &:hover {
-            background-color: color_lighten(light, 7.6%);
-            color: color(primary);
+            background-color: variable.color_lighten(light, 7.6%);
+            color: variable.color(primary);
           }
         }
 
         &:focus,
         &.active {
           > a {
-            background-color: color(primary);
+            background-color: variable.color(primary);
             color: #fff;
           }
         }
@@ -643,17 +647,17 @@ input[type="search"]::-webkit-search-cancel-button {
 
 }
 .menu-item:hover{
-  color: color(grey-claro);
+  color: variable.color(grey-claro);
   background-color: #092039 !important;
 }
 
 a.menu-item:focus, a.menu-item:active, a.menu-item.active {
     background-color: #092039 !important;
-    color: color(grey-claro);
+    color: variable.color(grey-claro);
 }
 button.menu-item:focus, button.menu-item:active, button.menu-item.active {
     background-color: #092039 !important;
-    color: color(grey-claro);
+    color: variable.color(grey-claro);
 }
 .dropdown-flag{
     left: 0 !important;

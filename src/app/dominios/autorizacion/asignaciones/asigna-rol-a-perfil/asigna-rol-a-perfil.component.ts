@@ -10,19 +10,18 @@ import { TranslateModule } from '@ngx-translate/core';
 import { NgScrollbar } from 'ngx-scrollbar';
 
 @Component({
-  selector: 'app-asigna-rol-a-perfil',
-  standalone: true,
-  imports: [
-    RouterLink,
-    NgxDatatableModule,
-    FormsModule,
-    ReactiveFormsModule,
-    ToastrModule,
-    TranslateModule,
-    NgScrollbar
-  ],
-  templateUrl: './asigna-rol-a-perfil.component.html',
-  styleUrl: './asigna-rol-a-perfil.component.scss'
+    selector: 'app-asigna-rol-a-perfil',
+    imports: [
+        RouterLink,
+        NgxDatatableModule,
+        FormsModule,
+        ReactiveFormsModule,
+        ToastrModule,
+        TranslateModule,
+        NgScrollbar
+    ],
+    templateUrl: './asigna-rol-a-perfil.component.html',
+    styleUrl: './asigna-rol-a-perfil.component.scss'
 })
 export class AsignaRolAPerfilComponent implements OnInit  {
 

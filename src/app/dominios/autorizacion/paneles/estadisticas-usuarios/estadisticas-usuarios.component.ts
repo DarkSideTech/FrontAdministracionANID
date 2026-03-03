@@ -7,19 +7,18 @@ import { RouterLink } from '@angular/router';
 import { DatatableComponent, NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 @Component({
-  selector: 'app-estadisticas-usuarios',
-  standalone: true,
-  imports: [
-    RouterLink,
-    NgxEchartsDirective,
-    BarChartModule,
-    NgxDatatableModule
-  ],
-  providers: [
-    provideEcharts(),
-  ],
-  templateUrl: './estadisticas-usuarios.component.html',
-  styleUrl: './estadisticas-usuarios.component.scss'
+    selector: 'app-estadisticas-usuarios',
+    imports: [
+        RouterLink,
+        NgxEchartsDirective,
+        BarChartModule,
+        NgxDatatableModule
+    ],
+    providers: [
+        provideEcharts(),
+    ],
+    templateUrl: './estadisticas-usuarios.component.html',
+    styleUrl: './estadisticas-usuarios.component.scss'
 })
 export class EstadisticasUsuariosComponent {
   //Bar Chart

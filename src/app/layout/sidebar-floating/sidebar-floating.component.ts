@@ -5,34 +5,31 @@ import {
   Renderer2,
   HostListener,
   OnInit,
-  OnDestroy
+  OnDestroy,
+  DOCUMENT
 } from '@angular/core';
 
-import { DOCUMENT, CommonModule } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { Router, NavigationEnd, RouterLink, RouterLinkActive } from '@angular/router';
 import { ROUTES } from '../sidebar/sidebar-items';
 import { RouteInfo } from '../sidebar/sidebar.metadata';
-
 import { TranslateModule } from '@ngx-translate/core';
 import { FeatherModule } from 'angular-feather';
-import { NgScrollbar } from 'ngx-scrollbar';
 import { AuthService } from '@core';
 import { SafeHtmlPipe } from '../sidebar/pipes/safe-html.pipe';
 
 
 @Component({
-  selector: 'app-sidebar-floating',
-  standalone: true,
-  imports: [
-    CommonModule,
-    RouterLink,
-    RouterLinkActive,
-    NgScrollbar,
-    FeatherModule,
-    TranslateModule,
-    SafeHtmlPipe
-  ],
-  templateUrl: './sidebar-floating.component.html',
+    selector: 'app-sidebar-floating',
+    imports: [
+        CommonModule,
+        RouterLink,
+        RouterLinkActive,
+        FeatherModule,
+        TranslateModule,
+        SafeHtmlPipe
+    ],
+    templateUrl: './sidebar-floating.component.html'
 })
 export class SidebarFloatingComponent implements OnInit, OnDestroy {
 

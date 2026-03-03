@@ -4,90 +4,88 @@
     class="btn-open-sidebar boton-flotante"
     [class.active]="panelStack.length > 0"
     (click)="openMenu()"
-  >
+    >
     <svg width="20" height="20" viewBox="0 0 18 10" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
         d="M0 6H2V4H0V6ZM0 10H2V8H0V10ZM0 2H2V0H0V2ZM4 6H18V4H4V6ZM4 10H18V8H4V10ZM4 0V2H18V0H4Z"
         fill="currentColor"
-      />
-    </svg>
-    Menú
-  </button>
-</div>
-
-<!-- SIDEBAR FLOTANTE -->
-<div
-  class="float-sidebar-container"
-  *ngIf="panelStack.length > 0"
->
-  <div class="sidebar-floating">
-    <div class="floating-panels">
-
-      <ul
-        class="list23"
-        *ngFor="let panel of panelStack; let i = index"
-        [style.right.px]="i * 255"
-        [style.top.px]="panelPositions[i]"
-      >
-
-        <!-- INICIO SOLO EN EL PRIMER PANEL -->
-        <a
-          *ngIf="i === 0"
-          routerLink="/paneles/estadisticas-usuarios"
-          class="home-sidebar-floating"
-          routerLinkActive="active"
-        >
-          <svg class="home-sidebarfloating"width="13" height="13" viewBox="0 0 27 23" xmlns="http://www.w3.org/2000/svg">
-            <path d="M13.3333 3.58667L20 9.58667V20H17.3333V12H9.33333V20H6.66667V9.58667L13.3333 3.58667ZM13.3333 0L0 12H4V22.6667H12V14.6667H14.6667V22.6667H22.6667V12H26.6667L13.3333 0Z" fill="currentColor"/>
-          </svg>
-          <span class="home-inicio">Inicio</span>
-        </a>
-
-        <li
-          *ngFor="let item of panel"
-          class="menu2-floating"
-          [class.active]="item.active"
-        >
-
-          <a
-            [routerLink]="item.submenu?.length > 0 ? [] : item.path"
-            class="menu-top12"
-            (click)="onItemClick($event, item, i)"
-          >
-            <!-- ÍCONO CUSTOM -->
-            <span
-              *ngIf="item.customSvg"
-              class="customSvg"
-              [innerHTML]="item.customSvg | safeHtml">
-            </span>
-            <span class="hide-menu">
-              {{ item.title | translate }}
-            </span>
-
-            <span *ngIf="item.badge" [ngClass]="item.badgeClass">
-              {{ item.badge }}
-            </span>
-
-            <!-- Flecha si tiene submenu -->
-            <svg
-              *ngIf="item.submenu?.length > 0"
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              class="ml-iconsidebar"
-            >
-              <path
-                d="M16.59 8.29501L12 12.875L7.41 8.29501L6 9.70501L12 15.705L18 9.70501L16.59 8.29501Z"
-                fill="currentColor"
-              />
-            </svg>
-
-          </a>
-
-        </li>
-
-      </ul>
-
-    </div>
+        />
+      </svg>
+      Menú
+    </button>
   </div>
-</div>
+
+  <!-- SIDEBAR FLOTANTE -->
+  @if (panelStack.length > 0) {
+    <div
+      class="float-sidebar-container"
+      >
+      <div class="sidebar-floating">
+        <div class="floating-panels">
+          @for (panel of panelStack; track panel; let i = $index) {
+            <ul
+              class="list23"
+              [style.right.px]="i * 255"
+              [style.top.px]="panelPositions[i]"
+              >
+              <!-- INICIO SOLO EN EL PRIMER PANEL -->
+              @if (i === 0) {
+                <a
+                  routerLink="/paneles/estadisticas-usuarios"
+                  class="home-sidebar-floating"
+                  routerLinkActive="active"
+                  >
+                  <svg class="home-sidebarfloating"width="13" height="13" viewBox="0 0 27 23" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M13.3333 3.58667L20 9.58667V20H17.3333V12H9.33333V20H6.66667V9.58667L13.3333 3.58667ZM13.3333 0L0 12H4V22.6667H12V14.6667H14.6667V22.6667H22.6667V12H26.6667L13.3333 0Z" fill="currentColor"/>
+                  </svg>
+                  <span class="home-inicio">Inicio</span>
+                </a>
+              }
+              @for (item of panel; track item) {
+                <li
+                  class="menu2-floating"
+                  [class.active]="item.active"
+                  >
+                  <a
+                    [routerLink]="item.submenu?.length > 0 ? [] : item.path"
+                    class="menu-top12"
+                    (click)="onItemClick($event, item, i)"
+                    >
+                    <!-- ÍCONO CUSTOM -->
+                    @if (item.customSvg) {
+                      <span
+                        class="customSvg"
+                        [innerHTML]="item.customSvg | safeHtml">
+                      </span>
+                    }
+                    <span class="hide-menu">
+                      {{ item.title | translate }}
+                    </span>
+                    @if (item.badge) {
+                      <span [ngClass]="item.badgeClass">
+                        {{ item.badge }}
+                      </span>
+                    }
+                    <!-- Flecha si tiene submenu -->
+                    @if (item.submenu?.length > 0) {
+                      <svg
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        class="ml-iconsidebar"
+                        >
+                        <path
+                          d="M16.59 8.29501L12 12.875L7.41 8.29501L6 9.70501L12 15.705L18 9.70501L16.59 8.29501Z"
+                          fill="currentColor"
+                          />
+                        </svg>
+                      }
+                    </a>
+                  </li>
+                }
+              </ul>
+            }
+          </div>
+        </div>
+      </div>
+    }
