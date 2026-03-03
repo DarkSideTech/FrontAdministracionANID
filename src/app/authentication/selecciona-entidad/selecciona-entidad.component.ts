@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { DatatableComponent, SelectionType, NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { ToastrModule } from 'ngx-toastr';
 import { TranslateModule } from '@ngx-translate/core';
-import { ServicioDeDominioService } from '@core/service/controllers/servicio-de-dominio.service';
 import { AuthService } from '@core/service/auth.service';
 import { OrganizacionPorUsuario } from '@core/models/servicioDeDominioController';
 import { LoginOrganizacion } from '@core/models/accountController';
@@ -50,8 +49,7 @@ export class SeleccionaEntidadComponent implements OnInit  {
   constructor(
     private fb: UntypedFormBuilder,
     private router: Router,
-    private authService: AuthService,
-    private servicioDeDominio: ServicioDeDominioService
+    private authService: AuthService
   ) {
     this.seleccionaEntidadForm = this.fb.group({
       codigo_Organizacion: new UntypedFormControl(),
@@ -90,6 +88,11 @@ export class SeleccionaEntidadComponent implements OnInit  {
       .subscribe({
         next: (data) => {
           this.data = data;
+          if(this.data.length === 1){
+            this.loginOrganizacion.organizacion = this.data[0].codigo_Organizacion;
+            // this.authService
+            //   .loginOrganizacion(this.loginOrganizacion);
+          }
         },
         error: (error) => {
           console.error('Error fetching data:', error);
@@ -99,24 +102,6 @@ export class SeleccionaEntidadComponent implements OnInit  {
 
   onSubmit() {
     this.router.navigate(['dominios/autorizacion/paneles/estadisticas-usuarios']);
-  }
-
-  fetch() {
-    this.serviciosDeDominio.buscarOrganizacionesPor_Id_Usuario(this.authService.currentUserValue.Id).subscribe(datos => {
-        this.data = datos;
-        this.filteredData = datos;
-        setTimeout(() => {
-          this.loadingIndicator = false;
-        }, 500);
-        console.log('Resultado de buscarrDatos dentro de fetch:', datos); 
-
-        if(this.data.length === 1){
-          this.loginOrganizacion.organizacion = this.data[0].codigo_Organizacion;
-          // this.authService
-          //   .loginOrganizacion(this.loginOrganizacion);
-        }
-
-      });
   }
 
   filterDatatable(event: any) {
