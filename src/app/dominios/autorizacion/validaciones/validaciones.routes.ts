@@ -8,11 +8,11 @@ export const VALIDACIONES_ROUTE: Route[] = [
   {
     path: 'valida-enrrolamiento',
     component: ValidaEnrrolamientoComponent,
-    canActivate: [IsAdminAnidGuard],
+    //canActivate: [IsAdminAnidGuard],
   },
   {
     path: 'valida-asignacion-rol-a-perfil-entidad',
     component: ValidaAsignacionRolAPerfilEntidadComponent,
-    canActivate: [IsAdminAnidOrEntidadGuard],
+    //canActivate: [IsAdminAnidOrEntidadGuard],
   },
 ];

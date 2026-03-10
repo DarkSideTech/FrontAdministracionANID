@@ -6,6 +6,6 @@ export const PANELES_ROUTE: Route[] = [
   {
     path: 'estadisticas-usuarios',
     component: EstadisticasUsuariosComponent,
-    canActivate: [AuthGuard],
+    // canActivate: [AuthGuard],
   },
 ];

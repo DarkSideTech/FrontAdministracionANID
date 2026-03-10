@@ -9,7 +9,7 @@ export const DOMINIOS_ROUTE : Route[] = [
       import('./autorizacion/autorizacion.routes').then(
         (m) => m.AUTORIZACION_ROUTE
       ),
-    canActivate: [AuthGuard],
+    // canActivate: [AuthGuard],
   },
 ];
 

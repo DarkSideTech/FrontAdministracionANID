@@ -84,20 +84,21 @@ export class SeleccionaEntidadComponent implements OnInit  {
   }
 
   fetchData() {
-    this.serviciosDeDominio.getBuscarOrganizacionesPor_Usuario()
-      .subscribe({
-        next: (data) => {
-          this.data = data;
-          if(this.data.length === 1){
-            this.loginOrganizacion.organizacion = this.data[0].codigo_Organizacion;
-            // this.authService
-            //   .loginOrganizacion(this.loginOrganizacion);
-          }
-        },
-        error: (error) => {
-          console.error('Error fetching data:', error);
-        }
-      });
+    this.data = [{"codigo_Organizacion": "ORG001", "nombre_Organizacion": "Organización 1"}, {"codigo_Organizacion": "ORG002", "nombre_Organizacion": "Organización 2"}];
+    // this.serviciosDeDominio.getBuscarOrganizacionesPor_Usuario()
+    //   .subscribe({
+    //     next: (data) => {
+    //       this.data = data;
+    //       if(this.data.length === 1){
+    //         this.loginOrganizacion.organizacion = this.data[0].codigo_Organizacion;
+    //         // this.authService
+    //         //   .loginOrganizacion(this.loginOrganizacion);
+    //       }
+    //     },
+    //     error: (error) => {
+    //       console.error('Error fetching data:', error);
+    //     }
+    //   });
   }
 
   onSubmit() {

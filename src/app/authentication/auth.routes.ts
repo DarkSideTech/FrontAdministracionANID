@@ -8,6 +8,8 @@ import { ResetComponent } from "./reset/reset.component";
 import { SeleccionaEntidadComponent } from "./selecciona-entidad/selecciona-entidad.component";
 import { MiPerfilComponent } from "./mi-perfil/mi-perfil.component";
 import { isAuthenticatedGuard } from "@core/guard/is-authenticated.guard";
+import { LogoutComponent } from "./logout/logout.component";
+import CallbackClaveUnicaComponent from "./callback-clave-unica/callback-clave-unica.component";
 export const AUTH_ROUTE: Route[] = [
   {
     path: '',
@@ -17,7 +19,7 @@ export const AUTH_ROUTE: Route[] = [
   {
     path: 'mi-perfil',
     component: MiPerfilComponent,
-    //canMatch: [isAuthenticatedGuard],
+    canMatch: [isAuthenticatedGuard],
   },
   {
     path: 'signin',
@@ -26,7 +28,7 @@ export const AUTH_ROUTE: Route[] = [
   {
     path: 'selecciona-entidad',
     component: SeleccionaEntidadComponent,
-    //canActivate: [isAuthenticatedGuard],
+    canActivate: [isAuthenticatedGuard],
   },
   {
     path: 'signup',
@@ -47,5 +49,13 @@ export const AUTH_ROUTE: Route[] = [
   {
     path: 'page500',
     component: Page500Component,
+  },
+  {
+    path: 'logout',
+    component: LogoutComponent,
+  },
+  {
+    path: 'callback-clave-unica',
+    component: CallbackClaveUnicaComponent,
   },
 ];

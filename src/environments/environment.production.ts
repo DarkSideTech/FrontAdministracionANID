@@ -5,6 +5,11 @@
 export const environment = {
   production: true,
   apiUrl: 'http://localhost:5002/api',
+  clientIdClaveUnica: 'dev111222333444555666777888999000',
+  redirecUriClaveUnica: 'devhttp://localhost:4210/#/authentication/selecciona-entidad',
+  uriLogoutClaveUnica: 'devhttp://localhost:4210/#/authentication/logout',
+  baseUrl: 'devhttp://localhost:4210/',
+  claveUnicaUrl: 'https://accounts.claveunica.gob.cl/openid/authorize/?',
 };
 
 /*

@@ -3,8 +3,6 @@ import { ApplicationConfig, importProvidersFrom } from '@angular/core';
 import { APP_ROUTE } from './app.routes';
 import { provideRouter } from '@angular/router';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
-import { JwtInterceptor } from '@core/interceptor/jwt.interceptor';
-//import { ErrorInterceptor } from '@core/interceptor/error.interceptor';
 import { DirectionService, LanguageService } from '@core';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -27,7 +25,7 @@ export const appConfig: ApplicationConfig = {
         provideRouter(APP_ROUTE),
         provideToastr(),
         { provide: LocationStrategy, useClass: HashLocationStrategy },
-        { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+        //{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
         //{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
         DirectionService, LanguageService,
         importProvidersFrom(

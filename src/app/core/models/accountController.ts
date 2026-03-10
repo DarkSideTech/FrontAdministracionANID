@@ -4,8 +4,6 @@ export class Login {
 }
 
 export class LoginOrganizacion {
-    email: string;
-    password: string;
     organizacion: string;
 }
 
@@ -34,6 +32,11 @@ export class Register {
 }
 
 export class ValidateEmail {
+    userId: string;
+    confirmationToken: string;
+}
+
+export class DatosUsuario {
     userId: string;
     confirmationToken: string;
 }

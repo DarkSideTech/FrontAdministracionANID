@@ -12,21 +12,21 @@ export const ENTIDADES_ROUTE: Route[] = [
   {
     path: 'usuario',
     component: UsuarioComponent,
-    canMatch: [IsAdminAnidOrEntidadOrUnidadGuard],
+    // canMatch: [IsAdminAnidOrEntidadOrUnidadGuard],
   },
   {
     path: 'proveedor',
     component: ProveedorComponent,
-    canMatch: [IsAdminAnidGuard],
+    // canMatch: [IsAdminAnidGuard],
   },
   {
     path: 'entidad',
     component: EntidadComponent,
-    canMatch: [IsAdminAnidOrEntidadGuard],
+    // canMatch: [IsAdminAnidOrEntidadGuard],
   },
   {
     path: 'rol',
     component: RolComponent,
-    canMatch: [IsAdminAnidGuard],
+    // canMatch: [IsAdminAnidGuard],
   },
 ];

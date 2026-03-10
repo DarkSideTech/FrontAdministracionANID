@@ -20,6 +20,8 @@ import { FeatherModule } from 'angular-feather';
 import { RouterModule } from '@angular/router';
 import { AuthService } from '@core';
 import { Login } from '@core/models/accountController';
+import { environment } from 'environments/environment';
+import { nanoid } from 'nanoid';
 
 @Component({
     selector: 'app-signin',
@@ -39,6 +41,11 @@ import { Login } from '@core/models/accountController';
 })
 export class SigninComponent implements OnInit {
 
+  /** PARAMETROS CLAVE UNICA **/
+  clientId = environment.clientIdClaveUnica;
+  redirectUri = environment.redirecUriClaveUnica;
+  claveUnicaUrl = environment.claveUnicaUrl;
+
   /** FORMULARIO CLAVE ÚNICA **/
   loginForm!: UntypedFormGroup;
 
@@ -57,19 +64,11 @@ export class SigninComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-
     this.loginForm = this.formBuilder.group({
       username: ['administrador@security.com', [Validators.required, Validators.email]],
       password: ['Changeme123#', Validators.required],
       remember: [false],
     });
-
-    this.foreignForm = this.formBuilder.group({
-      passport: ['', Validators.required],
-      country: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-    });
-
   }
 
   get f() {
@@ -102,53 +101,14 @@ export class SigninComponent implements OnInit {
                   console.error('There was an error!', error);
                 }
               });
-
-      // .subscribe({
-      //   next: (res) => {
-      //     if (res) {
-      //       if (res) {
-      //         const token = this.authService.currentUserValue.Token;
-      //         console.log('Usuario despues de ir al servicio de login:', this.authService.currentUserValue);
-      //         if (token) {
-      //           this.router.navigate(['/authentication/selecciona-entidad']);
-      //         }
-      //       } else {
-      //         this.error = 'Invalid Login';
-      //       }
-      //     } else {
-      //       this.error = 'Invalid Login';
-      //     }
-      //   },
-      //   error: (error) => {
-      //     console.error(error);
-      //     this.error = 'No se puede validar credenciales en este momento, consulte con algun administrador';
-      //     this.submitted = false;
-      //   },
-      // });
   }
 
-  /*********************
-   * FORM EXTRANJERO
-   ********************/
-  onForeignSubmit(): void {
-    if (this.foreignForm.invalid) {
-      this.foreignForm.markAllAsTouched();
-      return;
-    }
+  goClaveUnica(): void {
+    const encodedUrl = encodeURIComponent(this.redirectUri);
+    const state = nanoid();
 
-    console.log('Formulario Extranjero:', this.foreignForm.value);
-
-
-
-    this.router.navigate(['/authentication/selecciona-entidad']);
-  }
-
-  /*********************
-   * CLAVE ÚNICA (BOTÓN)
-   ********************/
-  goNextStep(): void {
-    console.log('Clave Única pulsada');
-    this.router.navigate(['/authentication/selecciona-entidad']);
+    const params = `client_id=${this.clientId}&response_type=code&scope=openid run name&redirect_uri=${encodedUrl}&state=${state}`;
+    window.location.href =  this.claveUnicaUrl + params;
   }
 
   selectTab(tab: 'claveunica' | 'extranjero') {

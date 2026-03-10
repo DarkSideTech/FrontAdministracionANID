@@ -13,17 +13,17 @@ export const ASIGNACIONES_ROUTE: Route[] = [
   {
     path: 'crea-perfil-usuario-entidad',
     component: CreaPerfilUsuarioEntidadComponent,
-    canMatch: [IsAdminAnidOrEntidadOrUnidadGuard],
+    // canMatch: [IsAdminAnidOrEntidadOrUnidadGuard],
   },
   {
     path: 'asigna-rol-a-perfil',
     component: AsignaRolAPerfilComponent,
-    canMatch: [IsAdminEntidadOrUnidadGuard],
+    // canMatch: [IsAdminEntidadOrUnidadGuard],
   },
   {
     path: 'dependencia-entidad',
     component: DependenciaEntidadComponent,
-    canActivate: [AuthGuard],
-    canMatch: [IsAdminAnidGuard],
+    // canActivate: [AuthGuard],
+    // canMatch: [IsAdminAnidGuard],
   },
 ];
