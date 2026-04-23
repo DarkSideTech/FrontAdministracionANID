@@ -1,0 +1,85 @@
+<section class="main-content mx-auto">
+    <div class="section-body entidad-body">
+        <div class="row clearfix justify-content-center">
+            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-8 body_a">
+                <div class="card mx-auto asign_body" style="width: 100%">
+                    <div class="p-10 table_asign">
+                        <div class="brand-table">
+                          <img src="assets/images/dst/anid/anid_rojo_azul.png" class="rounded mx-auto d-block" style="max-width: 110px" alt="logo"/>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="row m-0" id="title_two">
+                                    <div class="col-auto p-0">
+                                        <div class="ngxTableHeader">
+                                            <div class="table-title">
+                                                <h2 class="titletwo"><strong>Selecciona organizacion</strong></h2>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="row m-0 center_asign">
+                                    <div class="col-auto p-0">
+                                        <div class="ngxTableHeader">
+                                            <div class="table-title">
+                                                <p class="mb-0 login-p2 asign_login">
+                                                    <small class="text-dark">
+                                                        Hemos encontrado {{ organizations().length }} organizaciones asociadas a tu usuario.
+                                                        Selecciona una para continuar.
+                                                    </small>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row organization-options-row">
+                            <div class="col-12 organization-options">
+                                @for (organization of organizations(); track organization.Codigo_Organizacion) {
+                                    <button
+                                        class="btn mb-2 w-100 organization-option"
+                                        type="button"
+                                        [ngClass]="selectedOrganizationCode() === organization.Codigo_Organizacion ? 'anid-btn-primary' : 'btn-outline-primary'"
+                                        (click)="selectOrganization(organization.Codigo_Organizacion)"
+                                        [disabled]="loading()"
+                                    >
+                                        <span class="organization-option__name">
+                                            {{ organization.Nombre_Organizacion || 'Organizacion sin nombre' }}
+                                        </span>
+                                    </button>
+                                }
+                            </div>
+                        </div>
+
+                        @if (errorMessage()) {
+                            <div class="row justify-content-center">
+                                <div class="col-lg-10">
+                                    <div class="alert alert-danger mb-0">
+                                        {{ errorMessage() }}
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    <div class="card-footer text-center organization-actions">
+                        <button type="button" class="btn btn-outline-secondary" (click)="goBack()" [disabled]="loading()">Volver</button>
+                        <button
+                            type="button"
+                            class="btn anid-btn-primary"
+                            (click)="confirmSelection()"
+                            [disabled]="loading() || !selectedOrganizationCode()"
+                        >
+                            {{ loading() ? 'Ingresando...' : 'Seleccionar organizacion' }}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

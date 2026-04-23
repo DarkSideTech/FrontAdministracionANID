@@ -1,12 +1,11 @@
 import { Router, NavigationEnd, RouterLink } from '@angular/router';
 import { NgClass } from '@angular/common';
-import { Component, Inject, ElementRef, OnInit, Renderer2, HostListener, OnDestroy, DOCUMENT } from '@angular/core';
-import { ROUTES } from '../sidebar/sidebar-items';
+import { Component, Inject, ElementRef, OnInit, Renderer2, HostListener, OnDestroy, DOCUMENT, effect, inject, Injector } from '@angular/core';
 import { RouteInfo } from '../sidebar/sidebar.metadata';
 import { TranslateModule } from '@ngx-translate/core';
 import { FeatherModule } from 'angular-feather';
-import { AuthService } from '@core';
 import { SafeHtmlPipe } from '../sidebar/pipes/safe-html.pipe';
+import { SidebarMenuService } from '../sidebar/sidebar-menu.service';
 
 @Component({
     selector: 'app-sidebar-vertical',
@@ -20,6 +19,7 @@ import { SafeHtmlPipe } from '../sidebar/pipes/safe-html.pipe';
     templateUrl: './sidebar-vertical.component.html'
 })
 export class SidebarVerticalComponent implements OnInit, OnDestroy {
+  private readonly injector = inject(Injector);
   public sidebarItems!: RouteInfo[];
   public innerHeight?: number;
   public bodyTag!: HTMLElement;
@@ -32,7 +32,7 @@ export class SidebarVerticalComponent implements OnInit, OnDestroy {
     @Inject(DOCUMENT) private document: Document,
     private renderer: Renderer2,
     public elementRef: ElementRef,
-    private authService: AuthService,
+    private sidebarMenuService: SidebarMenuService,
     private router: Router
   ) {
     this.routerObj = this.router.events.subscribe((event) => {
@@ -97,8 +97,10 @@ export class SidebarVerticalComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.sidebarItems = ROUTES;
-    this.sidebarItems.forEach(item => this.setItemClosed(item));
+    effect(() => {
+      this.sidebarItems = this.sidebarMenuService.getMenuItems();
+      this.sidebarItems.forEach(item => this.setItemClosed(item));
+    }, { injector: this.injector });
 
     this.initLeftSidebar();
     this.bodyTag = this.document.body;

@@ -17,47 +17,98 @@
         <ul class="list">
           @for (sidebarItem of sidebarItems; track sidebarItem) {
             <li class="parent" [routerLinkActive]="sidebarItem.submenu.length ? 'active' : 'active-top'">
-              <a [routerLink]="sidebarItem.submenu.length > 0 ? null : sidebarItem.path"
-                 class="menu-top"
-                 (click)="callToggleMenu($event, sidebarItem.submenu.length)">
-                <span class="hide-menu">{{sidebarItem.title | translate}}</span>
-                @if (sidebarItem.badge !== '') {
-                  <span [ngClass]="[sidebarItem.badgeClass]">{{sidebarItem.badge}}</span>
-                }
-                <svg width="24" height="24" viewBox="0 0 24 24" class="ml-icon">
-                  <path d="M16.59 8.29501L12 12.875L7.41 8.29501L6 9.70501L12 15.705L18 9.70501L16.59 8.29501Z" fill="currentColor"/>
-                </svg>
-              </a>
+              @if (sidebarItem.path && sidebarItem.submenu.length === 0) {
+                <a [routerLink]="sidebarItem.path"
+                   class="menu-top"
+                   [attr.title]="sidebarItem.tooltip || sidebarItem.title">
+                  <span class="hide-menu">{{sidebarItem.title | translate}}</span>
+                  @if (sidebarItem.badge !== '') {
+                    <span [ngClass]="[sidebarItem.badgeClass]">{{sidebarItem.badge}}</span>
+                  }
+                  <svg width="24" height="24" viewBox="0 0 24 24" class="ml-icon">
+                    <path d="M16.59 8.29501L12 12.875L7.41 8.29501L6 9.70501L12 15.705L18 9.70501L16.59 8.29501Z" fill="currentColor"/>
+                  </svg>
+                </a>
+              } @else {
+                <a [attr.href]="sidebarItem.href || null"
+                   [attr.target]="sidebarItem.target || null"
+                   [attr.rel]="sidebarItem.rel || null"
+                   class="menu-top"
+                   [attr.title]="sidebarItem.tooltip || sidebarItem.title"
+                   (click)="callToggleMenu($event, sidebarItem.submenu.length)">
+                  <span class="hide-menu">{{sidebarItem.title | translate}}</span>
+                  @if (sidebarItem.badge !== '') {
+                    <span [ngClass]="[sidebarItem.badgeClass]">{{sidebarItem.badge}}</span>
+                  }
+                  <svg width="24" height="24" viewBox="0 0 24 24" class="ml-icon">
+                    <path d="M16.59 8.29501L12 12.875L7.41 8.29501L6 9.70501L12 15.705L18 9.70501L16.59 8.29501Z" fill="currentColor"/>
+                  </svg>
+                </a>
+              }
 
               <!-- Primer nivel -->
               <ul class="ml-menu">
                 @for (sidebarSubItem1 of sidebarItem.submenu; track sidebarSubItem1) {
                   <li class="parent" [routerLinkActive]="sidebarSubItem1.submenu.length ? '' : 'active'">
-                    <a [routerLink]="sidebarSubItem1.submenu.length > 0 ? null : sidebarSubItem1.path"
-                       class="ml-a"
-                       (click)="callToggleMenu($event, sidebarSubItem1.submenu.length)">
-                      {{sidebarSubItem1.title | translate}}
+                    @if (sidebarSubItem1.path && sidebarSubItem1.submenu.length === 0) {
+                      <a [routerLink]="sidebarSubItem1.path"
+                         class="ml-a"
+                         [attr.title]="sidebarSubItem1.tooltip || sidebarSubItem1.title">
+                        {{sidebarSubItem1.title | translate}}
                         <svg width="18" height="18" class="ml-icon2">
                           <path d="M9.70498 6L8.29498 7.41L12.875 12L8.29498 16.59L9.70498 18L15.705 12L9.70498 6Z" fill="currentColor"/>
                         </svg>
-                    </a>
+                      </a>
+                    } @else {
+                      <a [attr.href]="sidebarSubItem1.href || null"
+                         [attr.target]="sidebarSubItem1.target || null"
+                         [attr.rel]="sidebarSubItem1.rel || null"
+                         class="ml-a"
+                         [attr.title]="sidebarSubItem1.tooltip || sidebarSubItem1.title"
+                         (click)="callToggleMenu($event, sidebarSubItem1.submenu.length)">
+                        {{sidebarSubItem1.title | translate}}
+                        <svg width="18" height="18" class="ml-icon2">
+                          <path d="M9.70498 6L8.29498 7.41L12.875 12L8.29498 16.59L9.70498 18L15.705 12L9.70498 6Z" fill="currentColor"/>
+                        </svg>
+                      </a>
+                    }
 
                     <!-- Segundo nivel -->
                     <ul class="ml-menu-2">
                       @for (sidebarSubItem2 of sidebarSubItem1.submenu; track sidebarSubItem2) {
                         <li class="parent" [routerLinkActive]="sidebarSubItem2.submenu.length ? '' : 'active'">
-                          <a [routerLink]="sidebarSubItem2.submenu.length > 0 ? null : sidebarSubItem2.path"
-                             (click)="callToggleMenu($event, sidebarSubItem2.submenu.length)">
-                            {{sidebarSubItem2.title | translate}}
-                          </a>
+                          @if (sidebarSubItem2.path && sidebarSubItem2.submenu.length === 0) {
+                            <a [routerLink]="sidebarSubItem2.path"
+                               [attr.title]="sidebarSubItem2.tooltip || sidebarSubItem2.title">
+                              {{sidebarSubItem2.title | translate}}
+                            </a>
+                          } @else {
+                            <a [attr.href]="sidebarSubItem2.href || null"
+                               [attr.target]="sidebarSubItem2.target || null"
+                               [attr.rel]="sidebarSubItem2.rel || null"
+                               [attr.title]="sidebarSubItem2.tooltip || sidebarSubItem2.title"
+                               (click)="callToggleMenu($event, sidebarSubItem2.submenu.length)">
+                              {{sidebarSubItem2.title | translate}}
+                            </a>
+                          }
 
                           <!-- Tercer nivel -->
                           <ul class="ml-menu-3">
                             @for (sidebarSubItem3 of sidebarSubItem2.submenu; track sidebarSubItem3) {
                               <li [routerLinkActive]="sidebarSubItem3.submenu.length ? '' : 'active'">
-                                <a [routerLink]="sidebarSubItem3.submenu.length > 0 ? null : sidebarSubItem3.path">
-                                  {{sidebarSubItem3.title | translate}}
-                                </a>
+                                @if (sidebarSubItem3.path && sidebarSubItem3.submenu.length === 0) {
+                                  <a [routerLink]="sidebarSubItem3.path"
+                                     [attr.title]="sidebarSubItem3.tooltip || sidebarSubItem3.title">
+                                    {{sidebarSubItem3.title | translate}}
+                                  </a>
+                                } @else {
+                                  <a [attr.href]="sidebarSubItem3.href || null"
+                                     [attr.target]="sidebarSubItem3.target || null"
+                                     [attr.rel]="sidebarSubItem3.rel || null"
+                                     [attr.title]="sidebarSubItem3.tooltip || sidebarSubItem3.title">
+                                    {{sidebarSubItem3.title | translate}}
+                                  </a>
+                                }
                               </li>
                             }
                           </ul>

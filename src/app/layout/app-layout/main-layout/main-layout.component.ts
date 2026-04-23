@@ -11,6 +11,7 @@ import { ConfigService } from '@config/config.service';
 import { SidebarVerticalComponent } from '../../sidebar-vertical/sidebar-vertical.component';
 import { SidebarFloatingComponent } from '../../sidebar-floating/sidebar-floating.component';
 
+type MenuType = 'horizontal' | 'vertical' | 'floating';
 
 @Component({
     selector: 'app-main-layout',
@@ -29,8 +30,7 @@ export class MainLayoutComponent {
   direction!: Direction;
   public config!: InConfiguration;
 
-  // 👇 Tipo de menú actual
-  menuType: 'horizontal' | 'vertical' | 'floating' | null = null;
+  menuType: MenuType = this.resolveMenuType(localStorage.getItem('selectedMenuType'));
 
 
   constructor(
@@ -55,6 +55,17 @@ export class MainLayoutComponent {
   }
 
   onMenuTypeChange(type: string) {
-  this.menuType = type as 'horizontal' | 'vertical' | 'floating';
-}
+    this.menuType = this.resolveMenuType(type);
+  }
+
+  private resolveMenuType(type: string | null | undefined): MenuType {
+    switch (type) {
+      case 'horizontal':
+      case 'floating':
+      case 'vertical':
+        return type;
+      default:
+        return 'vertical';
+    }
+  }
 }

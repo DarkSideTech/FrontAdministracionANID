@@ -1,0 +1,582 @@
+<section class="main-content">
+  <ul class="breadcrumb breadcrumb-style ">
+    <li class="breadcrumb-item">
+      <a routerLink="/paneles/estadisticas-usuarios" class="breadcrumb-p">
+        {{ texts.breadcrumbHome }}
+      </a>
+    </li>
+    <li class="breadcrumb-item bcrumb-1">{{ texts.breadcrumbDomain }}</li>
+    <li class="breadcrumb-item">{{ texts.breadcrumbCurrent }}</li>
+  </ul>
+
+  <div class="section-body">
+    <div class="row clearfix">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+          <div class="p-10">
+            <div class="row">
+              <div class="col-lg-8">
+                <div class="row m-0">
+                  <div class="col-lg-12 p-0">
+                    <div class="ngxTableHeader">
+                      <div class="table-search-area search-container">
+                        <span class="me-2 fw-bold">{{ texts.searchLabel }}</span>
+                        <label for="search-input-proceso">
+                          <img src="assets/icon/Lupa.svg" class="search-icon" [attr.alt]="texts.searchIconAlt">
+                        </label>
+                        <input
+                          id="search-input-proceso"
+                          type="text"
+                          class="browser-default search-field"
+                          [value]="procesoSearchTerm()"
+                          [placeholder]="texts.searchPlaceholder"
+                          (input)="onProcesoSearchChange($any($event.target).value)"
+                        >
+                      </div>
+
+                      <div class="header-buttons-left">
+                        <div class="tbl-btn-style">
+                          @if (hasProcesoSearchTerm()) {
+                            <button
+                              type="button"
+                              class="btn-icon icon-left btn-light rounded-button"
+                              [attr.title]="texts.clearSearchAction"
+                              [attr.aria-label]="texts.clearSearchAction"
+                              (click)="clearProcesoSearch()"
+                            >
+                              <svg [attr.viewBox]="icons.clear.viewBox" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                @for (path of icons.clear.paths; track path) {
+                                  <path [attr.d]="path" fill="currentColor"></path>
+                                }
+                              </svg>
+                            </button>
+                          }
+
+                          <button
+                            type="button"
+                            class="btn-icon icon-left btn-primary1 rounded-button"
+                            (click)="openCreateProcesoDialog(procesoDialog)"
+                          >
+                            <svg [attr.viewBox]="icons.create.viewBox" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                              @for (path of icons.create.paths; track path) {
+                                <path [attr.d]="path" fill="currentColor"></path>
+                              }
+                            </svg>
+                          </button>
+
+                          <button
+                            [hidden]="!hasSelectedProcesoRows()"
+                            type="button"
+                            class="btn-icon icon-left btn-danger rounded-button"
+                            [disabled]="processingProcesoId() === 'bulk'"
+                            (click)="confirmDeleteSelectedProcesoRows()"
+                          >
+                            <svg [attr.viewBox]="icons.delete.viewBox" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                              @for (path of icons.delete.paths; track path) {
+                                <path [attr.d]="path" fill="currentColor"></path>
+                              }
+                            </svg>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            @if (procesoPageError()) {
+              <div class="alert alert-danger">{{ procesoPageError() }}</div>
+            }
+
+            <ngx-datatable
+              #table
+              class="material"
+              [rows]="filteredProcesoRows()"
+              [loadingIndicator]="loadingProcesoPage()"
+              columnMode="force"
+              [headerHeight]="config.tableHeaderHeight"
+              [footerHeight]="config.tableFooterHeight"
+              rowHeight="auto"
+              [limit]="procesoPageLimit()"
+              [scrollbarH]="scrollBarHorizontal"
+              [reorderable]="true"
+            >
+              <ngx-datatable-row-detail [rowHeight]="config.detailRowHeight" #myDetailRow (toggle)="onProcesoDetailToggle($event)">
+                <ng-template let-row="row" let-expanded="expanded" ngx-datatable-row-detail-template>
+                  <div style="padding-left:35px;">
+                    <div class="col-11 col-md-11 col-lg-11">
+                      <div class="row">
+                        <div class="col-sm-4">
+                          <div class="form-group">
+                            <label>{{ texts.detail.id }}</label>
+                            <input type="text" class="form-control" readonly value="{{ row.id }}">
+                          </div>
+                        </div>
+                        <div class="col-sm-4">
+                          <div class="form-group">
+                            <label>{{ texts.detail.idMacroProceso }}</label>
+                            <input type="text" class="form-control" readonly value="{{ row.idMacro_Proceso }}">
+                          </div>
+                        </div>
+                        <div class="col-sm-4">
+                          <div class="form-group">
+                            <label>{{ texts.detail.contexto }}</label>
+                            <input type="text" class="form-control" readonly value="{{ row.contexto }}">
+                          </div>
+                        </div>
+                        <div class="col-sm-4">
+                          <div class="form-group">
+                            <label>{{ texts.detail.url }}</label>
+                            <input type="text" class="form-control" readonly value="{{ row.url }}">
+                          </div>
+                        </div>
+                        <div class="col-sm-4">
+                          <div class="form-group">
+                            <label>{{ texts.detail.token }}</label>
+                            <input type="text" class="form-control" readonly value="{{ row.token }}">
+                          </div>
+                        </div>
+                        <div class="col-sm-4">
+                          <div class="form-group">
+                            <label>{{ texts.detail.procesoBase }}</label>
+                            <input type="text" class="form-control" readonly value="{{ row.procesoBase ? texts.status.yes : texts.status.no }}">
+                          </div>
+                        </div>
+                        <div class="col-sm-4">
+                          <div class="form-group">
+                            <label>{{ texts.detail.maximaAsignacionDeRoles }}</label>
+                            <input type="text" class="form-control" readonly value="{{ row.maximaAsignacionDeRoles ?? '' }}">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </ng-template>
+              </ngx-datatable-row-detail>
+
+              <ngx-datatable-column [width]="40" [resizeable]="false" [sortable]="false" [draggable]="false" [canAutoResize]="false">
+                <ng-template let-row="row" let-expanded="expanded" ngx-datatable-cell-template>
+                  <a
+                    href="javascript:void(0)"
+                    [class.datatable-icon-right]="!expanded"
+                    [class.datatable-icon-down]="expanded"
+                    [attr.title]="texts.detailToggleTitle"
+                    (click)="toggleProcesoDetail(row)"
+                  >
+                    <svg [attr.viewBox]="icons.expandMore.viewBox" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      @for (path of icons.expandMore.paths; track path) {
+                        <path [attr.d]="path" fill="currentColor"></path>
+                      }
+                    </svg>
+                  </a>
+                </ng-template>
+              </ngx-datatable-column>
+
+              <ngx-datatable-column
+                [width]="60"
+                [sortable]="false"
+                [draggable]="false"
+                [resizeable]="false"
+                [canAutoResize]="false"
+              >
+                <ng-template ngx-datatable-header-template>
+                  <input
+                    type="checkbox"
+                    [checked]="areAllProcesoRowsSelected()"
+                    (change)="onProcesoToggleAllSelection($any($event.target).checked)"
+                  >
+                </ng-template>
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  <input
+                    type="checkbox"
+                    [checked]="isProcesoRowSelected(row)"
+                    (change)="onProcesoToggleSelection(row, $any($event.target).checked)"
+                  >
+                </ng-template>
+              </ngx-datatable-column>
+
+              <ngx-datatable-column [name]="texts.columns.codigo" [width]="70">
+                <ng-template let-row="row" ngx-datatable-cell-template>{{ row.codigo }}</ng-template>
+              </ngx-datatable-column>
+
+              <ngx-datatable-column [name]="texts.columns.nombre" [width]="90">
+                <ng-template let-row="row" ngx-datatable-cell-template>{{ row.nombre }}</ng-template>
+              </ngx-datatable-column>
+
+              <ngx-datatable-column [name]="texts.columns.descripcion" [width]="110">
+                <ng-template let-row="row" ngx-datatable-cell-template>{{ row.descripcion }}</ng-template>
+              </ngx-datatable-column>
+
+              <ngx-datatable-column [name]="texts.columns.nivelDeProceso" [width]="100">
+                <ng-template let-row="row" ngx-datatable-cell-template>{{ row.nivelDeProceso }}</ng-template>
+              </ngx-datatable-column>
+
+              <ngx-datatable-column [name]="texts.columns.comoDesplegarUrlDeProceso" [width]="110">
+                <ng-template let-row="row" ngx-datatable-cell-template>{{ row.comoDesplegarUrlDeProceso }}</ng-template>
+              </ngx-datatable-column>
+
+              <ngx-datatable-column [name]="texts.columns.activo" [width]="60">
+                <ng-template let-row="row" ngx-datatable-cell-template>{{ getProcesoStatusLabel(row) }}</ng-template>
+              </ngx-datatable-column>
+
+              <ngx-datatable-column [name]="texts.columns.acciones" [sortable]="false" [width]="220">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  <span class="d-inline-flex align-items-center flex-nowrap">
+                    @if (procesoActionVisibility.traceability && canViewProcesoTraceability()) {
+                      <button
+                        class="btn h-auto btn-tbl-edit"
+                        [title]="texts.actions.traceability"
+                        (click)="openProcesoTraceability(row)"
+                      >
+                        <svg width="24" height="24" [attr.viewBox]="icons.traceability.viewBox" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                          @for (path of icons.traceability.paths; track path) {
+                            <path [attr.d]="path" fill="currentColor"></path>
+                          }
+                        </svg>
+                      </button>
+                    }
+
+                    @if (!row.procesoBase) {
+                      @if (procesoActionVisibility.edit) {
+                        <button
+                          class="btn btn-tbl-edit h-auto"
+                          title="{{ texts.actions.edit }}"
+                          [disabled]="isProcesoRowBusy(row)"
+                          (click)="openEditProcesoDialog(row, procesoDialog)"
+                        >
+                          <svg width="24" height="24" [attr.viewBox]="icons.edit.viewBox" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            @for (path of icons.edit.paths; track path) {
+                              <path [attr.d]="path" fill="currentColor"></path>
+                            }
+                          </svg>
+                        </button>
+                      }
+
+                      @if (procesoActionVisibility.delete) {
+                        <button
+                          class="btn btn-tbl-delete h-auto"
+                          title="{{ texts.actions.delete }}"
+                          [disabled]="isProcesoRowBusy(row)"
+                          (click)="confirmDeleteProceso(row)"
+                        >
+                          <svg width="24" height="24" [attr.viewBox]="icons.delete.viewBox" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            @for (path of icons.delete.paths; track path) {
+                              <path [attr.d]="path" fill="currentColor"></path>
+                            }
+                          </svg>
+                        </button>
+                      }
+
+                      @if (procesoActionVisibility.toggleStatus) {
+                        @if (!row.activo) {
+                          <button
+                            class="btn h-auto tblEditBtn1"
+                            title="{{ texts.actions.activate }}"
+                            [disabled]="isProcesoRowBusy(row)"
+                            (click)="toggleProcesoStatus(row)"
+                          >
+                            <svg width="24" height="24" [attr.viewBox]="icons.activate.viewBox" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                              @for (path of icons.activate.paths; track path) {
+                                <path [attr.d]="path" fill="currentColor"></path>
+                              }
+                            </svg>
+                          </button>
+                        } @else {
+                          <button
+                            class="btn h-auto tblDelBtn2"
+                            title="{{ texts.actions.deactivate }}"
+                            [disabled]="isProcesoRowBusy(row)"
+                            (click)="toggleProcesoStatus(row)"
+                          >
+                            <svg width="24" height="24" [attr.viewBox]="icons.deactivate.viewBox" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                              @for (path of icons.deactivate.paths; track path) {
+                                <path [attr.d]="path" fill="currentColor"></path>
+                              }
+                            </svg>
+                          </button>
+                        }
+                      }
+                    }
+                  </span>
+                </ng-template>
+              </ngx-datatable-column>
+
+              <ngx-datatable-footer>
+                <ng-template
+                  ngx-datatable-footer-template
+                  let-rowCount="rowCount"
+                  let-pageSize="pageSize"
+                  let-curPage="curPage"
+                >
+                  <div class="d-flex w-100 align-items-center px-3 gap-3 flex-nowrap">
+                    <div class="fw-bold text-dark mb-0 flex-shrink-0">
+                      {{ selectedProcesoCount() }} {{ texts.footer.selectedLabel }} / {{ procesoRows().length }} {{ texts.footer.totalLabel }}
+                    </div>
+
+                    <div class="d-flex flex-grow-1 justify-content-center">
+                      <datatable-pager
+                        [pagerLeftArrowIcon]="'datatable-icon-left'"
+                        [pagerRightArrowIcon]="'datatable-icon-right'"
+                        [pagerPreviousIcon]="'datatable-icon-prev'"
+                        [pagerNextIcon]="'datatable-icon-skip'"
+                        [page]="curPage"
+                        [size]="pageSize"
+                        [count]="rowCount"
+                        (change)="onProcesoPageChange($event)"
+                      ></datatable-pager>
+                    </div>
+
+                    <div class="d-flex align-items-center gap-2 flex-shrink-0 flex-nowrap">
+                      <label class="d-flex align-items-center gap-2 mb-0 flex-nowrap">
+                        <span>{{ texts.footer.rowsPerPage }}</span>
+                        <select
+                          class="form-select form-select-sm"
+                          [value]="procesoPageLimit()"
+                          (change)="changeProcesoPageLimit($any($event.target).value)"
+                        >
+                          @for (pageSize of procesoPageSizeOptions; track pageSize) {
+                            <option [value]="pageSize">{{ pageSize }}</option>
+                          }
+                        </select>
+                      </label>
+                    </div>
+                  </div>
+                </ng-template>
+              </ngx-datatable-footer>
+            </ngx-datatable>
+
+            @if (!loadingProcesoPage() && !filteredProcesoRows().length) {
+              <div class="alert alert-light border mt-3 mb-0">
+                <strong>{{ texts.emptyTitle }}</strong> {{ texts.emptyDescription }}
+              </div>
+            }
+
+            <ng-template #procesoDialog let-modal>
+              <div class="modal-header editRowModal">
+                <h4 class="modal-title" id="modal-basic-title">
+                  <div class="table-modal-header">
+                    <div class="modal-about">
+                      <div class="fw-bold p-t-10 font-17">
+                        {{ isProcesoCreateMode() ? texts.modal.createTitle : texts.modal.editTitle }}
+                      </div>
+                    </div>
+                  </div>
+                </h4>
+                <button type="button" class="close" [attr.aria-label]="texts.modalCloseAction" (click)="modal.dismiss()">
+                  <span aria-hidden="true"><i class="material-icons">close</i></span>
+                </button>
+              </div>
+
+              <div class="modal-body">
+                @if (procesoDialogError()) {
+                  <div class="alert alert-danger">{{ procesoDialogError() }}</div>
+                }
+
+                <form class="register-form" [formGroup]="procesoForm" (ngSubmit)="saveProcesoForm(modal)">
+                  <input formControlName="id" class="form-control" type="hidden">
+
+                  @if (isProcesoCreateMode()) {
+                    <div class="row">
+                      <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4 col-xs-5 mb-1">
+                        <label>{{ texts.fields.idMacro_Proceso }} <span class="text-danger">*</span></label>
+                      </div>
+                      <div class="col-xl-9 col-lg-9 col-md-8 col-sm-8 col-xs-7 mb-1">
+                        <input
+                          type="text"
+                          class="form-control"
+                          [placeholder]="texts.placeholders.idMacro_Proceso"
+                          formControlName="idMacro_Proceso"
+                        >
+                        @if (isProcesoFormControlInvalid('idMacro_Proceso')) {
+                          <small class="form-text text-danger">{{ getProcesoFormControlError('idMacro_Proceso') }}</small>
+                        }
+                      </div>
+                    </div>
+                  }
+
+                  @if (isProcesoCreateMode()) {
+                    <div class="row">
+                      <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4 col-xs-5 mb-1">
+                        <label>{{ texts.fields.codigo }} <span class="text-danger">*</span></label>
+                      </div>
+                      <div class="col-xl-9 col-lg-9 col-md-8 col-sm-8 col-xs-7 mb-1">
+                        <input
+                          type="text"
+                          class="form-control"
+                          [placeholder]="texts.placeholders.codigo"
+                          formControlName="codigo"
+                        >
+                        @if (isProcesoFormControlInvalid('codigo')) {
+                          <small class="form-text text-danger">{{ getProcesoFormControlError('codigo') }}</small>
+                        }
+                      </div>
+                    </div>
+                  }
+
+                  <div class="row">
+                    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4 col-xs-5 mb-1">
+                      <label>{{ texts.fields.nombre }} <span class="text-danger">*</span></label>
+                    </div>
+                    <div class="col-xl-9 col-lg-9 col-md-8 col-sm-8 col-xs-7 mb-1">
+                      <input
+                        type="text"
+                        class="form-control"
+                        [placeholder]="texts.placeholders.nombre"
+                        formControlName="nombre"
+                      >
+                      @if (isProcesoFormControlInvalid('nombre')) {
+                        <small class="form-text text-danger">{{ getProcesoFormControlError('nombre') }}</small>
+                      }
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4 col-xs-5 mb-1">
+                      <label>{{ texts.fields.descripcion }}</label>
+                    </div>
+                    <div class="col-xl-9 col-lg-9 col-md-8 col-sm-8 col-xs-7 mb-1">
+                      <input
+                        type="text"
+                        class="form-control"
+                        [placeholder]="texts.placeholders.descripcion"
+                        formControlName="descripcion"
+                      >
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4 col-xs-5 mb-1">
+                      <label>{{ texts.fields.contexto }}</label>
+                    </div>
+                    <div class="col-xl-9 col-lg-9 col-md-8 col-sm-8 col-xs-7 mb-1">
+                      <input
+                        type="text"
+                        class="form-control"
+                        [placeholder]="texts.placeholders.contexto"
+                        formControlName="contexto"
+                      >
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4 col-xs-5 mb-1">
+                      <label>{{ texts.fields.nivelDeProceso }} <span class="text-danger">*</span></label>
+                    </div>
+                    <div class="col-xl-9 col-lg-9 col-md-8 col-sm-8 col-xs-7 mb-1">
+                      <ng-select
+                        formControlName="nivelDeProceso"
+                        [items]="nivelesDeProceso()"
+                        bindLabel="label"
+                        bindValue="value"
+                        [searchable]="true"
+                        [clearable]="false"
+                        [loading]="loadingProcesoCatalogs()"
+                        [placeholder]="texts.placeholders.nivelDeProceso"
+                        notFoundText="Sin resultados"
+                        loadingText="Cargando..."
+                      >
+                      </ng-select>
+                      @if (isProcesoFormControlInvalid('nivelDeProceso')) {
+                        <small class="form-text text-danger">{{ getProcesoFormControlError('nivelDeProceso') }}</small>
+                      }
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4 col-xs-5 mb-1">
+                      <label>{{ texts.fields.url }} <span class="text-danger">*</span></label>
+                    </div>
+                    <div class="col-xl-9 col-lg-9 col-md-8 col-sm-8 col-xs-7 mb-1">
+                      <input
+                        type="text"
+                        class="form-control"
+                        [placeholder]="texts.placeholders.url"
+                        formControlName="url"
+                      >
+                      @if (isProcesoFormControlInvalid('url')) {
+                        <small class="form-text text-danger">{{ getProcesoFormControlError('url') }}</small>
+                      }
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4 col-xs-5 mb-1">
+                      <label>{{ texts.fields.token }} <span class="text-danger">*</span></label>
+                    </div>
+                    <div class="col-xl-9 col-lg-9 col-md-8 col-sm-8 col-xs-7 mb-1">
+                      <input
+                        type="text"
+                        class="form-control"
+                        [placeholder]="texts.placeholders.token"
+                        formControlName="token"
+                      >
+                      @if (isProcesoFormControlInvalid('token')) {
+                        <small class="form-text text-danger">{{ getProcesoFormControlError('token') }}</small>
+                      }
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4 col-xs-5 mb-1">
+                      <label>{{ texts.fields.comoDesplegarUrlDeProceso }} <span class="text-danger">*</span></label>
+                    </div>
+                    <div class="col-xl-9 col-lg-9 col-md-8 col-sm-8 col-xs-7 mb-1">
+                      <ng-select
+                        formControlName="comoDesplegarUrlDeProceso"
+                        [items]="modosDeDespliegue()"
+                        bindLabel="label"
+                        bindValue="value"
+                        [searchable]="true"
+                        [clearable]="false"
+                        [loading]="loadingProcesoCatalogs()"
+                        [placeholder]="texts.placeholders.comoDesplegarUrlDeProceso"
+                        notFoundText="Sin resultados"
+                        loadingText="Cargando..."
+                      >
+                      </ng-select>
+                      @if (isProcesoFormControlInvalid('comoDesplegarUrlDeProceso')) {
+                        <small class="form-text text-danger">{{ getProcesoFormControlError('comoDesplegarUrlDeProceso') }}</small>
+                      }
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4 col-xs-5 mb-1">
+                      <label>{{ texts.fields.maximaAsignacionDeRoles }} <span class="text-danger">*</span></label>
+                    </div>
+                    <div class="col-xl-9 col-lg-9 col-md-8 col-sm-8 col-xs-7 mb-1">
+                      <input
+                        type="number"
+                        min="0"
+                        step="1"
+                        class="form-control"
+                        [placeholder]="texts.placeholders.maximaAsignacionDeRoles"
+                        formControlName="maximaAsignacionDeRoles"
+                      >
+                      @if (isProcesoFormControlInvalid('maximaAsignacionDeRoles')) {
+                        <small class="form-text text-danger">{{ getProcesoFormControlError('maximaAsignacionDeRoles') }}</small>
+                      }
+                    </div>
+                  </div>
+
+                  <div class="modal-footer d-flex justify-content-center align-items-center gap-2 flex-nowrap">
+                    <button type="button" class="btn btn-light flex-shrink-0" [disabled]="savingProcesoForm()" (click)="resetProcesoForm()">
+                      {{ texts.actions.clear }}
+                    </button>
+                    <button type="button" class="btn btn-light flex-shrink-0" [disabled]="savingProcesoForm()" (click)="modal.dismiss()">
+                      {{ texts.actions.cancel }}
+                    </button>
+                    <button type="submit" class="btn btn-primary flex-shrink-0" [disabled]="savingProcesoForm() || procesoForm.invalid">
+                      {{ isProcesoCreateMode() ? texts.actions.saveCreate : texts.actions.saveEdit }}
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </ng-template>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

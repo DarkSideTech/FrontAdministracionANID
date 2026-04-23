@@ -27,7 +27,7 @@
                                         <div class="ngxTableHeader">
                                             <div class="table-title">
                                                 <p class="mb-0 login-p2 asign_login">
-                                                    <small class="text-dark"> Hemos encontrado 4 entidades asociadas a tu Documento de Identificacion. Para ingresar al sitio elegir una de ellas: </small>
+                                                    <small class="text-dark"> Hemos encontrado {{organizations().length}} entidades asociadas a tu Documento de Identificacion. Para ingresar al sitio elegir una de ellas: </small>
                                                 </p>
                                             </div>
                                         </div>
@@ -35,43 +35,23 @@
                                 </div>
                             </div>
                         </div>
-                        <form
-                        class="validate-form"
-                        [formGroup]="seleccionaEntidadForm"
-                        (ngSubmit)="onSubmit()"
-                        >
-                            <div class="row table_center">
-                                <div class="col-lg-8 table_size">
-                                    <ngx-datatable #table class="material asign_material" [rows]="data" [loadingIndicator]="loadingIndicator"
-                                        columnMode="force" [headerHeight]="60" [footerHeight]="80" rowHeight="auto" [limit]="10"
-                                        [scrollbarH]="scrollBarHorizontal" [reorderable]="reorderable" [selected]="selected"
-                                        [selectionType]="selection" (select)='onSelect($event)'>
 
-                                        <ngx-datatable-column [width]="40" [sortable]="false" [draggable]="false"
-                                            [resizeable]="false" [canAutoResize]="false" [headerCheckboxable]="false"
-                                            [checkboxable]="true">
-                                        </ngx-datatable-column>
-
-                                        <ngx-datatable-column name="Seleccionar Entidad" [width]="100">
-                                            <ng-template let-row="row" ngx-datatable-cell-template>
-                                                {{row.nombre_Organizacion}}
-                                            </ng-template>
-                                        </ngx-datatable-column>
-
-                                        <ngx-datatable-footer>
-                                            <ng-template ngx-datatable-footer-template let-rowCount="rowCount" let-pageSize="pageSize" let-selectedCount="selectedCount" let-curPage="curPage" let-offset="offset">
-                                                <div class="datatable-footer-inner">
-                                                <div class="datatable-footer-right">
-                                                    <button class="btn anid-btn-primary auth-form-btn" (click)="onSubmit()">Seleccionar</button>
-                                                </div>
-                                                </div>
-                                            </ng-template>
-                                        </ngx-datatable-footer>
-                                    </ngx-datatable>
-                                </div>
-                            </div>
-                        </form>
+                        <div class="col-lg-8 table_size">
+                            @for (organization of organizations(); track organization.Codigo_Organizacion) {
+                                <button
+                                    class="btn btn-outline-primary mb-2 w-100"
+                                    type="button"
+                                    (click)="selectOrganization(organization.Codigo_Organizacion)"
+                                    [disabled]="loadingCode() === organization.Codigo_Organizacion"
+                                    >
+                                    <span >{{ organization.Nombre_Organizacion || 'Organizacion sin nombre' }}</span>
+                                </button>
+                            }
+                        </div>
                     </div>
+                    <div class="card-footer text-center">
+                        <button type="submit" class="btn anid-btn-primary" (click)="restart()">Volver al Login</button>
+                    </div>                
                 </div>
             </div>
         </div>

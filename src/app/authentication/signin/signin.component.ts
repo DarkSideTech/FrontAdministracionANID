@@ -1,114 +1,113 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
+import { Router, RouterModule } from '@angular/router';
 import {
-  UntypedFormGroup,
-  UntypedFormBuilder,
-  Validators,
-  ReactiveFormsModule,
   FormsModule,
+  ReactiveFormsModule,
+  UntypedFormBuilder,
+  UntypedFormGroup,
+  Validators,
 } from '@angular/forms';
-
 import {
   NgbNav,
+  NgbNavContent,
   NgbNavItem,
   NgbNavLink,
-  NgbNavContent,
-  NgbNavOutlet
+  NgbNavOutlet,
 } from '@ng-bootstrap/ng-bootstrap';
-
 import { FeatherModule } from 'angular-feather';
-import { RouterModule } from '@angular/router';
-import { AuthService } from '@core';
-import { Login } from '@core/models/accountController';
-import { environment } from 'environments/environment';
+import { finalize } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { nanoid } from 'nanoid';
 
+import { environment } from 'environments/environment';
+import { AccountAuthService } from '@core/auth/account-auth.service';
+import { clearAuthProvider, rememberClaveUnicaState } from '@core/auth/clave-unica-session';
+import { formatApiError } from '@core/service/api-error.util';
+
 @Component({
-    selector: 'app-signin',
-    templateUrl: './signin.component.html',
-    styleUrls: ['./signin.component.scss'],
-    imports: [
-        FormsModule,
-        ReactiveFormsModule,
-        RouterModule,
-        FeatherModule,
-        NgbNav,
-        NgbNavItem,
-        NgbNavLink,
-        NgbNavContent,
-        NgbNavOutlet
-    ]
+  selector: 'app-signin',
+  templateUrl: './signin.component.html',
+  styleUrls: ['./signin.component.scss'],
+  imports: [
+    FormsModule,
+    ReactiveFormsModule,
+    RouterModule,
+    FeatherModule,
+    NgbNav,
+    NgbNavItem,
+    NgbNavLink,
+    NgbNavContent,
+    NgbNavOutlet,
+  ],
 })
 export class SigninComponent implements OnInit {
+  private readonly accountAuthService = inject(AccountAuthService);
+  private readonly router = inject(Router);
+  private readonly destroyRef = inject(DestroyRef);
 
-  /** PARAMETROS CLAVE UNICA **/
+  readonly loading = signal(false);
+  readonly errorMessage = signal('');
+  readonly successMessage = signal('');
+
   clientId = environment.clientIdClaveUnica;
   redirectUri = environment.redirecUriClaveUnica;
   claveUnicaUrl = environment.claveUnicaUrl;
 
-  /** FORMULARIO CLAVE ÚNICA **/
-  loginForm!: UntypedFormGroup;
-
-  /** FORMULARIO EXTRANJERO **/
-  foreignForm!: UntypedFormGroup;
-
+  form!: UntypedFormGroup;
   submitted = false;
   error: string | null = null;
   active: 'claveunica' | 'extranjero' = 'claveunica';
-  login: Login = new Login();
 
-  constructor(
-    private formBuilder: UntypedFormBuilder,
-    private router: Router,
-    private authService: AuthService
-  ) {}
+  constructor(private readonly formBuilder: UntypedFormBuilder) {}
 
   ngOnInit(): void {
-    this.loginForm = this.formBuilder.group({
-      username: ['administrador@security.com', [Validators.required, Validators.email]],
+    this.form = this.formBuilder.group({
+      email: ['test@security.com', [Validators.required, Validators.email]],
       password: ['Changeme123#', Validators.required],
       remember: [false],
     });
+
+    const navigationState = history.state as { passwordChangeMessage?: string } | undefined;
+    this.successMessage.set(navigationState?.passwordChangeMessage?.trim() ?? '');
   }
 
   get f() {
-    return this.loginForm.controls;
+    return this.form.controls;
   }
 
-  onSubmit(): void {
-    this.submitted = true;
-    this.error = null;
-
-    if (this.loginForm.invalid) {
-      this.error = 'Usuario o contraseña incorrectos';
+  submit(): void {
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
       return;
     }
 
-    this.login.email = this.f['username'].value;
-    this.login.password = this.f['password'].value;
+    this.loading.set(true);
+    this.errorMessage.set('');
 
-    this.authService
-      .login({ email: this.login.email, password: this.login.password })
-        .subscribe({
-                next: (data) => {
-                  console.log('Login response data:', data);
-                  if (this.authService.isAuthenticated()) {
-                    this.router.navigate(['/authentication/selecciona-entidad']);
-                  }
-                },
-                error: (error) => {
-                  this.error = error;
-                  console.error('There was an error!', error);
-                }
-              });
+    this.accountAuthService
+      .login(this.form.getRawValue())
+      .pipe(
+        finalize(() => this.loading.set(false)),
+        takeUntilDestroyed(this.destroyRef),
+      )
+      .subscribe({
+        next: () => {
+          clearAuthProvider();
+          void this.router.navigateByUrl(this.accountAuthService.resolvePostLoginUrl());
+        },
+        error: (error: unknown) => {
+          this.errorMessage.set(formatApiError(error));
+        },
+      });
   }
 
   goClaveUnica(): void {
     const encodedUrl = encodeURIComponent(this.redirectUri);
     const state = nanoid();
-
     const params = `client_id=${this.clientId}&response_type=code&scope=openid run name&redirect_uri=${encodedUrl}&state=${state}`;
-    window.location.href =  this.claveUnicaUrl + params;
+
+    rememberClaveUnicaState(state);
+    window.location.href = this.claveUnicaUrl + params;
   }
 
   selectTab(tab: 'claveunica' | 'extranjero') {

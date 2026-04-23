@@ -8,15 +8,26 @@ import {
   AfterViewInit,
   Output,
   EventEmitter,
-  DOCUMENT
+  DOCUMENT,
+  inject,
+  computed,
+  DestroyRef
 } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { RouterLink } from '@angular/router';
+import { finalize } from 'rxjs';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgbDropdown, NgbDropdownToggle, NgbDropdownMenu } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
 import { FeatherModule } from 'angular-feather';
-import { AuthService, InConfiguration, LanguageService, RightSidebarService, User } from '@core';
+import { ToastrService } from 'ngx-toastr';
+import { InConfiguration, LanguageService, RightSidebarService } from '@core';
 import { ConfigService } from '@config/config.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { AccountAuthService } from '@core/auth/account-auth.service';
+import { AuthStore } from '@core/auth/auth-store.service';
+import { OrganizationalUnitEntityRoleOption } from '@core/auth/auth.models';
+import { formatApiError } from '@core/service/api-error.util';
+import { AppLanguageOption } from '@core/service/language.service';
 
 @Component({
     selector: 'app-header',
@@ -35,15 +46,46 @@ import { ConfigService } from '@config/config.service';
     providers: [RightSidebarService]
 })
 export class HeaderComponent implements OnInit, AfterViewInit {
+  private static readonly invalidUnitRoleSelectionMessage =
+    'La unidad Organizacion y Rol seleccionado no permite cambiar la configuracion, contactarse con el Administrador';
 
   @Output() menuTypeChanged = new EventEmitter<string>();
 
+  private readonly accountAuthService = inject(AccountAuthService);
+  private readonly authStore = inject(AuthStore);
+  private readonly destroyRef = inject(DestroyRef);
+  private readonly toastr = inject(ToastrService);
+
+  readonly homeView = computed(() => ({
+    profile: this.authStore.user(),
+    accessTokenType: '',
+    authorizedProcesses: [],
+  }));
+  readonly selectedUnitName = computed(
+    () => this.authStore.selectedUnitName() || this.authStore.selectedOrganizationName() || 'Unidad organizacional',
+  );
+  readonly unitOptions = computed(() => this.authStore.organizationalUnits());
+  readonly selectedUnitRoleLabel = computed(() => {
+    const selectedOption = this.resolveSelectedUnitOption(
+      this.unitOptions(),
+      this.authStore.selectedEntityId(),
+      this.authStore.selectedEntityRole()?.Id_Rol ?? null,
+      this.authStore.selectedUnitCode(),
+    );
+
+    return selectedOption
+      ? this.formatUnitRoleLabel(selectedOption)
+      : this.authStore.selectedUnitCode() || 'Selecciona unidad';
+  });
+
+
+
   public config!: InConfiguration;
   isNavbarCollapsed = true;
-  flagvalue: string | string[] | undefined;
+  flagvalue?: string;
   perfilvalue: string | string[] | undefined;
   entidadvalue: string | string[] | undefined;
-  countryName: string | string[] = [];
+  countryName = '';
   langStoreValue?: string;
   perfilStoreValue?: string;
   defaultFlag?: string;
@@ -52,7 +94,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   isOpenSidebar?: boolean;
   docElement?: HTMLElement;
   isFullScreen = false;
-  userLogued: User;
+  isSwitchingUnitContext = false;
 
   constructor(
     @Inject(DOCUMENT) private document: Document,
@@ -60,43 +102,32 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     public elementRef: ElementRef,
     private rightSidebarService: RightSidebarService,
     private configService: ConfigService,
-    private authService: AuthService,
-    private router: Router,
     public languageService: LanguageService
   ) {}
 
-  listLang = [
-    { text: 'English', flag: 'assets/images/flags/us.jpg', lang: 'en' },
-    { text: 'Español', flag: 'assets/images/flags/chilean.jpg', lang: 'cl' },
-    { text: 'Deutsch', flag: 'assets/images/flags/germany.jpg', lang: 'de' },
-  ];
-
-  listPerfiles = [
-    { perfil: 'Persona Natural', entidad: 'Persona' },
-    { perfil: 'Universidad De Chile', entidad: 'UNIVERSIDAD_DE_CHILE' },
-    { perfil: 'Centro De Investigacion USACH 1', entidad: 'CI_USACH_1' },
-    { perfil: 'Departamento de Ciencias Sociales U-Catolica', entidad: 'DEPTO_SOCIALES_U_CATOLICA' },
-  ];
+  readonly listLang = this.languageService.languageOptions;
 
   setMenu(type: string) {
-    this.menuTypeChanged.emit(type);
+    const resolvedType = this.resolveMenuType(type);
 
-    localStorage.setItem('selectedMenuType', type);
+    this.menuTypeChanged.emit(resolvedType);
+
+    localStorage.setItem('selectedMenuType', resolvedType);
 
     this.renderer.removeClass(this.document.body, 'menu-none');
     this.renderer.removeClass(this.document.body, 'menu-horizontal-active');
     this.renderer.removeClass(this.document.body, 'menu-vertical-active');
     this.renderer.removeClass(this.document.body, 'menu-floating-active');
 
-    if (type === 'horizontal') {
+    if (resolvedType === 'horizontal') {
       this.renderer.addClass(this.document.body, 'menu-horizontal-active');
     }
 
-    if (type === 'vertical') {
+    if (resolvedType === 'vertical') {
       this.renderer.addClass(this.document.body, 'menu-vertical-active');
     }
 
-    if (type === 'floating') {
+    if (resolvedType === 'floating') {
       this.renderer.addClass(this.document.body, 'menu-floating-active');
     }
   }
@@ -105,30 +136,14 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     this.config = this.configService.configData;
     this.docElement = document.documentElement;
 
-    this.langStoreValue = localStorage.getItem('lang') as string;
     this.perfilStoreValue = 'Beneficiario Persona';
-    const val = this.listLang.filter((x) => x.lang === this.langStoreValue);
-    this.countryName = val.map((element) => element.text);
-
-    if (this.authService.currentUserValue != null) {
-      this.userLogued = this.authService.currentUserValue;
-    }
-
-    if (val.length === 0) {
-      this.defaultFlag = 'assets/images/flags/chilean.jpg';
-      this.defaultPerfil = 'Beneficiario';
-      this.defaultEntidad = 'Persona';
-    } else {
-      this.flagvalue = val.map((element) => element.flag);
-      this.defaultPerfil = 'Beneficiario';
-      this.defaultEntidad = 'Persona';
-    }
+    this.applyLanguageSelection(this.languageService.getCurrentLanguage());
+    this.defaultFlag = this.flagvalue;
+    this.defaultPerfil = 'Beneficiario';
+    this.defaultEntidad = 'Persona';
 
     // 🔥 CAMBIO APLICADO AQUÍ — Restaurar correctamente el menú guardado
-    const savedMenu = localStorage.getItem('selectedMenuType');
-    if (savedMenu) {
-      this.setMenu(savedMenu);
-    }
+    this.setMenu(localStorage.getItem('selectedMenuType'));
   }
 
   ngAfterViewInit() {
@@ -181,15 +196,64 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     this.isFullScreen = !this.isFullScreen;
   }
 
-  setLanguage(text: string, lang: string, flag: string) {
-    this.countryName = text;
-    this.flagvalue = flag;
-    this.langStoreValue = lang;
-    this.languageService.setLanguage(lang);
+  setLanguage(item: AppLanguageOption) {
+    this.applyLanguageSelection(item.code);
+    this.languageService.setLanguage(item.code);
   }
 
-  setPerfil(perfil: string, entidad: string) {
-    this.perfilvalue = entidad;
+  changeUnitContext(option: OrganizationalUnitEntityRoleOption): void {
+    const idEntidad = option.Id_Entidad?.trim();
+    const idRol = option.Id_Rol?.trim();
+
+    if (!idEntidad || !idRol) {
+      this.toastr.error(HeaderComponent.invalidUnitRoleSelectionMessage, '');
+      return;
+    }
+
+    if (this.isSwitchingUnitContext || this.isCurrentUnitOption(option)) {
+      return;
+    }
+
+    this.isSwitchingUnitContext = true;
+    this.accountAuthService
+      .cambioUnidadOrganizacionalEntidadRol(idEntidad, idRol)
+      .pipe(
+        takeUntilDestroyed(this.destroyRef),
+        finalize(() => {
+          this.isSwitchingUnitContext = false;
+        }),
+      )
+      .subscribe({
+        error: (error) => {
+          this.toastr.error(formatApiError(error), '');
+        },
+      });
+  }
+
+  isCurrentUnitOption(option: OrganizationalUnitEntityRoleOption): boolean {
+    const selectedEntityId = this.authStore.selectedEntityId();
+    const selectedRoleId = this.authStore.selectedEntityRole()?.Id_Rol ?? null;
+    const selectedUnitCode = this.authStore.selectedUnitCode() ?? '';
+
+    if (selectedEntityId && selectedRoleId) {
+      return (
+        option.Id_Entidad?.trim() === selectedEntityId.trim()
+        && option.Id_Rol?.trim() === selectedRoleId.trim()
+      );
+    }
+
+    return option.Codigo_UnidadOrganizacional?.trim() === selectedUnitCode.trim();
+  }
+
+  formatUnitRoleLabel(option: OrganizationalUnitEntityRoleOption): string {
+    const code = option.Codigo_UnidadOrganizacional?.trim() ?? '';
+    const role = option.Nombre_Rol?.trim() ?? '';
+
+    if (code && role) {
+      return `${code} - ${role}`;
+    }
+
+    return code || role || 'Sin contexto';
   }
 
   mobileMenuSidebarOpen(event: Event, className: string) {
@@ -225,6 +289,46 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   }
 
   logout() {
-    this.authService.logout();
+    this.accountAuthService.logout().pipe(takeUntilDestroyed(this.destroyRef)).subscribe();
  }
+
+  private resolveMenuType(type: string | null | undefined): 'horizontal' | 'vertical' | 'floating' {
+    switch ((type ?? '').trim()) {
+      case 'horizontal':
+        return 'horizontal';
+      case 'floating':
+        return 'floating';
+      case 'vertical':
+        return 'vertical';
+      default:
+        return 'vertical';
+    }
+  }
+
+  private resolveSelectedUnitOption(
+    options: OrganizationalUnitEntityRoleOption[],
+    selectedEntityId: string | null,
+    selectedRoleId: string | null,
+    selectedUnitCode: string | null,
+  ): OrganizationalUnitEntityRoleOption | null {
+    return (
+      options.find(
+        (option) =>
+          option.Id_Entidad?.trim() === (selectedEntityId ?? '').trim()
+          && option.Id_Rol?.trim() === (selectedRoleId ?? '').trim(),
+      )
+      ?? options.find(
+        (option) =>
+          option.Codigo_UnidadOrganizacional?.trim() === (selectedUnitCode ?? '').trim(),
+      )
+      ?? null
+    );
+  }
+
+  private applyLanguageSelection(lang: string): void {
+    const selectedLanguage = this.languageService.getLanguageOption(lang);
+    this.countryName = selectedLanguage.label;
+    this.flagvalue = selectedLanguage.flag;
+    this.langStoreValue = selectedLanguage.code;
+  }
 }

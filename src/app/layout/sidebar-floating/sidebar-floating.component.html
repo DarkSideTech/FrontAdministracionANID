@@ -46,41 +46,83 @@
                   class="menu2-floating"
                   [class.active]="item.active"
                   >
-                  <a
-                    [routerLink]="item.submenu?.length > 0 ? [] : item.path"
-                    class="menu-top12"
-                    (click)="onItemClick($event, item, i)"
-                    >
-                    <!-- ÍCONO CUSTOM -->
-                    @if (item.customSvg) {
-                      <span
-                        class="customSvg"
-                        [innerHTML]="item.customSvg | safeHtml">
-                      </span>
-                    }
-                    <span class="hide-menu">
-                      {{ item.title | translate }}
-                    </span>
-                    @if (item.badge) {
-                      <span [ngClass]="item.badgeClass">
-                        {{ item.badge }}
-                      </span>
-                    }
-                    <!-- Flecha si tiene submenu -->
-                    @if (item.submenu?.length > 0) {
-                      <svg
-                        width="20"
-                        height="20"
-                        viewBox="0 0 24 24"
-                        class="ml-iconsidebar"
-                        >
-                        <path
-                          d="M16.59 8.29501L12 12.875L7.41 8.29501L6 9.70501L12 15.705L18 9.70501L16.59 8.29501Z"
-                          fill="currentColor"
-                          />
-                        </svg>
+                  @if (item.path && item.submenu?.length === 0) {
+                    <a
+                      [routerLink]="item.path"
+                      class="menu-top12"
+                      [attr.title]="item.tooltip || item.title"
+                      (click)="onItemClick($event, item, i)"
+                      >
+                      <!-- ÍCONO CUSTOM -->
+                      @if (item.customSvg) {
+                        <span
+                          class="customSvg"
+                          [innerHTML]="item.customSvg | safeHtml">
+                        </span>
                       }
-                    </a>
+                      <span class="hide-menu">
+                        {{ item.title | translate }}
+                      </span>
+                      @if (item.badge) {
+                        <span [ngClass]="item.badgeClass">
+                          {{ item.badge }}
+                        </span>
+                      }
+                      <!-- Flecha si tiene submenu -->
+                      @if (item.submenu?.length > 0) {
+                        <svg
+                          width="20"
+                          height="20"
+                          viewBox="0 0 24 24"
+                          class="ml-iconsidebar"
+                          >
+                          <path
+                            d="M16.59 8.29501L12 12.875L7.41 8.29501L6 9.70501L12 15.705L18 9.70501L16.59 8.29501Z"
+                            fill="currentColor"
+                            />
+                          </svg>
+                        }
+                      </a>
+                  } @else {
+                    <a
+                      [attr.href]="item.href || null"
+                      [attr.target]="item.target || null"
+                      [attr.rel]="item.rel || null"
+                      class="menu-top12"
+                      [attr.title]="item.tooltip || item.title"
+                      (click)="onItemClick($event, item, i)"
+                      >
+                      <!-- ÍCONO CUSTOM -->
+                      @if (item.customSvg) {
+                        <span
+                          class="customSvg"
+                          [innerHTML]="item.customSvg | safeHtml">
+                        </span>
+                      }
+                      <span class="hide-menu">
+                        {{ item.title | translate }}
+                      </span>
+                      @if (item.badge) {
+                        <span [ngClass]="item.badgeClass">
+                          {{ item.badge }}
+                        </span>
+                      }
+                      <!-- Flecha si tiene submenu -->
+                      @if (item.submenu?.length > 0) {
+                        <svg
+                          width="20"
+                          height="20"
+                          viewBox="0 0 24 24"
+                          class="ml-iconsidebar"
+                          >
+                          <path
+                            d="M16.59 8.29501L12 12.875L7.41 8.29501L6 9.70501L12 15.705L18 9.70501L16.59 8.29501Z"
+                            fill="currentColor"
+                            />
+                          </svg>
+                        }
+                      </a>
+                  }
                   </li>
                 }
               </ul>

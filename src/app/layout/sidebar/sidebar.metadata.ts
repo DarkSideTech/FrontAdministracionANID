@@ -1,4 +1,6 @@
 // Sidebar route metadata
+export type MenuNavigationMode = 'internal' | 'iframe' | 'window' | 'redirect' | 'none';
+
 export interface RouteInfo {
   path: string;
   title: string;
@@ -12,4 +14,10 @@ export interface RouteInfo {
   submenu: RouteInfo[];
   active?: boolean;
   collapsed?: boolean;
+  tooltip?: string;
+  href?: string;
+  target?: '_blank' | '_self';
+  rel?: string;
+  processCode?: string;
+  navigationMode?: MenuNavigationMode;
 }

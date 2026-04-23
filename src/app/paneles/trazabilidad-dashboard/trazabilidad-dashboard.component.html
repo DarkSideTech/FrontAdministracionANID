@@ -1,0 +1,337 @@
+<section class="main-content">
+  <ul class="breadcrumb breadcrumb-style">
+    <li class="breadcrumb-item">
+      <a routerLink="/paneles/estadisticas-usuarios" class="breadcrumb-p">Home</a>
+    </li>
+    <li class="breadcrumb-item bcrumb-1">Paneles</li>
+    <li class="breadcrumb-item">Trazabilidad</li>
+  </ul>
+
+  <div class="section-body">
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-header">
+            <h4>Consulta de trazabilidad</h4>
+          </div>
+          <div class="card-body">
+            <form [formGroup]="filterForm" class="traceability-form">
+              <div class="row g-3">
+                <div class="col-12 col-md-6 col-xl-3">
+                  <label class="form-label" for="entityKey">Entidad</label>
+                  <select id="entityKey" class="form-select" formControlName="entityKey" required>
+                    <option value="">Selecciona una entidad</option>
+                    @for (entity of entities; track entity.entityKey) {
+                      <option [value]="entity.entityKey">{{ entity.displayName }}</option>
+                    }
+                  </select>
+                </div>
+
+                <div class="col-12 col-md-6 col-xl-3">
+                  <label class="form-label" for="aggregateId">AggregateId</label>
+                  <input
+                    id="aggregateId"
+                    type="text"
+                    class="form-control"
+                    formControlName="aggregateId"
+                    placeholder="GUID del agregado"
+                    required
+                  />
+                </div>
+
+                <div class="col-12 col-md-6 col-xl-3">
+                  <label class="form-label" for="fromUtc">Desde</label>
+                  <input id="fromUtc" type="datetime-local" class="form-control" formControlName="fromUtc" />
+                </div>
+
+                <div class="col-12 col-md-6 col-xl-3">
+                  <label class="form-label" for="toUtc">Hasta</label>
+                  <input id="toUtc" type="datetime-local" class="form-control" formControlName="toUtc" />
+                </div>
+
+                <div class="col-12 col-md-4 col-xl-3">
+                  <label class="form-label" for="operationType">Operación</label>
+                  <select id="operationType" class="form-select" formControlName="operationType">
+                    <option value="">Todas</option>
+                    @for (operationType of filterOptions.operationTypes; track operationType) {
+                      <option [value]="operationType">{{ operationType }}</option>
+                    }
+                  </select>
+                </div>
+
+                <div class="col-12 col-md-4 col-xl-3">
+                  <label class="form-label" for="eventType">Evento</label>
+                  <select id="eventType" class="form-select" formControlName="eventType">
+                    <option value="">Todos</option>
+                    @for (eventType of filterOptions.eventTypes; track eventType) {
+                      <option [value]="eventType">{{ eventType }}</option>
+                    }
+                  </select>
+                </div>
+
+                <div class="col-12 col-md-4 col-xl-3">
+                  <label class="form-label" for="commandType">Comando</label>
+                  <select id="commandType" class="form-select" formControlName="commandType">
+                    <option value="">Todos</option>
+                    @for (commandType of filterOptions.commandTypes; track commandType) {
+                      <option [value]="commandType">{{ commandType }}</option>
+                    }
+                  </select>
+                </div>
+
+                <div class="col-12 col-md-6 col-xl-2">
+                  <label class="form-label" for="pageSize">Tamaño página</label>
+                  <select id="pageSize" class="form-select" formControlName="pageSize" (change)="onPageSizeChange()">
+                    <option [ngValue]="25">25</option>
+                    <option [ngValue]="50">50</option>
+                    <option [ngValue]="100">100</option>
+                    <option [ngValue]="200">200</option>
+                  </select>
+                </div>
+
+                <div class="col-12 col-md-6 col-xl-1">
+                  <label class="form-label" for="sortDirection">Orden</label>
+                  <select id="sortDirection" class="form-select" formControlName="sortDirection">
+                    <option value="desc">Desc</option>
+                    <option value="asc">Asc</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="traceability-actions">
+                <button type="button" class="btn btn-primary" (click)="onSearch()" [disabled]="loadingResults || !hasRequiredScope">
+                  Buscar
+                </button>
+                <button type="button" class="btn btn-outline-primary" (click)="onLoadFilters()" [disabled]="loadingFilters || !hasRequiredScope">
+                  Actualizar filtros
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-outline-secondary"
+                  (click)="onLoadTimeline()"
+                  [disabled]="loadingTimeline || !hasRequiredScope"
+                >
+                  Timeline agregado
+                </button>
+                <button type="button" class="btn btn-light" (click)="onClear()">Limpiar</button>
+                @if (hasSourceNavigation) {
+                  <button type="button" class="btn btn-primary" (click)="onBackToSource()">
+                    {{ backButtonLabel }}
+                  </button>
+                }
+              </div>
+
+              <p class="traceability-hint">
+                La consulta exige seleccionar una entidad e ingresar un AggregateId valido. Luego puedes acotar por rango de fechas,
+                operación, evento o comando. Si llegas desde otra pantalla,
+                puedes abrir esta vista con <code>entity</code> y <code>aggregateId</code> en la URL.
+              </p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12 col-xl-8">
+        <div class="card">
+          <div class="card-header traceability-card-header">
+            <h4>Eventos</h4>
+            <div class="traceability-status">
+              @if (loadingEntities || loadingFilters || loadingResults || loadingTimeline) {
+                <span class="badge badge-light-primary">Cargando</span>
+              } @else {
+                <span class="badge badge-light-success">{{ resultPage.totalCount }} registros</span>
+              }
+            </div>
+          </div>
+          <div class="card-body">
+            @if (hasResults) {
+              <div class="traceability-summary">
+                <span>Página {{ resultPage.page }} de {{ totalPages }}</span>
+                <span>Mostrando {{ resultPage.items.length }} eventos</span>
+              </div>
+
+              <ngx-datatable
+                class="material"
+                [rows]="resultPage.items"
+                [headerHeight]="50"
+                [footerHeight]="0"
+                [rowHeight]="60"
+                [columnMode]="'force'"
+                [scrollbarH]="scrollBarHorizontal"
+              >
+                <ngx-datatable-column name="Revision" [width]="80">
+                  <ng-template let-row="row" ngx-datatable-cell-template>
+                    {{ row.aggregateRevision }}
+                  </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column name="Ocurrido" [width]="160">
+                  <ng-template let-row="row" ngx-datatable-cell-template>
+                    {{ formatDate(row.occurredAtUtc) }}
+                  </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column name="Operacion" [width]="110">
+                  <ng-template let-row="row" ngx-datatable-cell-template>
+                    {{ row.operationType || 'Sin dato' }}
+                  </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column name="Evento" [width]="170">
+                  <ng-template let-row="row" ngx-datatable-cell-template>
+                    {{ row.eventType || 'Sin dato' }}
+                  </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column name="Comando" [width]="170">
+                  <ng-template let-row="row" ngx-datatable-cell-template>
+                    {{ row.commandType || 'Sin dato' }}
+                  </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column name="Actor" [width]="180">
+                  <ng-template let-row="row" ngx-datatable-cell-template>
+                    <div class="event-cell-text">{{ row.actorUsername || 'Sin dato' }}</div>
+                    <div class="event-cell-subtext">{{ row.actorEmail || '' }}</div>
+                  </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column name="Cambios" [width]="70">
+                  <ng-template let-row="row" ngx-datatable-cell-template>
+                    {{ row.changeCount }}
+                  </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column name="Detalle" [sortable]="false" [width]="100">
+                  <ng-template let-row="row" ngx-datatable-cell-template>
+                    <button type="button" class="btn btn-tbl-edit h-auto" (click)="onViewDetail(row)">
+                      <i class="fas fa-search"></i>
+                    </button>
+                  </ng-template>
+                </ngx-datatable-column>
+              </ngx-datatable>
+
+              <div class="traceability-pagination">
+                <button type="button" class="btn btn-outline-secondary" (click)="onPreviousPage()" [disabled]="!canGoPrevious">
+                  Anterior
+                </button>
+                <span>Página {{ resultPage.page }} de {{ totalPages }}</span>
+                <button type="button" class="btn btn-outline-secondary" (click)="onNextPage()" [disabled]="!canGoNext">
+                  Siguiente
+                </button>
+              </div>
+            } @else {
+              <div class="traceability-empty-state">
+                <h5>Sin resultados</h5>
+                <p>Ejecuta una búsqueda para consultar la trazabilidad disponible.</p>
+              </div>
+            }
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 col-xl-4">
+        <div class="card">
+          <div class="card-header">
+            <h4>Detalle del evento</h4>
+          </div>
+          <div class="card-body">
+            @if (loadingDetail) {
+              <p class="mb-0">Cargando detalle...</p>
+            } @else if (selectedEvent) {
+              <dl class="traceability-detail-list">
+                <div>
+                  <dt>AggregateId</dt>
+                  <dd>{{ selectedEvent.aggregateId }}</dd>
+                </div>
+                <div>
+                  <dt>Tipo</dt>
+                  <dd>{{ selectedEvent.aggregateType }}</dd>
+                </div>
+                <div>
+                  <dt>Revision</dt>
+                  <dd>{{ selectedEvent.aggregateRevision }}</dd>
+                </div>
+                <div>
+                  <dt>Operacion</dt>
+                  <dd>{{ selectedEvent.operationType }}</dd>
+                </div>
+                <div>
+                  <dt>Evento</dt>
+                  <dd>{{ selectedEvent.eventType }}</dd>
+                </div>
+                <div>
+                  <dt>Comando</dt>
+                  <dd>{{ selectedEvent.commandType }}</dd>
+                </div>
+                <div>
+                  <dt>Ocurrido</dt>
+                  <dd>{{ formatDate(selectedEvent.occurredAtUtc) }}</dd>
+                </div>
+                <div>
+                  <dt>Persistido</dt>
+                  <dd>{{ formatDate(selectedEvent.persistedAtUtc) }}</dd>
+                </div>
+                <div>
+                  <dt>Usuario</dt>
+                  <dd>{{ selectedEvent.actor.username || 'Sin dato' }}</dd>
+                </div>
+                <div>
+                  <dt>Correo</dt>
+                  <dd>{{ selectedEvent.actor.email || 'Sin dato' }}</dd>
+                </div>
+                <div>
+                  <dt>Ruta</dt>
+                  <dd>{{ selectedEvent.requestPath || 'Sin dato' }}</dd>
+                </div>
+              </dl>
+
+              <div class="traceability-subsection">
+                <h5>Cambios</h5>
+                @if (selectedEvent.changes.length) {
+                  <div class="table-responsive">
+                    <table class="table table-sm align-middle">
+                      <thead>
+                        <tr>
+                          <th>#</th>
+                          <th>Objeto</th>
+                          <th>Valor</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        @for (change of selectedEvent.changes; track change.order) {
+                          <tr>
+                            <td>{{ change.order }}</td>
+                            <td>{{ change.path }}</td>
+                            <td>
+                              <pre class="traceability-change-value">{{ prettyPrintJson(change.newValueJson) || 'Sin dato' }}</pre>
+                            </td>
+                          </tr>
+                        }
+                      </tbody>
+                    </table>
+                  </div>
+                } @else {
+                  <p class="mb-0">El evento no registra cambios estructurados.</p>
+                }
+              </div>
+
+              <div class="traceability-subsection">
+                <h5>Snapshot</h5>
+                @if (selectedEvent.snapshotJson) {
+                  <pre class="traceability-json-block">{{ prettyPrintJson(selectedEvent.snapshotJson) }}</pre>
+                } @else {
+                  <p class="mb-0">El evento no incluye snapshot.</p>
+                }
+              </div>
+            } @else {
+              <p class="mb-0">Selecciona un evento para revisar su detalle.</p>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

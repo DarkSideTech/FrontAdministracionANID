@@ -1,5 +1,5 @@
-import { HTTP_INTERCEPTORS, HttpClient, HttpFeature, HttpFeatureKind, provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
-import { ApplicationConfig, importProvidersFrom } from '@angular/core';
+import { HttpClient, provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
+import { APP_INITIALIZER, ApplicationConfig, importProvidersFrom, provideBrowserGlobalErrorListeners } from '@angular/core';
 import { APP_ROUTE } from './app.routes';
 import { provideRouter } from '@angular/router';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
@@ -10,10 +10,21 @@ import { FeatherModule } from 'angular-feather';
 import { allIcons } from 'angular-feather/icons';
 import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
 import { provideToastr } from 'ngx-toastr';
-import { authInterceptor } from '@core/interceptor/auth.interceptor';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { catchError, firstValueFrom, of } from 'rxjs';
+import { authInterceptor } from '@core/auth/auth.interceptor';
+import { AccountAuthService } from '@core/auth/account-auth.service';
 
 export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
     return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
+
+function initializeAuthentication(accountAuthService: AccountAuthService) {
+    return () => firstValueFrom(
+        accountAuthService.initialize().pipe(
+            catchError(() => of(void 0))
+        )
+    );
 }
 
 export const appConfig: ApplicationConfig = {
@@ -23,14 +34,20 @@ export const appConfig: ApplicationConfig = {
             withInterceptors([authInterceptor])
         ),
         provideRouter(APP_ROUTE),
+        provideBrowserGlobalErrorListeners(),
+        provideAnimationsAsync(),
         provideToastr(),
+        {
+            provide: APP_INITIALIZER,
+            multi: true,
+            useFactory: initializeAuthentication,
+            deps: [AccountAuthService],
+        },
         { provide: LocationStrategy, useClass: HashLocationStrategy },
-        //{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
-        //{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
         DirectionService, LanguageService,
         importProvidersFrom(
             TranslateModule.forRoot({
-                defaultLanguage: 'en',
+                defaultLanguage: 'es',
                 loader: {
                     provide: TranslateLoader,
                     useFactory: createTranslateLoader,
@@ -39,7 +56,6 @@ export const appConfig: ApplicationConfig = {
             })
         ),
         importProvidersFrom(FeatherModule.pick(allIcons)),
-        provideCharts(withDefaultRegisterables()),
+        provideCharts(withDefaultRegisterables())
     ],
-
 };

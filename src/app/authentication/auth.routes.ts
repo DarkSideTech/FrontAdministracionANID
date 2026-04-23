@@ -5,11 +5,13 @@ import { Page404Component } from "./page404/page404.component";
 import { Page500Component } from "./page500/page500.component";
 import { ForgotComponent } from "./forgot/forgot.component";
 import { ResetComponent } from "./reset/reset.component";
-import { SeleccionaEntidadComponent } from "./selecciona-entidad/selecciona-entidad.component";
 import { MiPerfilComponent } from "./mi-perfil/mi-perfil.component";
-import { isAuthenticatedGuard } from "@core/guard/is-authenticated.guard";
 import { LogoutComponent } from "./logout/logout.component";
-import CallbackClaveUnicaComponent from "./callback-clave-unica/callback-clave-unica.component";
+import { CallbackClaveUnicaComponent } from "./callback-clave-unica/callback-clave-unica.component";
+import { UnauthorizedComponent } from "./unauthorized/unauthorized.component";
+import { SeleccionaOrganizacionComponent } from "./selecciona-organizacion/selecciona-organizacion.component";
+import { ConfirmEmailComponent } from "./confirm-email/confirm-email.component";
+import { authenticatedGuard, guestGuard, pendingOrganizationGuard } from "@core/auth/auth.guard";
 export const AUTH_ROUTE: Route[] = [
   {
     path: '',
@@ -19,20 +21,30 @@ export const AUTH_ROUTE: Route[] = [
   {
     path: 'mi-perfil',
     component: MiPerfilComponent,
-    canMatch: [isAuthenticatedGuard],
+    canActivate: [authenticatedGuard],
   },
   {
     path: 'signin',
     component: SigninComponent,
+    canActivate: [guestGuard],
+  },
+  {
+    path: 'selecciona-organizacion',
+    component: SeleccionaOrganizacionComponent,
+    canActivate: [pendingOrganizationGuard],
   },
   {
     path: 'selecciona-entidad',
-    component: SeleccionaEntidadComponent,
-    canActivate: [isAuthenticatedGuard],
+    redirectTo: 'selecciona-organizacion',
+    pathMatch: 'full',
   },
   {
     path: 'signup',
     component: SignupComponent,
+  },
+  {
+    path: 'confirm-email',
+    component: ConfirmEmailComponent,
   },
   {
     path: 'forgot',
@@ -58,4 +70,8 @@ export const AUTH_ROUTE: Route[] = [
     path: 'callback-clave-unica',
     component: CallbackClaveUnicaComponent,
   },
+  {
+    path: 'unauthorized',
+    component: UnauthorizedComponent,
+  }
 ];

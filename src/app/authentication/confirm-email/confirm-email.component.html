@@ -1,0 +1,106 @@
+<main class="d-flex align-items-center min-vh-100 py-3 py-md-0">
+  <div class="container register-container">
+    <div class="login-card card col-md-7">
+      <div class="row no-gutters">
+        <div class="col-md-12">
+          <div class="register-body login-body">
+            <div class="brand-wrapper col-md-12">
+              <img
+                src="assets/images/dst/anid/anid_rojo_azul.png"
+                class="rounded mx-auto d-block"
+                style="max-width: 150px"
+                alt="logo"
+              />
+            </div>
+            <div class="text-center col-md-12">
+              <span class="titulo2">Valida tu correo electronico</span>
+            </div>
+
+            <div class="alert alert-info mt-4" role="alert">
+              {{ infoMessage }}
+            </div>
+
+            <form class="login-form mt-4" [formGroup]="confirmationForm" (ngSubmit)="onConfirmEmail()">
+              <div class="col-md-12">
+                <div class="form-group position-relative">
+                  <label>Correo electronico <span class="text-danger">*</span></label>
+                  <img src="assets/icon/email.svg" class="login-icons" alt="icono email" />
+                  <input
+                    type="email"
+                    class="form-control psl-5"
+                    [class.is-invalid]="isInvalid('email')"
+                    formControlName="email"
+                    placeholder="Ejemplo@correo.cl"
+                  />
+                  @if (errorFor('email')) {
+                    <div class="invalid-feedback d-block">{{ errorFor('email') }}</div>
+                  }
+                </div>
+              </div>
+
+              <div class="col-md-12">
+                <div class="form-group position-relative">
+                  <label>Token de validacion <span class="text-danger">*</span></label>
+                  <textarea
+                    rows="4"
+                    class="form-control"
+                    [class.is-invalid]="isInvalid('validationToken')"
+                    formControlName="validationToken"
+                    placeholder="Pega aqui el token recibido por correo o el link completo de validacion"
+                  ></textarea>
+                  @if (errorFor('validationToken')) {
+                    <div class="invalid-feedback d-block">{{ errorFor('validationToken') }}</div>
+                  }
+                </div>
+              </div>
+
+              @if (errorMessage) {
+                <div class="alert alert-danger mb-3 msl-3">{{ errorMessage }}</div>
+              }
+
+              @if (successMessage) {
+                <div class="alert alert-success mb-3 msl-3">{{ successMessage }}</div>
+              }
+
+              <div class="col-md-12 text-center">
+                <button
+                  class="btn anid-btn-primary auth-form-btn btn_ext"
+                  [disabled]="confirming || resending"
+                  type="submit"
+                >
+                  {{ confirming ? 'Validando...' : 'Validar correo' }}
+                </button>
+              </div>
+
+              <div class="col-md-12 text-center mt-3">
+                <button
+                  class="btn btn-outline-secondary auth-form-btn btn_ext"
+                  [disabled]="confirming || resending"
+                  type="button"
+                  (click)="onResendEmail()"
+                >
+                  {{ resending ? 'Reenviando...' : 'Reenviar correo' }}
+                </button>
+              </div>
+            </form>
+
+            <div class="mt-4 text-center">
+              <a class="text-enlace fw-bold" (click)="goToLogin()">Ir al Login</a>
+            </div>
+            <div class="mt-2 text-center">
+              <a class="text-enlace" routerLink="/authentication/signup">Volver al registro</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row linkempresa">
+      <div class="text-center">
+        <p>
+          <a class="link-opacity-10" href="https://ayuda.anid.cl">Departamento de Tecnologia y Procesos</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</main>

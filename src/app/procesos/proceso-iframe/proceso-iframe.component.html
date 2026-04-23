@@ -1,0 +1,41 @@
+<section class="main-content">
+  <ul class="breadcrumb breadcrumb-style">
+    <li class="breadcrumb-item">
+      <h5 class="page-title m-b-0">{{ title() }}</h5>
+    </li>
+    <li class="breadcrumb-item bcrumb-1">
+      <a routerLink="/paneles/estadisticas-usuarios" class="breadcrumb-p">Inicio</a>
+    </li>
+    <li class="breadcrumb-item">{{ title() }}</li>
+  </ul>
+
+  <div class="section-body">
+    <div class="row">
+      <div class="col-12">
+        <div class="card process-card">
+          <div class="card-header process-card-header">
+            <div>
+              <h4>{{ title() }}</h4>
+              @if (tooltip()) {
+                <p class="process-card-help">{{ tooltip() }}</p>
+              }
+            </div>
+          </div>
+          <div class="card-body process-card-body">
+            @if (iframeUrl()) {
+              <iframe
+                class="process-frame"
+                [src]="iframeUrl()"
+                [attr.title]="tooltip() || title()">
+              </iframe>
+            } @else {
+              <div class="alert alert-warning mb-0">
+                {{ errorMessage() }}
+              </div>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

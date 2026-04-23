@@ -15,226 +15,276 @@
             <div class="text-center col-md-12">
               <span class="titulo2">Crea Nuevo Usuario</span>
             </div>
-            <form
-              class="login-form mt-4"
-              [formGroup]="registerForm"
-              (ngSubmit)="onSubmit()"
-            >
+
+            <form class="login-form mt-4" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
               <div class="col-md-12">
                 <div class="form-group position-relative">
-                  <label
-                    >Tu correo
-                    <span class="text-danger">*</span></label
-                  >
-                  <img src="assets/icon/email.svg" class="login-icons" alt="icono email"/>
+                  <label>Tu correo <span class="text-danger">*</span></label>
+                  <img src="assets/icon/email.svg" class="login-icons" alt="icono email" />
                   <input
                     type="email"
                     class="form-control psl-5"
-                    formControlName="email"
+                    [class.is-invalid]="isInvalid('correoElectronico')"
+                    formControlName="correoElectronico"
                     placeholder="Ejemplo@correo.cl"
-                    required
                   />
+                  @if (errorFor('correoElectronico')) {
+                    <div class="invalid-feedback d-block">{{ errorFor('correoElectronico') }}</div>
+                  }
                 </div>
               </div>
+
+              <div class="col-md-12">
+                <div class="form-group position-relative">
+                  <label>Teléfono</label>
+                  <input
+                    type="tel"
+                    class="form-control"
+                    [class.is-invalid]="isInvalid('numeroDeTelefono')"
+                    formControlName="numeroDeTelefono"
+                    placeholder="+56912345678"
+                  />
+                  @if (errorFor('numeroDeTelefono')) {
+                    <div class="invalid-feedback d-block">{{ errorFor('numeroDeTelefono') }}</div>
+                  }
+                </div>
+              </div>
+
               <div class="col-md-12">
                 <div class="form-group position-relative">
                   <label>Nacionalidad <span class="text-danger">*</span></label>
-                  <img src="assets/icon/pais.svg" class="login-icons" alt="icono nacionalidad"/>
+                  <img src="assets/icon/pais.svg" class="login-icons" alt="icono nacionalidad" />
                   <select
                     class="form-control form-select psl-5"
+                    [class.is-invalid]="isInvalid('nacionalidad')"
                     formControlName="nacionalidad"
                   >
-                    <option selected disabled>Seleccione...</option>
-                    <option value="1">Chilena</option>
-                    <option value="2">Argentina</option>
-                    <option value="3">Peruano</option>
-                    <option value="4">Mexicano</option>
+                    @for (option of nacionalidadOptions; track option.value) {
+                      <option [value]="option.value">{{ option.label }}</option>
+                    }
                   </select>
+                  @if (errorFor('nacionalidad')) {
+                    <div class="invalid-feedback d-block">{{ errorFor('nacionalidad') }}</div>
+                  }
                 </div>
               </div>
+
               <div class="col-md-12">
                 <div class="form-group position-relative">
-                  <label>Tipo de Usuario</label>
-                  <img src="assets/icon/person_outline.svg" class="login-icons" alt="icono usuario"/>
+                  <label>Tipo de Usuario <span class="text-danger">*</span></label>
+                  <img src="assets/icon/person_outline.svg" class="login-icons" alt="icono usuario" />
                   <select
                     class="form-control form-select psl-5"
-                    formControlName="tipoUsuario"
+                    [class.is-invalid]="isInvalid('tipoDeUsuario')"
+                    formControlName="tipoDeUsuario"
                   >
-                    <option selected disabled>Seleccione...</option>
-                    <option value="1">Extranjero</option>
-                    <option value="2">Extranjero Residente</option>
-                    <option value="3">Extranjero Nacionalizado</option>
+                    @for (option of tipoDeUsuarioOptions; track option.value) {
+                      <option [value]="option.value">{{ option.label }}</option>
+                    }
                   </select>
+                  @if (errorFor('tipoDeUsuario')) {
+                    <div class="invalid-feedback d-block">{{ errorFor('tipoDeUsuario') }}</div>
+                  }
                 </div>
               </div>
+
               <div class="col-md-12">
                 <div class="form-group position-relative">
                   <label>Documento de Identidad <span class="text-danger">*</span></label>
-
-                  <input
-                    type="text"
-                    class="form-control"
-                    formControlName="run"
-                    placeholder="Pasaporte / Dni / Otro"
-                    required
-                  />
+                  <select
+                    class="form-control form-select"
+                    [class.is-invalid]="isInvalid('documentoDeIdentidad')"
+                    formControlName="documentoDeIdentidad"
+                  >
+                    <option value="">Selecciones..</option>
+                    @for (option of documentoDeIdentidadOptions; track option.value) {
+                      <option [value]="option.value">{{ option.label }}</option>
+                    }
+                  </select>
+                  @if (errorFor('documentoDeIdentidad')) {
+                    <div class="invalid-feedback d-block">{{ errorFor('documentoDeIdentidad') }}</div>
+                  }
                 </div>
               </div>
-                <div class="col-md-12">
-                  <div class="form-group position-relative">
-                    <label
-                      >Numero de Documento
-                      <span class="text-danger">*</span></label
-                    >
-                    <input
-                      type="text"
-                      class="form-control"
-                      formControlName="codigovalidadordocumento"
-                      placeholder="Ej: xxx.xxx.xxx-x o xxxxxxxxx"
-                      required
-                    />
-                  </div>
-              </div>
-                <div class="col-md-12">
-                  <div class="form-group position-relative">
-                    <label
-                      >Código Validador Documento
-                      <span class="text-danger">*</span></label
-                    >
-                    <input
-                      type="text"
-                      class="form-control"
-                      formControlName="codigovalidadordocumento"
-                      placeholder="Ej: xxxxxxxxx"
-                      required
-                    />
-                  </div>
-              </div>
+
               <div class="col-md-12">
                 <div class="form-group position-relative">
-                  <label
-                    >Primer Nombre <span class="text-danger">*</span></label
-                  >
-
+                  <label>Número de Documento <span class="text-danger">*</span></label>
                   <input
                     type="text"
                     class="form-control"
-                    formControlName="primernombre"
-                    placeholder="Ingrese su primer nombre"
-                    required
+                    [class.is-invalid]="isInvalid('numeroDeDocumento')"
+                    formControlName="numeroDeDocumento"
+                    placeholder="Ej: xxxxxxxxx"
                   />
+                  @if (errorFor('numeroDeDocumento')) {
+                    <div class="invalid-feedback d-block">{{ errorFor('numeroDeDocumento') }}</div>
+                  }
                 </div>
               </div>
+
+              <div class="col-md-12">
+                <div class="form-group position-relative">
+                  <label>Código Validador Documento <span class="text-danger">*</span></label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    [class.is-invalid]="isInvalid('codigoValidadorDocumento')"
+                    formControlName="codigoValidadorDocumento"
+                    placeholder="Ej: x"
+                  />
+                  @if (errorFor('codigoValidadorDocumento')) {
+                    <div class="invalid-feedback d-block">{{ errorFor('codigoValidadorDocumento') }}</div>
+                  }
+                </div>
+              </div>
+
+              <div class="col-md-12">
+                <div class="form-group position-relative">
+                  <label>Primer Nombre <span class="text-danger">*</span></label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    [class.is-invalid]="isInvalid('primerNombre')"
+                    formControlName="primerNombre"
+                    placeholder="Ingrese su primer nombre"
+                  />
+                  @if (errorFor('primerNombre')) {
+                    <div class="invalid-feedback d-block">{{ errorFor('primerNombre') }}</div>
+                  }
+                </div>
+              </div>
+
               <div class="col-md-12">
                 <div class="form-group position-relative">
                   <label>Segundo Nombre</label>
-
                   <input
                     type="text"
                     class="form-control"
-                    formControlName="segundonombre"
+                    formControlName="segundoNombre"
                     placeholder="Ingrese su segundo nombre"
                   />
                 </div>
               </div>
+
               <div class="col-md-12">
                 <div class="form-group position-relative">
-                  <label
-                    >Primer Apellido <span class="text-danger">*</span></label
-                  >
-
+                  <label>Primer Apellido <span class="text-danger">*</span></label>
                   <input
                     type="text"
                     class="form-control"
-                    formControlName="primerapellido"
+                    [class.is-invalid]="isInvalid('primerApellido')"
+                    formControlName="primerApellido"
                     placeholder="Ingrese su primer apellido"
-                    required
                   />
+                  @if (errorFor('primerApellido')) {
+                    <div class="invalid-feedback d-block">{{ errorFor('primerApellido') }}</div>
+                  }
                 </div>
               </div>
+
               <div class="col-md-12">
                 <div class="form-group position-relative">
                   <label>Segundo Apellido</label>
-
                   <input
                     type="text"
                     class="form-control"
-                    formControlName="segundoapellido"
+                    formControlName="segundoApellido"
                     placeholder="Ingrese su segundo apellido"
                   />
                 </div>
               </div>
+
               <div class="col-md-12">
                 <div class="form-group position-relative">
-                    <label>Sexo Declarativo<span class="text-danger">*</span></label>
-                    <img src="assets/icon/sexo.svg" class="login-icons" alt="icono género"/>
-                    <select class="form-control form-select psl-5" formControlName="sexo">
-                      <option selected disabled>Seleccione...</option>
-                      <option value="1">Mujer</option>
-                      <option value="2">Hombre</option>
-                      <option value="3">No Declara</option>
-                    </select>
-                  </div>
+                  <label>Sexo Declarativo <span class="text-danger">*</span></label>
+                  <img src="assets/icon/sexo.svg" class="login-icons" alt="icono género" />
+                  <select
+                    class="form-control form-select psl-5"
+                    [class.is-invalid]="isInvalid('sexoDeclarativo')"
+                    formControlName="sexoDeclarativo"
+                  >
+                    <option value="">Seleccione...</option>
+                    @for (option of sexoDeclarativoOptions; track option.value) {
+                      <option [value]="option.value">{{ option.label }}</option>
+                    }
+                  </select>
+                  @if (errorFor('sexoDeclarativo')) {
+                    <div class="invalid-feedback d-block">{{ errorFor('sexoDeclarativo') }}</div>
+                  }
+                </div>
               </div>
+
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group position-relative">
-                    <label>Sexo Registral<span class="text-danger">*</span></label>
-                    <img src="assets/icon/sexo.svg" class="login-icons" alt="icono género"/>
-                    <select class="form-control form-select psl-5" formControlName="sexo">
-                      <option selected disabled>Seleccione...</option>
-                      <option value="1">F-Femenino</option>
-                      <option value="2">M-Masculino</option>
-                      <option value="3">X-No Binario</option>
-                      <option value="3">N-No Declara</option>
+                    <label>Sexo Registral <span class="text-danger">*</span></label>
+                    <img src="assets/icon/sexo.svg" class="login-icons" alt="icono género" />
+                    <select
+                      class="form-control form-select psl-5"
+                      [class.is-invalid]="isInvalid('sexoRegistral')"
+                      formControlName="sexoRegistral"
+                    >
+                      <option value="">Selecciones..</option>
+                      @for (option of sexoRegistralOptions; track option.value) {
+                        <option [value]="option.value">{{ option.label }}</option>
+                      }
                     </select>
+                    @if (errorFor('sexoRegistral')) {
+                      <div class="invalid-feedback d-block">{{ errorFor('sexoRegistral') }}</div>
+                    }
                   </div>
                 </div>
+
                 <div class="col-md-6">
                   <div class="form-group position-relative">
-                    <label
-                      >Fecha de Nacimiento
-                      <span class="text-danger">*</span></label
-                    >
-
+                    <label>Fecha de Nacimiento <span class="text-danger">*</span></label>
                     <input
                       type="date"
                       class="form-control custom-date"
-                      formControlName="fechanacimiento"
-                      placeholder="Fecha De Nacimiento"
-                      required
+                      [class.is-invalid]="isInvalid('fechaDeNacimiento')"
+                      formControlName="fechaDeNacimiento"
                     />
+                    @if (errorFor('fechaDeNacimiento')) {
+                      <div class="invalid-feedback d-block">{{ errorFor('fechaDeNacimiento') }}</div>
+                    }
                   </div>
                 </div>
 
                 <div class="col-md-12">
                   <div class="form-group position-relative">
                     <label>Contraseña <span class="text-danger">*</span></label>
-                    <img src="assets/icon/https.svg" class="login-icons" alt="icono candado"/>
+                    <img src="assets/icon/https.svg" class="login-icons" alt="icono candado" />
                     <input
                       type="password"
                       class="form-control psl-5"
+                      [class.is-invalid]="isInvalid('password')"
                       formControlName="password"
                       placeholder="Contraseña"
-                      required
                     />
+                    @if (errorFor('password')) {
+                      <div class="invalid-feedback d-block">{{ errorFor('password') }}</div>
+                    }
                   </div>
                 </div>
+
                 <div class="col-md-12">
                   <div class="form-group position-relative">
-                    <label
-                      >Repetir Contraseña <span class="text-danger">*</span></label
-                    >
-                    <img src="assets/icon/https.svg" class="login-icons" alt="icono candado"/>
+                    <label>Repetir Contraseña <span class="text-danger">*</span></label>
+                    <img src="assets/icon/https.svg" class="login-icons" alt="icono candado" />
                     <input
                       type="password"
                       class="form-control psl-5"
-                      formControlName="retypepassword"
+                      [class.is-invalid]="isInvalid('confirmaPassword')"
+                      formControlName="confirmaPassword"
                       placeholder="Repetir Contraseña"
-                      required
                     />
+                    @if (errorFor('confirmaPassword')) {
+                      <div class="invalid-feedback d-block">{{ errorFor('confirmaPassword') }}</div>
+                    }
                   </div>
                 </div>
+
                 <div class="col-md-12">
                   <div class="form-group">
                     <div class="form-check">
@@ -242,54 +292,57 @@
                         class="form-check-input"
                         type="checkbox"
                         id="customCheck1"
-                        formControlName="termcondition"
+                        [class.is-invalid]="isInvalid('terminosYCondiciones')"
+                        formControlName="terminosYCondiciones"
                       />
                       <label class="form-check-label" for="customCheck1">
                         Acepto
-                        <a href="javascript:void(0)" class="text-enlace"
-                          >Términos y condiciones</a
-                        >
+                        <a href="javascript:void(0)" class="text-enlace">Términos y condiciones</a>
                       </label>
                     </div>
+                    @if (errorFor('terminosYCondiciones')) {
+                      <div class="invalid-feedback d-block">{{ errorFor('terminosYCondiciones') }}</div>
+                    }
                   </div>
                 </div>
+
                 @if (error) {
-                <div class="alert alert-danger mb-3 msl-3">{{ error }}</div>
+                  <div class="alert alert-danger mb-3 msl-3">{{ error }}</div>
                 }
+
                 <div class="col-md-12 text-center">
-                  <button class="btn anid-btn-primary auth-form-btn btn_ext">
-                    Registrarse
+                  <button
+                    class="btn anid-btn-primary auth-form-btn btn_ext"
+                    [disabled]="loading || loadingCatalogs"
+                    type="submit"
+                  >
+                    {{ loading ? 'Registrando...' : 'Registrarse' }}
                   </button>
                 </div>
+
                 <div class="mx-auto text-center">
                   <p class="mb-0 mt-3">
-                    <small class="text-dark msr-2"
-                      >¿Ya tienes una cuenta?</small
-                    >
-                    <a
-                      routerLink="/authentication/signin"
-                      class="text-enlace fw-bold"
-                      >Iniciar Sesion</a
-                    >
+                    <small class="text-dark msr-2">¿Ya tienes una cuenta?</small>
+                    <a routerLink="/authentication/signin" class="text-enlace fw-bold">Iniciar Sesion</a>
                   </p>
                 </div>
               </div>
             </form>
+
             <div class="mt-3 text-center">
-              <a class="text-enlace"routerLink="/authentication/signin">Volver al Login</a>
+              <a class="text-enlace" routerLink="/authentication/signin">Volver al Login</a>
             </div>
           </div>
         </div>
       </div>
-
     </div>
+
     <div class="row linkempresa">
-        <div class="text-center">
-          <p>
-            <a class="link-opacity-10" href="https://ayuda.anid.cl">Departamento de Tecnologia y Procesos</a
-            >
-          </p>
-        </div>
+      <div class="text-center">
+        <p>
+          <a class="link-opacity-10" href="https://ayuda.anid.cl">Departamento de Tecnologia y Procesos</a>
+        </p>
       </div>
+    </div>
   </div>
 </main>

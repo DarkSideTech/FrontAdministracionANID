@@ -16,6 +16,7 @@ import { DominiosModule } from './dominios/dominios.module';
     styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+  private readonly supportedMenuTypes = new Set(['horizontal', 'vertical', 'floating']);
 
   currentUrl!: string;
 
@@ -23,7 +24,8 @@ export class AppComponent {
   noMenuRoutes = [
     '/authentication/signin',
     '/authentication/signup',
-    '/authentication/forgot-password'
+    '/authentication/confirm-email',
+    '/authentication/forgot'
   ];
 
   constructor(
@@ -47,17 +49,13 @@ export class AppComponent {
             'menu-vertical-active',
             'menu-floating-active'
           );
-
-          // opcional: guardar que no hay menú activo
-          localStorage.setItem('selectedMenuType', 'none');
         }
 
         // ---- RESTAURAR MENÚ EN OTRAS RUTAS ----
         else {
           const savedMenu = localStorage.getItem('selectedMenuType');
 
-          // evitar restaurar "none"
-          if (savedMenu && savedMenu !== 'none') {
+          if (savedMenu && this.supportedMenuTypes.has(savedMenu)) {
             this.document.body.classList.add(`menu-${savedMenu}-active`);
           }
         }

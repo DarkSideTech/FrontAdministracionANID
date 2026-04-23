@@ -18,9 +18,9 @@
               <img alt="image" src="assets/images/users/pato.png" class="rounded-circle author-box-picture">
               <div class="clearfix">
                 <div class="author-box-name">
-                  <a href="#" onClick="return false;">Joel Serey</a>
+                  <a href="#" onClick="return false;">{{ profile?.nombreADesplegar || 'Usuario AUT2' }}</a>
                 </div>
-                <div class="author-box-job">Consultor Tecnologia</div>
+                <div class="author-box-job">{{ profile?.tipoDeUsuario || 'Perfil de Usuario' }}</div>
               </div>
             </div>
 
@@ -79,13 +79,11 @@
         </div>
       </div>
 
-      <!-- CONTENIDO DERECHA -->
       <div class="col-12 col-md-12 col-lg-9 bodyperfil-vertical">
         <div class="card body-perfil2">
           <div>
             <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
 
-              <!-- TAB 1 -->
               <li [ngbNavItem]="1">
                 <a ngbNavLink>Informacion Personal</a>
                 <ng-template ngbNavContent>
@@ -94,17 +92,17 @@
 
                       <div class="col-md-5 col-6 b-r">
                         <strong>Nombre Completo</strong><br>
-                        <p class="text-muted">Joel Serey</p>
+                        <p class="text-muted">{{ profile?.nombreADesplegar || 'No informado' }}</p>
                       </div>
 
                       <div class="col-md-5 col-6 b-r">
                         <strong>Telefono</strong><br>
-                        <p class="text-muted">+569 1456 7890</p>
+                        <p class="text-muted">{{ telefonoDisplay }}</p>
                       </div>
 
                       <div class="col-md-5 col-6 b-r">
                         <strong>Correo Electrónico</strong><br>
-                        <p class="text-muted">jserey&#64;example.com</p>
+                        <p class="text-muted">{{ profile?.email || 'No informado' }}</p>
                       </div>
 
                       <div class="col-md-5 col-6">
@@ -162,198 +160,417 @@
                 </ng-template>
               </li>
 
-              <!-- TAB 2 -->
               <li [ngbNavItem]="2">
                 <a ngbNavLink>Modifica Información Personal</a>
                 <ng-template ngbNavContent>
                   <div class="perf-tab-sec">
                     <div class="title-perf"><h6>Modifica Perfil</h6></div>
 
-                    <div class="card-body">
+                    @if (error) {
+                      <div class="alert alert-danger mx-3">{{ error }}</div>
+                    }
 
-                      <div class="row">
+                    @if (success) {
+                      <div class="alert alert-success mx-3">{{ success }}</div>
+                    }
+
+                    @if (isNationalProfile) {
+                      <div class="alert alert-info mx-3">
+                        Para usuarios nacionales solo se permite modificar el sexo registral.
+                      </div>
+                    } @else {
+                      <div class="alert alert-info mx-3">
+                        El tipo de usuario y el correo electrónico se muestran como referencia y no pueden modificarse desde esta pestaña.
+                      </div>
+                    }
+
+                    <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+                      <div class="card-body">
+                        <div class="row">
                         <div class="form-group col-md-6 col-12">
-                          <label>Primer Nombre</label>
-                          <input type="text" class="form-control" value="Joel">
-                          <div class="invalid-feedback">Debe ingresar un nombre válido</div>
+                          <label>Tu correo <span class="text-danger">*</span></label>
+                          <input
+                              type="email"
+                              class="form-control"
+                              [class.is-invalid]="isInvalid('correoElectronico')"
+                              formControlName="correoElectronico"
+                              placeholder="Ejemplo@correo.cl"
+                            >
+                            @if (errorFor('correoElectronico')) {
+                              <div class="invalid-feedback d-block">{{ errorFor('correoElectronico') }}</div>
+                            }
+                          </div>
+
+                          <div class="form-group col-md-6 col-12">
+                            <label>Teléfono</label>
+                            <input
+                              type="tel"
+                              class="form-control"
+                              [class.is-invalid]="isInvalid('numeroDeTelefono')"
+                              formControlName="numeroDeTelefono"
+                              placeholder="+56912345678"
+                            >
+                            @if (errorFor('numeroDeTelefono')) {
+                              <div class="invalid-feedback d-block">{{ errorFor('numeroDeTelefono') }}</div>
+                            }
+                          </div>
+
+                          <div class="form-group col-md-6 col-12">
+                            <label>Tipo de Usuario <span class="text-danger">*</span></label>
+                            <select
+                              class="form-control form-select"
+                              [class.is-invalid]="isInvalid('tipoDeUsuario')"
+                              formControlName="tipoDeUsuario"
+                            >
+                              @for (option of tipoDeUsuarioOptions; track option.value) {
+                                <option [value]="option.value">{{ option.label }}</option>
+                              }
+                            </select>
+                            @if (errorFor('tipoDeUsuario')) {
+                              <div class="invalid-feedback d-block">{{ errorFor('tipoDeUsuario') }}</div>
+                            }
+                          </div>
                         </div>
 
-                        <div class="form-group col-md-6 col-12">
-                          <label>Segundo Nombre</label>
-                          <input type="text" class="form-control" value="Esteban">
-                          <div class="invalid-feedback">Debe ingresar un nombre válido</div>
+                        <div class="row">
+                          <div class="form-group col-md-6 col-12">
+                            <label>Nacionalidad <span class="text-danger">*</span></label>
+                            <select
+                              class="form-control form-select"
+                              [class.is-invalid]="isInvalid('nacionalidad')"
+                              formControlName="nacionalidad"
+                            >
+                              @for (option of nacionalidadOptions; track option.value) {
+                                <option [value]="option.value">{{ option.label }}</option>
+                              }
+                            </select>
+                            @if (errorFor('nacionalidad')) {
+                              <div class="invalid-feedback d-block">{{ errorFor('nacionalidad') }}</div>
+                            }
+                          </div>
+
+                          <div class="form-group col-md-6 col-12">
+                            <label>Documento de Identidad <span class="text-danger">*</span></label>
+                            <select
+                              class="form-control form-select"
+                              [class.is-invalid]="isInvalid('documentoDeIdentidad')"
+                              formControlName="documentoDeIdentidad"
+                            >
+                              <option value="">Selecciones..</option>
+                              @for (option of documentoDeIdentidadOptions; track option.value) {
+                                <option [value]="option.value">{{ option.label }}</option>
+                              }
+                            </select>
+                            @if (errorFor('documentoDeIdentidad')) {
+                              <div class="invalid-feedback d-block">{{ errorFor('documentoDeIdentidad') }}</div>
+                            }
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="form-group col-md-6 col-12">
+                            <label>Número de Documento <span class="text-danger">*</span></label>
+                            <input
+                              type="text"
+                              class="form-control"
+                              [class.is-invalid]="isInvalid('numeroDeDocumento')"
+                              formControlName="numeroDeDocumento"
+                            >
+                            @if (errorFor('numeroDeDocumento')) {
+                              <div class="invalid-feedback d-block">{{ errorFor('numeroDeDocumento') }}</div>
+                            }
+                          </div>
+
+                          <div class="form-group col-md-6 col-12">
+                            <label>Código Validador Documento <span class="text-danger">*</span></label>
+                            <input
+                              type="text"
+                              class="form-control"
+                              [class.is-invalid]="isInvalid('codigoValidadorDocumento')"
+                              formControlName="codigoValidadorDocumento"
+                            >
+                            @if (errorFor('codigoValidadorDocumento')) {
+                              <div class="invalid-feedback d-block">{{ errorFor('codigoValidadorDocumento') }}</div>
+                            }
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="form-group col-md-6 col-12">
+                            <label>Primer Nombre <span class="text-danger">*</span></label>
+                            <input
+                              type="text"
+                              class="form-control"
+                              [class.is-invalid]="isInvalid('primerNombre')"
+                              formControlName="primerNombre"
+                            >
+                            @if (errorFor('primerNombre')) {
+                              <div class="invalid-feedback d-block">{{ errorFor('primerNombre') }}</div>
+                            }
+                          </div>
+
+                          <div class="form-group col-md-6 col-12">
+                            <label>Segundo Nombre</label>
+                            <input
+                              type="text"
+                              class="form-control"
+                              formControlName="segundoNombre"
+                            >
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="form-group col-md-6 col-12">
+                            <label>Primer Apellido <span class="text-danger">*</span></label>
+                            <input
+                              type="text"
+                              class="form-control"
+                              [class.is-invalid]="isInvalid('primerApellido')"
+                              formControlName="primerApellido"
+                            >
+                            @if (errorFor('primerApellido')) {
+                              <div class="invalid-feedback d-block">{{ errorFor('primerApellido') }}</div>
+                            }
+                          </div>
+
+                          <div class="form-group col-md-6 col-12">
+                            <label>Segundo Apellido</label>
+                            <input
+                              type="text"
+                              class="form-control"
+                              formControlName="segundoApellido"
+                            >
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="form-group col-md-6 col-12">
+                            <label>Sexo Declarativo <span class="text-danger">*</span></label>
+                            <select
+                              class="form-control form-select"
+                              [class.is-invalid]="isInvalid('sexoDeclarativo')"
+                              formControlName="sexoDeclarativo"
+                            >
+                              <option value="">Seleccione...</option>
+                              @for (option of sexoDeclarativoOptions; track option.value) {
+                                <option [value]="option.value">{{ option.label }}</option>
+                              }
+                            </select>
+                            @if (errorFor('sexoDeclarativo')) {
+                              <div class="invalid-feedback d-block">{{ errorFor('sexoDeclarativo') }}</div>
+                            }
+                          </div>
+
+                          <div class="form-group col-md-6 col-12">
+                            <label>Sexo Registral <span class="text-danger">*</span></label>
+                            <select
+                              class="form-control form-select"
+                              [class.is-invalid]="isInvalid('sexoRegistral')"
+                              formControlName="sexoRegistral"
+                            >
+                              <option value="">Selecciones..</option>
+                              @for (option of sexoRegistralOptions; track option.value) {
+                                <option [value]="option.value">{{ option.label }}</option>
+                              }
+                            </select>
+                            @if (errorFor('sexoRegistral')) {
+                              <div class="invalid-feedback d-block">{{ errorFor('sexoRegistral') }}</div>
+                            }
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="form-group col-md-6 col-12">
+                            <label>Fecha de Nacimiento <span class="text-danger">*</span></label>
+                            <input
+                              type="date"
+                              class="form-control custom-date"
+                              [class.is-invalid]="isInvalid('fechaDeNacimiento')"
+                              formControlName="fechaDeNacimiento"
+                            >
+                            @if (errorFor('fechaDeNacimiento')) {
+                              <div class="invalid-feedback d-block">{{ errorFor('fechaDeNacimiento') }}</div>
+                            }
+                          </div>
                         </div>
                       </div>
 
-                      <div class="row">
-                        <div class="form-group col-md-6 col-12">
-                          <label>Primer Apellido</label>
-                          <input type="text" class="form-control" value="Serey">
-                          <div class="invalid-feedback">Debe ser un apellido válido</div>
-                        </div>
-
-                        <div class="form-group col-md-6 col-12">
-                          <label>Segundo Apellido</label>
-                          <input type="text" class="form-control" value="González">
-                          <div class="invalid-feedback">Debe ser un apellido válido</div>
-                        </div>
+                      <div class="card-footer text-end">
+                        <button class="btn anid-btn-primary auth-form-btn" [disabled]="loading || saving" type="submit">
+                          {{ saving ? 'Modificando...' : 'Modificar' }}
+                        </button>
                       </div>
-
-                      <div class="row">
-                        <div class="form-group col-md-6 col-12">
-                          <label>Dirección</label>
-                          <input type="email" class="form-control" value="Camino del silencio 345">
-                          <div class="invalid-feedback">Dirección no válida</div>
-                        </div>
-
-                        <div class="form-group col-md-6 col-12">
-                          <label>Telefono</label>
-                          <input type="tel" class="form-control" value="+569 1456 7890">
-                        </div>
-
-                        <div class="form-group col-md-6 col-12">
-                          <label>Nacionalidad</label>
-                          <select class="form-control form-select" formControlName="nacionalidad">
-                            <option selected disabled>Seleccione...</option>
-                            <option value="1">Chilena</option>
-                            <option value="2">Argentina</option>
-                            <option value="3">Peruano</option>
-                            <option value="4">Mexicano</option>
-                          </select>
-                          <div class="invalid-feedback">Debe ser un apellido válido</div>
-                        </div>
-
-                        <div class="form-group col-md-6 col-12">
-                          <label>Tipo de Usuario</label>
-                          <select class="form-control form-select" formControlName="tipoUsuario">
-                            <option selected disabled>Seleccione...</option>
-                            <option value="1">Extranjero</option>
-                            <option value="2">Extranjero Residente</option>
-                            <option value="3">Extranjero Nacionalizado</option>
-                          </select>
-                          <div class="invalid-feedback">Debe ser un apellido válido</div>
-                        </div>
-
-                        <div class="form-group col-md-6 col-12">
-                          <label>Documento de Identidad</label>
-                          <input type="text" class="form-control" placeholder="Pasaporte / Dni / Otro">
-                          <div class="invalid-feedback">Debe ser un apellido válido</div>
-                        </div>
-
-                        <div class="form-group col-md-6 col-12">
-                          <label>Número de Documento</label>
-                          <input type="text" class="form-control" value="19.304.207-6">
-                          <div class="invalid-feedback">Debe ser un apellido válido</div>
-                        </div>
-
-                        <div class="form-group col-md-6 col-12">
-                          <label>Fecha de Nacimiento</label>
-                          <input type="date" class="form-control custom-date">
-                          <div class="invalid-feedback">Debe ser un apellido válido</div>
-                        </div>
-
-                        <div class="form-group col-md-6 col-12">
-                          <label>Sexo Declarativo</label>
-                          <select class="form-control form-select" formControlName="sexo">
-                            <option selected disabled>Seleccione...</option>
-                            <option value="1">Mujer</option>
-                            <option value="2">Hombre</option>
-                            <option value="3">No Declara</option>
-                          </select>
-                          <div class="invalid-feedback">Debe ser un apellido válido</div>
-                        </div>
-
-                        <div class="form-group col-md-6 col-12">
-                          <label>Sexo Registral</label>
-                          <select class="form-control form-select" formControlName="sexo">
-                            <option selected disabled>Seleccione...</option>
-                            <option value="1">F-Femenino</option>
-                            <option value="2">M-Masculino</option>
-                            <option value="3">X-No Binario</option>
-                            <option value="3">N-No Declara</option>
-                          </select>
-                          <div class="invalid-feedback">Debe ser un apellido válido</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="card-footer text-end">
-                    <button class="btn anid-btn-primary auth-form-btn">Guardar Cambios</button>
+                    </form>
                   </div>
                 </ng-template>
               </li>
 
-              <!-- TAB 3 -->
               <li [ngbNavItem]="3">
                 <a ngbNavLink>Modificar Correo</a>
                 <ng-template ngbNavContent>
                   <div class="perf-tab-sec">
                     <div class="title-perf"><h6>Modifica Correo Electrónico</h6></div>
 
-                    <div class="card-body">
-                      <div class="row tab-row">
-                        <div class="form-group col-md-12 col-12">
-                          <div class="author-box-description">
-                            <p>
-                              Al modificar la direccion de correo electrónico se le solicitará volver a validar, mientras no se valide el nuevo correo electrónico, seguirá activo el anterior.
-                            </p>
+                    <form [formGroup]="emailChangeForm" (ngSubmit)="onChangeEmail()">
+                      <div class="card-body">
+                        <div class="row tab-row">
+                          <div class="form-group col-md-12 col-12">
+                            <div class="author-box-description">
+                              <p>
+                                Al modificar tu correo electrónico se cerrará tu sesión actual. No podrás volver a ingresar a la plataforma hasta validar el nuevo correo.
+                              </p>
+                            </div>
+                          </div>
+
+                          <div class="form-group col-md-6 col-12">
+                            <label>Correo Electrónico Actual</label>
+                            <input type="email" class="form-control" [value]="profile?.email || ''" readonly>
+                          </div>
+
+                          <div class="form-group col-md-6 col-12">
+                            <label>Nuevo Correo Electrónico <span class="text-danger">*</span></label>
+                            <input
+                              type="email"
+                              class="form-control"
+                              [class.is-invalid]="isEmailChangeInvalid()"
+                              formControlName="nuevoCorreoElectronico"
+                              placeholder="Ejemplo@correo.cl"
+                            >
+                            @if (emailChangeErrorFor()) {
+                              <div class="invalid-feedback d-block">{{ emailChangeErrorFor() }}</div>
+                            }
                           </div>
                         </div>
 
-                        <div class="form-group col-md-6 col-12">
-                          <label>Nuevo Correo Electronico</label>
-                          <input type="text" class="form-control">
-                          <div class="invalid-feedback">Debe ingresar un nombre válido</div>
-                        </div>
+                        @if (emailChangeError) {
+                          <div class="alert alert-danger mx-3">{{ emailChangeError }}</div>
+                        }
                       </div>
-                    </div>
-                  </div>
 
-                  <div class="card-footer text-end">
-                    <button class="btn anid-btn-primary auth-form-btn">Guardar Cambios</button>
+                      <div class="card-footer text-end">
+                        <button class="btn anid-btn-primary auth-form-btn" [disabled]="loading || changingEmail" type="submit">
+                          {{ changingEmail ? 'Actualizando...' : 'Modificar Correo Electrónico' }}
+                        </button>
+                      </div>
+                    </form>
                   </div>
                 </ng-template>
               </li>
 
-              <!-- TAB 4 -->
               <li [ngbNavItem]="4">
                 <a ngbNavLink>Modificar Clave</a>
                 <ng-template ngbNavContent>
                   <div class="perf-tab-sec">
                     <div class="title-perf"><h6>Modifica Clave de Accceso</h6></div>
 
-                    <div class="card-body">
-
-                      <div class="row">
-                        <div class="form-group col-md-6 col-12">
-                          <label>Clave Anterior</label>
-                          <input type="text" class="form-control">
-                          <div class="invalid-feedback">Clave ingresada no corresponde a la clave actual</div>
+                    <form [formGroup]="passwordChangeForm">
+                      <div class="card-body">
+                        <div class="row">
+                          <div class="form-group col-md-6 col-12">
+                            <label>Clave Anterior <span class="text-danger">*</span></label>
+                            <input
+                              type="password"
+                              class="form-control"
+                              [class.is-invalid]="isPasswordChangeInvalid('claveActual')"
+                              formControlName="claveActual"
+                            >
+                            @if (passwordChangeErrorFor('claveActual')) {
+                              <div class="invalid-feedback d-block">{{ passwordChangeErrorFor('claveActual') }}</div>
+                            }
+                          </div>
                         </div>
+
+                        <div class="row">
+                          <div class="form-group col-md-6 col-12">
+                            <label>Nueva Clave <span class="text-danger">*</span></label>
+                            <input
+                              type="password"
+                              class="form-control"
+                              [class.is-invalid]="isPasswordChangeInvalid('nuevaClave')"
+                              formControlName="nuevaClave"
+                            >
+                            @if (passwordChangeErrorFor('nuevaClave')) {
+                              <div class="invalid-feedback d-block">{{ passwordChangeErrorFor('nuevaClave') }}</div>
+                            }
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="form-group col-md-6 col-12">
+                            <label>Reingrese la nueva Clave <span class="text-danger">*</span></label>
+                            <input
+                              type="password"
+                              class="form-control"
+                              [class.is-invalid]="isPasswordChangeInvalid('confirmaNuevaClave')"
+                              formControlName="confirmaNuevaClave"
+                            >
+                            @if (passwordChangeErrorFor('confirmaNuevaClave')) {
+                              <div class="invalid-feedback d-block">{{ passwordChangeErrorFor('confirmaNuevaClave') }}</div>
+                            }
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="form-group col-md-6 col-12">
+                            <label>Código de Validación <span class="text-danger">*</span></label>
+                            <input
+                              type="text"
+                              class="form-control"
+                              [class.is-invalid]="isPasswordChangeInvalid('codigoValidacion')"
+                              formControlName="codigoValidacion"
+                              placeholder="Ingresa el código enviado a tu correo"
+                            >
+                            @if (passwordChangeErrorFor('codigoValidacion')) {
+                              <div class="invalid-feedback d-block">{{ passwordChangeErrorFor('codigoValidacion') }}</div>
+                            }
+                          </div>
+                        </div>
+
+                        @if (passwordChangeDispatch) {
+                          <div class="alert alert-info mx-3">
+                            Se envió un código al correo {{ passwordChangeDispatch.Email || profile?.email || 'registrado' }}.
+                            Expira en {{ passwordChangeDispatch.ExpiresAtUtc || 'un tiempo limitado' }}.
+                          </div>
+                        }
+
+                        @if (passwordChangeError) {
+                          <div class="alert alert-danger mx-3">{{ passwordChangeError }}</div>
+                        }
+
+                        @if (passwordChangeSuccess) {
+                          <div class="alert alert-success mx-3">{{ passwordChangeSuccess }}</div>
+                        }
                       </div>
 
-                      <div class="row">
-                        <div class="form-group col-md-6 col-12">
-                          <label>Nueva Clave</label>
-                          <input type="text" class="form-control">
-                          <div class="invalid-feedback">Clave ingresada no cumple con los parámetros exigidos</div>
-                        </div>
+                      <div class="card-footer d-flex justify-content-end gap-2 flex-wrap">
+                        <button
+                          class="btn anid-btn-primary auth-form-btn"
+                          type="button"
+                          [disabled]="loading || requestingPasswordChangeCode || confirmingPasswordChange"
+                          (click)="onRequestPasswordChangeCode()"
+                        >
+                          {{ requestingPasswordChangeCode ? 'Enviando...' : 'Enviar Código de Validación' }}
+                        </button>
+
+                        <button
+                          class="btn anid-btn-primary auth-form-btn"
+                          type="button"
+                          [disabled]="loading || resendingPasswordChangeCode || requestingPasswordChangeCode || !passwordChangeDispatch"
+                          (click)="onResendPasswordChangeCode()"
+                        >
+                          {{ resendingPasswordChangeCode ? 'Reenviando...' : 'Reenviar Código' }}
+                        </button>
+
+                        <button
+                          class="btn anid-btn-primary auth-form-btn"
+                          type="button"
+                          [disabled]="loading || confirmingPasswordChange"
+                          (click)="onConfirmPasswordChange()"
+                        >
+                          {{ confirmingPasswordChange ? 'Confirmando...' : 'Modificar Clave de Acceso' }}
+                        </button>
                       </div>
-
-                      <div class="row">
-                        <div class="form-group col-md-6 col-12">
-                          <label>Reingrese la nueva Clave</label>
-                          <input type="text" class="form-control">
-                          <div class="invalid-feedback">Clave ingresada es diferente a la ingresada</div>
-                        </div>
-                      </div>
-
-                    </div>
-                  </div>
-
-                  <div class="card-footer text-end">
-                    <button class="btn anid-btn-primary auth-form-btn">Modificar Clave de Acceso</button>
+                    </form>
                   </div>
                 </ng-template>
               </li>

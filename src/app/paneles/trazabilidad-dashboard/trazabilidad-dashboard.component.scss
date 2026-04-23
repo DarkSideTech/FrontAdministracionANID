@@ -1,0 +1,123 @@
+.traceability-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.traceability-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.traceability-hint {
+  margin: 0;
+  color: #5f6b7a;
+  font-size: 0.9rem;
+}
+
+.traceability-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.traceability-status {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.traceability-summary {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+  color: #435365;
+  font-size: 0.95rem;
+}
+
+.traceability-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.traceability-empty-state {
+  min-height: 240px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #5f6b7a;
+}
+
+.traceability-detail-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 0.75rem 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.traceability-detail-list dt {
+  margin: 0;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #455468;
+  text-transform: uppercase;
+}
+
+.traceability-detail-list dd {
+  margin: 0.25rem 0 0;
+  color: #1f2d3d;
+  word-break: break-word;
+}
+
+.traceability-subsection + .traceability-subsection {
+  margin-top: 1.25rem;
+}
+
+.traceability-json-block {
+  background: #0f172a;
+  color: #e2e8f0;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  font-size: 0.85rem;
+  max-height: 320px;
+  overflow: auto;
+  margin: 0;
+}
+
+.traceability-change-value {
+  margin: 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+  font-size: 0.8rem;
+  line-height: 1.35;
+  background: transparent;
+  color: inherit;
+  font-family: inherit;
+}
+
+.event-cell-text {
+  font-weight: 600;
+}
+
+.event-cell-subtext {
+  font-size: 0.8rem;
+  color: #6b7280;
+  line-height: 1.2;
+}
+
+@media (max-width: 991.98px) {
+  .traceability-card-header,
+  .traceability-pagination {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}

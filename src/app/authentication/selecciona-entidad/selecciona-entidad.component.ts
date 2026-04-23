@@ -1,13 +1,14 @@
-import { Component, inject, OnInit, ViewChild, } from '@angular/core';
-import { UntypedFormGroup, UntypedFormBuilder, UntypedFormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, computed, DestroyRef, inject, signal, } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { DatatableComponent, SelectionType, NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { ToastrModule } from 'ngx-toastr';
 import { TranslateModule } from '@ngx-translate/core';
-import { AuthService } from '@core/service/auth.service';
-import { OrganizacionPorUsuario } from '@core/models/servicioDeDominioController';
-import { LoginOrganizacion } from '@core/models/accountController';
-import { ServiciosDeDominioService } from '@core/service/controllers/servicios-de-dominio.service';
+import { AccountAuthService } from '@core/auth/account-auth.service';
+import { AuthStore } from '@core/auth/auth-store.service';
+import { formatApiError } from '@core/service/api-error.util';
+import { finalize } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
     selector: 'app-selecciona-entidad',
@@ -19,112 +20,45 @@ import { ServiciosDeDominioService } from '@core/service/controllers/servicios-d
         TranslateModule,
     ],
     templateUrl: './selecciona-entidad.component.html',
-    styleUrl: './selecciona-entidad.component.scss'
+    styleUrl: './selecciona-entidad.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SeleccionaEntidadComponent implements OnInit  {
+export class SeleccionaEntidadComponent {
+  private readonly accountAuthService = inject(AccountAuthService);
+  private readonly authStore = inject(AuthStore);
+  private readonly router = inject(Router);
+  private readonly destroyRef = inject(DestroyRef);
 
-  private serviciosDeDominio = inject(ServiciosDeDominioService);
+  readonly loadingCode = signal<string | null>(null);
+  readonly errorMessage = signal('');
+  readonly organizations = computed(() => this.authStore.organizations());
 
-  @ViewChild(DatatableComponent, { static: false }) table!: DatatableComponent;
-
-  seleccionaEntidadForm!: UntypedFormGroup;
-
-  loginOrganizacion: LoginOrganizacion = new LoginOrganizacion();
-  rows = [];
-  scrollBarHorizontal = window.innerWidth < 1200;
-  selectedRowData!: selectRowInterface;
-  data: OrganizacionPorUsuario[] = [];
-  filteredData: OrganizacionPorUsuario[] = [];
-  loadingIndicator = true;
-  isRowSelected = false;
-  selectedOption!: string;
-  reorderable = true;
-  public selected: number[] = [];
-  columns = [
-    { name: 'Codigo_Organizacion' },
-    { name: 'Nombre_Organizacion' },
-  ];
-
-  selection!: SelectionType;
-  constructor(
-    private fb: UntypedFormBuilder,
-    private router: Router,
-    private authService: AuthService
-  ) {
-    this.seleccionaEntidadForm = this.fb.group({
-      codigo_Organizacion: new UntypedFormControl(),
-      nombre_Organizacion: new UntypedFormControl(),
-    });
-    window.onresize = () => {
-      this.scrollBarHorizontal = window.innerWidth < 1200;
-    };
-    this.selection = SelectionType.checkbox;
-  }
-
-  onSelect({ selected }: { selected: any }) {
-    const esAsignMaterial = true;
-
-    if (esAsignMaterial) {
-      this.selected = selected.length ? [selected[selected.length - 1]] : [];
-    } else {
-      this.selected.splice(0, this.selected.length);
-      this.selected.push(...selected);
+  selectOrganization(code: string | null | undefined): void {
+    if (!code) {
+      this.errorMessage.set('La organizacion seleccionada no tiene codigo.');
+      return;
     }
 
-    this.isRowSelected = this.selected.length > 0;
+    this.loadingCode.set(code);
+    this.errorMessage.set('');
+
+    this.accountAuthService
+      .loginOrganizacion(code)
+      .pipe(
+        finalize(() => this.loadingCode.set(null)),
+        takeUntilDestroyed(this.destroyRef),
+      )
+      .subscribe({
+        next: (snapshot) => {
+          void this.router.navigateByUrl(this.accountAuthService.resolveAuthenticatedUrl(snapshot));
+        },
+        error: (error: unknown) => {
+          this.errorMessage.set(formatApiError(error));
+        },
+      });
   }
 
-  ngOnInit() {
-    console.log('checkAuthStatus en selecciona-entidad:', this.authService.checkAuthStatus());
-    this.fetchData();
-    this.seleccionaEntidadForm = this.fb.group({
-        codigo_Organizacion: [''],
-        nombre_Organizacion: [''],
-    });
+  restart(): void {
+    this.accountAuthService.logout().pipe(takeUntilDestroyed(this.destroyRef)).subscribe();
   }
-
-  fetchData() {
-    this.data = [{"codigo_Organizacion": "ORG001", "nombre_Organizacion": "Organización 1"}, {"codigo_Organizacion": "ORG002", "nombre_Organizacion": "Organización 2"}];
-    // this.serviciosDeDominio.getBuscarOrganizacionesPor_Usuario()
-    //   .subscribe({
-    //     next: (data) => {
-    //       this.data = data;
-    //       if(this.data.length === 1){
-    //         this.loginOrganizacion.organizacion = this.data[0].codigo_Organizacion;
-    //         // this.authService
-    //         //   .loginOrganizacion(this.loginOrganizacion);
-    //       }
-    //     },
-    //     error: (error) => {
-    //       console.error('Error fetching data:', error);
-    //     }
-    //   });
-  }
-
-  onSubmit() {
-    this.router.navigate(['dominios/autorizacion/paneles/estadisticas-usuarios']);
-  }
-
-  filterDatatable(event: any) {
-    const val = event.target.value.toLowerCase();
-    const colsAmt = this.columns.length;
-    const keys = Object.keys(this.filteredData[0]);
-
-    this.data = this.filteredData.filter((item) => {
-      for (let i = 0; i < colsAmt; i++) {
-        if (
-          item[keys[i]].toString().toLowerCase().indexOf(val) !== -1 ||
-          !val
-        ) {
-          return true;
-        }
-      }
-      return false;
-    });
-    this.table.offset = 0;
-  }
-}
-
-export interface selectRowInterface {
-  id: string;
 }

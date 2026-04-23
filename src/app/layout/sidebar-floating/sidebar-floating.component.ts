@@ -6,17 +6,19 @@ import {
   HostListener,
   OnInit,
   OnDestroy,
+  effect,
+  inject,
+  Injector,
   DOCUMENT
 } from '@angular/core';
 
 import { CommonModule } from '@angular/common';
 import { Router, NavigationEnd, RouterLink, RouterLinkActive } from '@angular/router';
-import { ROUTES } from '../sidebar/sidebar-items';
 import { RouteInfo } from '../sidebar/sidebar.metadata';
 import { TranslateModule } from '@ngx-translate/core';
 import { FeatherModule } from 'angular-feather';
-import { AuthService } from '@core';
 import { SafeHtmlPipe } from '../sidebar/pipes/safe-html.pipe';
+import { SidebarMenuService } from '../sidebar/sidebar-menu.service';
 
 
 @Component({
@@ -32,6 +34,7 @@ import { SafeHtmlPipe } from '../sidebar/pipes/safe-html.pipe';
     templateUrl: './sidebar-floating.component.html'
 })
 export class SidebarFloatingComponent implements OnInit, OnDestroy {
+  private readonly injector = inject(Injector);
 
   public sidebarItems!: RouteInfo[];
   public panelStack: any[][] = [];
@@ -51,7 +54,7 @@ export class SidebarFloatingComponent implements OnInit, OnDestroy {
     @Inject(DOCUMENT) private document: Document,
     private renderer: Renderer2,
     public elementRef: ElementRef,
-    private authService: AuthService,
+    private sidebarMenuService: SidebarMenuService,
     public router: Router
   ) {
     this.routerObj = this.router.events.subscribe((event) => {
@@ -79,8 +82,10 @@ export class SidebarFloatingComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.sidebarItems = ROUTES;
-    this.sidebarItems.forEach(item => this.setItemClosed(item));
+    effect(() => {
+      this.sidebarItems = this.sidebarMenuService.getMenuItems();
+      this.sidebarItems.forEach(item => this.setItemClosed(item));
+    }, { injector: this.injector });
     this.initFloatingSidebar();
     this.bodyTag = this.document.body;
   }
