@@ -20,19 +20,45 @@
               </div>
             </div>
             <div class="card-body">
-              <p>Ingrese su clave actual y luego cree una nueva para actualizar el acceso a su cuenta.</p>
-              <form method="POST"class="form2">
+              <p>Ingresa el código enviado a tu correo electrónico y define una nueva clave de acceso.</p>
+              <div *ngIf="success" class="alert alert-success" role="alert">
+                {{ success }}
+              </div>
+              <div *ngIf="error" class="alert alert-danger" role="alert">
+                {{ error }}
+              </div>
+              <form class="form2" [formGroup]="resetForm" (ngSubmit)="onConfirm()">
                 <div class="form-group">
-                  <label for="email">Contraseña Anterior</label>
+                  <label for="email">Correo Electrónico</label>
                   <input
                     id="email"
                     type="email"
                     class="form-control"
+                    [class.is-invalid]="isInvalid('correoElectronico')"
                     name="email"
+                    formControlName="correoElectronico"
                     tabindex="1"
-                    required
                     autofocus
                   />
+                  <div *ngIf="isInvalid('correoElectronico')" class="invalid-feedback d-block">
+                    {{ errorFor('correoElectronico') }}
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="validation-code">Código de Validación</label>
+                  <input
+                    id="validation-code"
+                    type="text"
+                    class="form-control"
+                    [class.is-invalid]="isInvalid('codigoValidacion')"
+                    name="validation-code"
+                    formControlName="codigoValidacion"
+                    tabindex="2"
+                    autocomplete="one-time-code"
+                  />
+                  <div *ngIf="isInvalid('codigoValidacion')" class="invalid-feedback d-block">
+                    {{ errorFor('codigoValidacion') }}
+                  </div>
                 </div>
                 <div class="form-group">
                   <label for="password">Nueva Contraseña</label>
@@ -40,11 +66,15 @@
                     id="password"
                     type="password"
                     class="form-control pwstrength"
+                    [class.is-invalid]="isInvalid('nuevaClave')"
                     data-indicator="pwindicator"
                     name="password"
-                    tabindex="2"
-                    required
+                    formControlName="nuevaClave"
+                    tabindex="3"
                   />
+                  <div *ngIf="isInvalid('nuevaClave')" class="invalid-feedback d-block">
+                    {{ errorFor('nuevaClave') }}
+                  </div>
                   <div id="pwindicator" class="pwindicator">
                     <div class="bar"></div>
                     <div class="label"></div>
@@ -56,23 +86,36 @@
                     id="password-confirm"
                     type="password"
                     class="form-control"
+                    [class.is-invalid]="isInvalid('confirmaNuevaClave')"
                     name="confirm-password"
-                    tabindex="2"
-                    required
+                    formControlName="confirmaNuevaClave"
+                    tabindex="4"
                   />
+                  <div *ngIf="isInvalid('confirmaNuevaClave')" class="invalid-feedback d-block">
+                    {{ errorFor('confirmaNuevaClave') }}
+                  </div>
                 </div>
                 <div class="text-center form-registro">
                   <button
                     type="submit"
                     class="btn anid-btn-primary btn-lg btn-block"
-                    tabindex="4"
+                    [disabled]="loading || resending"
+                    tabindex="5"
                   >
-                    Cambiar Contraseña
+                    {{ loading ? 'Confirmando...' : 'Cambiar Contraseña' }}
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-link text-enlace fw-bold mt-2"
+                    [disabled]="loading || resending"
+                    (click)="onResend()"
+                  >
+                    {{ resending ? 'Reenviando...' : 'Reenviar código' }}
                   </button>
                 </div>
               </form>
               <div class="mt-3 text-center">
-                <a class="text-enlace fw-bold"routerLink="/authentication/signin">Volver al Login</a>
+                <a class="text-enlace fw-bold" routerLink="/authentication/signin">Volver al Login</a>
               </div>
             </div>
           </div>

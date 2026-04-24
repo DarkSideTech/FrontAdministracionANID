@@ -32,6 +32,26 @@ export function createUserProfileForm(formBuilder: FormBuilder) {
   );
 }
 
+export function createModificaUsuarioProfileForm(formBuilder: FormBuilder) {
+  return formBuilder.nonNullable.group({
+    idUsuario: [''],
+    correoElectronico: ['', [Validators.required, Validators.email, Validators.minLength(5)]],
+    numeroDeTelefono: ['', [Validators.minLength(8), Validators.maxLength(100)]],
+    nacionalidad: ['', Validators.required],
+    tipoDeUsuario: ['', Validators.required],
+    documentoDeIdentidad: ['', Validators.required],
+    numeroDeDocumento: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(100)]],
+    codigoValidadorDocumento: ['', [Validators.required, Validators.maxLength(100)]],
+    primerNombre: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(100)]],
+    segundoNombre: [''],
+    primerApellido: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(100)]],
+    segundoApellido: [''],
+    sexoDeclarativo: ['', Validators.required],
+    sexoRegistral: ['', Validators.required],
+    fechaDeNacimiento: ['', Validators.required],
+  });
+}
+
 export function buildRegisterPayload(value: UserProfileFormValue): RegisterViewModel {
   return {
     correoElectronico: value.correoElectronico.trim(),
@@ -54,13 +74,11 @@ export function buildRegisterPayload(value: UserProfileFormValue): RegisterViewM
   };
 }
 
-export function buildModificaUsuarioPayload(value: UserProfileFormValue): ModificaUsuarioViewModel {
+export function buildModificaUsuarioPayload(value: ModificaUsuarioProfileFormValue): ModificaUsuarioViewModel {
   return {
     idUsuario: value.idUsuario.trim(),
-    correoElectronico: value.correoElectronico.trim(),
     numeroDeTelefono: emptyToNull(value.numeroDeTelefono),
     nacionalidad: value.nacionalidad,
-    tipoDeUsuario: value.tipoDeUsuario,
     documentoDeIdentidad: value.documentoDeIdentidad,
     numeroDeDocumento: value.numeroDeDocumento.trim(),
     codigoValidadorDocumento: value.codigoValidadorDocumento.trim(),
@@ -71,9 +89,6 @@ export function buildModificaUsuarioPayload(value: UserProfileFormValue): Modifi
     sexoDeclarativo: value.sexoDeclarativo,
     sexoRegistral: value.sexoRegistral,
     fechaDeNacimiento: value.fechaDeNacimiento,
-    contraseña: emptyToNull(value.password),
-    confirmaContraseña: emptyToNull(value.confirmaPassword),
-    terminosYCondiciones: value.terminosYCondiciones,
   };
 }
 
@@ -100,6 +115,29 @@ export function patchUserProfileForm(
     password: '',
     confirmaPassword: '',
     terminosYCondiciones: true,
+  });
+}
+
+export function patchModificaUsuarioProfileForm(
+  form: ReturnType<typeof createModificaUsuarioProfileForm>,
+  user: AuthenticatedUser,
+): void {
+  form.patchValue({
+    idUsuario: user.id ?? '',
+    correoElectronico: user.email ?? '',
+    numeroDeTelefono: user.numeroDeTelefono ?? '',
+    nacionalidad: user.nacionalidad ?? '',
+    tipoDeUsuario: user.tipoDeUsuario ?? '',
+    documentoDeIdentidad: user.documentoDeIdentidad ?? '',
+    numeroDeDocumento: user.numeroDeDocumento ?? '',
+    codigoValidadorDocumento: user.codigoValidadorDocumento ?? '',
+    primerNombre: user.primerNombre ?? '',
+    segundoNombre: user.segundoNombre ?? '',
+    primerApellido: user.primerApellido ?? '',
+    segundoApellido: user.segundoApellido ?? '',
+    sexoDeclarativo: user.sexoDeclarativo ?? '',
+    sexoRegistral: user.sexoRegistral ?? '',
+    fechaDeNacimiento: normalizeDateForInput(user.fechaDeNacimiento),
   });
 }
 
@@ -181,3 +219,4 @@ export function matchingPasswordsValidator(passwordControlName: string, confirmP
 }
 
 type UserProfileFormValue = ReturnType<ReturnType<typeof createUserProfileForm>['getRawValue']>;
+type ModificaUsuarioProfileFormValue = ReturnType<ReturnType<typeof createModificaUsuarioProfileForm>['getRawValue']>;

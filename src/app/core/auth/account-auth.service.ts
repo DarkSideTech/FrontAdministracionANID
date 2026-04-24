@@ -8,14 +8,17 @@ import { LoginClaveUnicaInterface } from '@core/models/login-clave-unica.interfa
 import { AccountApi } from '@core/service/controllers/account.api';
 import {
   ConfirmaCambioClaveViewModel,
+  ConfirmaRecuperacionClaveViewModel,
   ConfirmEmailRequest,
   LoginViewModel,
   ModificaCorreoElectronicoViewModel,
   ModificaUsuarioViewModel,
   ReenviaCodigoCambioClaveViewModel,
+  ReenviaCodigoRecuperacionClaveViewModel,
   RegisterViewModel,
   ResendEmailConfirmationTokenRequest,
   SolicitaCambioClaveViewModel,
+  SolicitaRecuperacionClaveViewModel,
 } from '@core/service/openapi.models';
 import { AuthStore } from './auth-store.service';
 import {
@@ -223,6 +226,39 @@ export class AccountAuthService {
     return this.accountApi
       .confirmaCambioClave({
         body: payload,
+      })
+      .pipe(
+        map((response) => this.unwrapSuccess(response, normalizePasswordChangeResult)),
+      );
+  }
+
+  solicitaRecuperacionClave(payload: SolicitaRecuperacionClaveViewModel): Observable<PasswordChangeChallengeDispatchResultPayload> {
+    return this.accountApi
+      .solicitaRecuperacionClave({
+        body: payload,
+        context: this.contextWithoutRefresh(),
+      })
+      .pipe(
+        map((response) => this.unwrapSuccess(response, normalizePasswordChangeDispatchResponse)),
+      );
+  }
+
+  reenviaCodigoRecuperacionClave(payload: ReenviaCodigoRecuperacionClaveViewModel): Observable<PasswordChangeChallengeDispatchResultPayload> {
+    return this.accountApi
+      .reenviaCodigoRecuperacionClave({
+        body: payload,
+        context: this.contextWithoutRefresh(),
+      })
+      .pipe(
+        map((response) => this.unwrapSuccess(response, normalizePasswordChangeDispatchResponse)),
+      );
+  }
+
+  confirmaRecuperacionClave(payload: ConfirmaRecuperacionClaveViewModel): Observable<PasswordChangeResultPayload> {
+    return this.accountApi
+      .confirmaRecuperacionClave({
+        body: payload,
+        context: this.contextWithoutRefresh(),
       })
       .pipe(
         map((response) => this.unwrapSuccess(response, normalizePasswordChangeResult)),

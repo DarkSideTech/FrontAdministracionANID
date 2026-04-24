@@ -103,6 +103,14 @@ export class AccountApi {
     });
   }
 
+  buscarUsuariosPaginados(options: { body?: Models.BuscarUsuariosPaginadosViewModel; headers?: Record<string, string>; context?: HttpContext } = {}): Observable<unknown> {
+    return this.http.request<unknown>('POST', `${this.accountUrl}/buscarusuariospaginados`, {
+      body: options.body as Models.BuscarUsuariosPaginadosViewModel,
+      headers: options.headers ? new HttpHeaders(options.headers) : undefined,
+      context: options.context,
+    });
+  }
+
   modificaUsuario(options: { body?: Models.ModificaUsuarioViewModel; headers?: Record<string, string>; context?: HttpContext } = {}): Observable<unknown> {
     return this.http.request<unknown>('POST', `${this.accountUrl}/modificausuario`, {
       body: options.body as Models.ModificaUsuarioViewModel,
@@ -111,9 +119,33 @@ export class AccountApi {
     });
   }
 
+  activarUsuario(options: { body?: Models.ActivarUsuarioViewModel; headers?: Record<string, string>; context?: HttpContext } = {}): Observable<unknown> {
+    return this.http.request<unknown>('PUT', `${this.accountUrl}/activarusuario`, {
+      body: options.body as Models.ActivarUsuarioViewModel,
+      headers: options.headers ? new HttpHeaders(options.headers) : undefined,
+      context: options.context,
+    });
+  }
+
+  desactivarUsuario(options: { body?: Models.DesactivarUsuarioViewModel; headers?: Record<string, string>; context?: HttpContext } = {}): Observable<unknown> {
+    return this.http.request<unknown>('PUT', `${this.accountUrl}/desactivarusuario`, {
+      body: options.body as Models.DesactivarUsuarioViewModel,
+      headers: options.headers ? new HttpHeaders(options.headers) : undefined,
+      context: options.context,
+    });
+  }
+
   modificaCorreoElectronico(options: { body?: Models.ModificaCorreoElectronicoViewModel; headers?: Record<string, string>; context?: HttpContext } = {}): Observable<unknown> {
     return this.http.request<unknown>('POST', `${this.accountUrl}/modificacorreoelectronico`, {
       body: options.body as Models.ModificaCorreoElectronicoViewModel,
+      headers: options.headers ? new HttpHeaders(options.headers) : undefined,
+      context: options.context,
+    });
+  }
+
+  adminModificaCorreoElectronico(options: { body?: Models.AdminModificaCorreoElectronicoViewModel; headers?: Record<string, string>; context?: HttpContext } = {}): Observable<unknown> {
+    return this.http.request<unknown>('POST', `${this.accountUrl}/adminmodificacorreoelectronico`, {
+      body: options.body as Models.AdminModificaCorreoElectronicoViewModel,
       headers: options.headers ? new HttpHeaders(options.headers) : undefined,
       context: options.context,
     });
@@ -138,6 +170,30 @@ export class AccountApi {
   confirmaCambioClave(options: { body?: Models.ConfirmaCambioClaveViewModel; headers?: Record<string, string>; context?: HttpContext } = {}): Observable<unknown> {
     return this.http.request<unknown>('POST', `${this.accountUrl}/confirmacambioclave`, {
       body: options.body as Models.ConfirmaCambioClaveViewModel,
+      headers: options.headers ? new HttpHeaders(options.headers) : undefined,
+      context: options.context,
+    });
+  }
+
+  solicitaRecuperacionClave(options: { body?: Models.SolicitaRecuperacionClaveViewModel; headers?: Record<string, string>; context?: HttpContext } = {}): Observable<unknown> {
+    return this.http.request<unknown>('POST', `${this.accountUrl}/solicitarecuperacionclave`, {
+      body: options.body as Models.SolicitaRecuperacionClaveViewModel,
+      headers: options.headers ? new HttpHeaders(options.headers) : undefined,
+      context: options.context,
+    });
+  }
+
+  reenviaCodigoRecuperacionClave(options: { body?: Models.ReenviaCodigoRecuperacionClaveViewModel; headers?: Record<string, string>; context?: HttpContext } = {}): Observable<unknown> {
+    return this.http.request<unknown>('POST', `${this.accountUrl}/reenviacodigorecuperacionclave`, {
+      body: options.body as Models.ReenviaCodigoRecuperacionClaveViewModel,
+      headers: options.headers ? new HttpHeaders(options.headers) : undefined,
+      context: options.context,
+    });
+  }
+
+  confirmaRecuperacionClave(options: { body?: Models.ConfirmaRecuperacionClaveViewModel; headers?: Record<string, string>; context?: HttpContext } = {}): Observable<unknown> {
+    return this.http.request<unknown>('POST', `${this.accountUrl}/confirmarecuperacionclave`, {
+      body: options.body as Models.ConfirmaRecuperacionClaveViewModel,
       headers: options.headers ? new HttpHeaders(options.headers) : undefined,
       context: options.context,
     });

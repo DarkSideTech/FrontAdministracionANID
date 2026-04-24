@@ -6,6 +6,10 @@ export interface ActivarAutenticadorExternoViewModel {
   id?: string | null;
 }
 
+export interface ActivarUsuarioViewModel {
+  idUsuario?: string | null;
+}
+
 export interface ActivarOrganizacionViewModel {
   id?: string | null;
 }
@@ -200,6 +204,19 @@ export interface FinalizaAutorizacionEntidadViewModel {
   id?: string | null;
 }
 
+export interface BuscarUsuariosPaginadosViewModel {
+  numeroDePagina?: number | null;
+  cantidadPorPagina?: number | null;
+  busqueda?: string | null;
+}
+
+export interface BuscarUsuariosPaginadosResponse {
+  numeroDePagina?: number | null;
+  cantidadPorPagina?: number | null;
+  total?: number | null;
+  items?: UsuarioPaginadoItemResponse[] | null;
+}
+
 export interface LoginOrganizacionViewModel {
   organizacion?: string | null;
 }
@@ -264,6 +281,11 @@ export interface ModificaCorreoElectronicoViewModel {
   nuevoCorreoElectronico?: string | null;
 }
 
+export interface AdminModificaCorreoElectronicoViewModel {
+  idUsuario?: string | null;
+  nuevoCorreoElectronico?: string | null;
+}
+
 export interface SolicitaCambioClaveViewModel {
   idUsuario?: string | null;
   claveActual?: string | null;
@@ -281,6 +303,25 @@ export interface ConfirmaCambioClaveViewModel {
   nuevaClave?: string | null;
   confirmaNuevaClave?: string | null;
   codigoValidacion?: string | null;
+}
+
+export interface SolicitaRecuperacionClaveViewModel {
+  correoElectronico?: string | null;
+}
+
+export interface ReenviaCodigoRecuperacionClaveViewModel {
+  correoElectronico?: string | null;
+}
+
+export interface ConfirmaRecuperacionClaveViewModel {
+  correoElectronico?: string | null;
+  codigoValidacion?: string | null;
+  nuevaClave?: string | null;
+  confirmaNuevaClave?: string | null;
+}
+
+export interface DesactivarUsuarioViewModel {
+  idUsuario?: string | null;
 }
 
 export interface ModificarOrganizacionViewModel {
@@ -403,6 +444,40 @@ export interface RegisterViewModel {
 
 export interface ResendEmailConfirmationTokenRequest {
   email?: string | null;
+}
+
+export interface ActivarDesactivarUsuarioResponse {
+  idUsuario?: string | null;
+  message?: string | null;
+}
+
+export interface UsuarioPaginadoItemResponse {
+  idUsuario?: string | null;
+  numeroDeTelefono?: string | null;
+  descripcion?: string | null;
+  nacionalidad?: string | null;
+  documentoDeIdentidad?: string | null;
+  numeroDeDocumento?: string | null;
+  codigoValidadorDocumento?: string | null;
+  primerNombre?: string | null;
+  segundoNombre?: string | null;
+  primerApellido?: string | null;
+  segundoApellido?: string | null;
+  sexoDeclarativo?: string | null;
+  sexoRegistral?: string | null;
+  fechaDeNacimiento?: string | null;
+  correoElectronico?: string | null;
+  tipoDeUsuario?: string | null;
+  nombreUsuarioNormalizado?: string | null;
+  correoElectronicoConfirmado?: boolean | null;
+  numeroDeTelefonoConfirmado?: boolean | null;
+  dobleFactorHabilitado?: boolean | null;
+  idPersona?: string | null;
+  nombreADesplegar?: string | null;
+  activo?: boolean | null;
+  usuarioBase?: boolean | null;
+  requiereValidacionEnrrolamiento?: boolean | null;
+  estadoDeUsuario?: string | null;
 }
 
 export interface UnidadOrganizacionalViewModel {

@@ -2,13 +2,6 @@ import { Route } from '@angular/router';
 
 export const AUTORIZACION_ROUTE : Route[] = [
   {
-    path: 'entidades',
-    loadChildren: () =>
-      import('./entidades/entidades.routes').then(
-        (m) => m.ENTIDADES_ROUTE
-      ),
-  },
-  {
     path: 'asignaciones',
     loadChildren: () =>
       import('./asignaciones/asignaciones.routes').then(

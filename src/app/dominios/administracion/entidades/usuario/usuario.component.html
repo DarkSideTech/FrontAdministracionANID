@@ -1,0 +1,730 @@
+<section class="main-content">
+  <ul class="breadcrumb breadcrumb-style ">
+    <li class="breadcrumb-item">
+      <a routerLink="/paneles/estadisticas-usuarios" class="breadcrumb-p">
+        {{ texts.breadcrumbHome }}
+      </a>
+    </li>
+    <li class="breadcrumb-item bcrumb-1">{{ texts.breadcrumbDomain }}</li>
+    <li class="breadcrumb-item">{{ texts.breadcrumbCurrent }}</li>
+  </ul>
+
+  <div class="section-body">
+    <div class="row clearfix">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+          <div class="p-10">
+            <div class="row">
+              <div class="col-lg-8">
+                <div class="row m-0">
+                  <div class="col-lg-12 p-0">
+                    <div class="ngxTableHeader">
+                      <div class="table-search-area search-container">
+                        <span class="me-2 fw-bold">{{ texts.searchLabel }}</span>
+                        <label for="search-input-usuario">
+                          <img src="assets/icon/Lupa.svg" class="search-icon" [attr.alt]="texts.searchIconAlt">
+                        </label>
+                        <input
+                          id="search-input-usuario"
+                          type="text"
+                          class="browser-default search-field"
+                          [value]="usuarioSearchTerm()"
+                          [placeholder]="texts.searchPlaceholder"
+                          (input)="onUsuarioSearchChange($any($event.target).value)"
+                        >
+                      </div>
+
+                      <div class="header-buttons-left">
+                        <div class="tbl-btn-style">
+                          @if (hasUsuarioSearchTerm()) {
+                            <button
+                              type="button"
+                              class="btn-icon icon-left btn-light rounded-button"
+                              [attr.title]="texts.clearSearchAction"
+                              [attr.aria-label]="texts.clearSearchAction"
+                              (click)="clearUsuarioSearch()"
+                            >
+                              <svg [attr.viewBox]="icons.clear.viewBox" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                @for (path of icons.clear.paths; track path) {
+                                  <path [attr.d]="path" fill="currentColor"></path>
+                                }
+                              </svg>
+                            </button>
+                          }
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            @if (usuarioPageError()) {
+              <div class="alert alert-danger">{{ usuarioPageError() }}</div>
+            }
+
+            <ngx-datatable
+              #table
+              class="material"
+              [rows]="usuarioRows()"
+              [loadingIndicator]="loadingUsuarioPage() || loadingUsuarioCatalogs()"
+              columnMode="force"
+              [headerHeight]="config.tableHeaderHeight"
+              [footerHeight]="config.tableFooterHeight"
+              rowHeight="auto"
+              [limit]="usuarioPageLimit()"
+              [count]="usuarioTotalCount()"
+              [offset]="usuarioCurrentPage() - 1"
+              [externalPaging]="true"
+              [scrollbarH]="scrollBarHorizontal"
+              [reorderable]="true"
+            >
+              <ngx-datatable-row-detail [rowHeight]="config.detailRowHeight" #myDetailRow (toggle)="onUsuarioDetailToggle($event)">
+                <ng-template let-row="row" let-expanded="expanded" ngx-datatable-row-detail-template>
+                  <div style="padding-left:35px;">
+                    <div class="col-11 col-md-11 col-lg-11">
+                      <div class="row">
+                        <div class="col-sm-4">
+                          <div class="form-group">
+                            <label>{{ texts.detail.idUsuario }}</label>
+                            <input type="text" class="form-control" readonly value="{{ row.idUsuario }}">
+                          </div>
+                        </div>
+                        <div class="col-sm-4">
+                          <div class="form-group">
+                            <label>{{ texts.detail.numeroDeTelefono }}</label>
+                            <input type="text" class="form-control" readonly value="{{ row.numeroDeTelefono }}">
+                          </div>
+                        </div>
+                        <div class="col-sm-4">
+                          <div class="form-group">
+                            <label>{{ texts.detail.descripcion }}</label>
+                            <input type="text" class="form-control" readonly value="{{ row.descripcion }}">
+                          </div>
+                        </div>
+                        <div class="col-sm-4">
+                          <div class="form-group">
+                            <label>{{ texts.detail.documentoDeIdentidad }}</label>
+                            <input type="text" class="form-control" readonly value="{{ row.documentoDeIdentidad }}">
+                          </div>
+                        </div>
+                        <div class="col-sm-4">
+                          <div class="form-group">
+                            <label>{{ texts.detail.numeroDeDocumento }}</label>
+                            <input type="text" class="form-control" readonly value="{{ row.numeroDeDocumento }}">
+                          </div>
+                        </div>
+                        <div class="col-sm-4">
+                          <div class="form-group">
+                            <label>{{ texts.detail.codigoValidadorDocumento }}</label>
+                            <input type="text" class="form-control" readonly value="{{ row.codigoValidadorDocumento }}">
+                          </div>
+                        </div>
+                        <div class="col-sm-4">
+                          <div class="form-group">
+                            <label>{{ texts.detail.primerNombre }}</label>
+                            <input type="text" class="form-control" readonly value="{{ row.primerNombre }}">
+                          </div>
+                        </div>
+                        <div class="col-sm-4">
+                          <div class="form-group">
+                            <label>{{ texts.detail.segundoNombre }}</label>
+                            <input type="text" class="form-control" readonly value="{{ row.segundoNombre }}">
+                          </div>
+                        </div>
+                        <div class="col-sm-4">
+                          <div class="form-group">
+                            <label>{{ texts.detail.primerApellido }}</label>
+                            <input type="text" class="form-control" readonly value="{{ row.primerApellido }}">
+                          </div>
+                        </div>
+                        <div class="col-sm-4">
+                          <div class="form-group">
+                            <label>{{ texts.detail.segundoApellido }}</label>
+                            <input type="text" class="form-control" readonly value="{{ row.segundoApellido }}">
+                          </div>
+                        </div>
+                        <div class="col-sm-4">
+                          <div class="form-group">
+                            <label>{{ texts.detail.sexoDeclarativo }}</label>
+                            <input type="text" class="form-control" readonly value="{{ row.sexoDeclarativo }}">
+                          </div>
+                        </div>
+                        <div class="col-sm-4">
+                          <div class="form-group">
+                            <label>{{ texts.detail.sexoRegistral }}</label>
+                            <input type="text" class="form-control" readonly value="{{ row.sexoRegistral }}">
+                          </div>
+                        </div>
+                        <div class="col-sm-4">
+                          <div class="form-group">
+                            <label>{{ texts.detail.fechaDeNacimiento }}</label>
+                            <input type="text" class="form-control" readonly value="{{ row.fechaDeNacimiento }}">
+                          </div>
+                        </div>
+                        <div class="col-sm-4">
+                          <div class="form-group">
+                            <label>{{ texts.detail.tipoDeUsuario }}</label>
+                            <input type="text" class="form-control" readonly value="{{ row.tipoDeUsuario }}">
+                          </div>
+                        </div>
+                        <div class="col-sm-4">
+                          <div class="form-group">
+                            <label>{{ texts.detail.nombreUsuarioNormalizado }}</label>
+                            <input type="text" class="form-control" readonly value="{{ row.nombreUsuarioNormalizado }}">
+                          </div>
+                        </div>
+                        <div class="col-sm-4">
+                          <div class="form-group">
+                            <label>{{ texts.detail.correoElectronicoConfirmado }}</label>
+                            <input type="text" class="form-control" readonly value="{{ row.correoElectronicoConfirmado ? texts.status.yes : texts.status.no }}">
+                          </div>
+                        </div>
+                        <div class="col-sm-4">
+                          <div class="form-group">
+                            <label>{{ texts.detail.numeroDeTelefonoConfirmado }}</label>
+                            <input type="text" class="form-control" readonly value="{{ row.numeroDeTelefonoConfirmado ? texts.status.yes : texts.status.no }}">
+                          </div>
+                        </div>
+                        <div class="col-sm-4">
+                          <div class="form-group">
+                            <label>{{ texts.detail.dobleFactorHabilitado }}</label>
+                            <input type="text" class="form-control" readonly value="{{ row.dobleFactorHabilitado ? texts.status.yes : texts.status.no }}">
+                          </div>
+                        </div>
+                        <div class="col-sm-4">
+                          <div class="form-group">
+                            <label>{{ texts.detail.idPersona }}</label>
+                            <input type="text" class="form-control" readonly value="{{ row.idPersona }}">
+                          </div>
+                        </div>
+                        <div class="col-sm-4">
+                          <div class="form-group">
+                            <label>{{ texts.detail.usuarioBase }}</label>
+                            <input type="text" class="form-control" readonly value="{{ row.usuarioBase ? texts.status.yes : texts.status.no }}">
+                          </div>
+                        </div>
+                        <div class="col-sm-4">
+                          <div class="form-group">
+                            <label>{{ texts.detail.requiereValidacionEnrrolamiento }}</label>
+                            <input type="text" class="form-control" readonly value="{{ row.requiereValidacionEnrrolamiento ? texts.status.yes : texts.status.no }}">
+                          </div>
+                        </div>
+                        <div class="col-sm-4">
+                          <div class="form-group">
+                            <label>{{ texts.detail.estadoDeUsuario }}</label>
+                            <input type="text" class="form-control" readonly value="{{ getUsuarioEstadoLabel(row) }}">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </ng-template>
+              </ngx-datatable-row-detail>
+
+              <ngx-datatable-column [width]="40" [resizeable]="false" [sortable]="false" [draggable]="false" [canAutoResize]="false">
+                <ng-template let-row="row" let-expanded="expanded" ngx-datatable-cell-template>
+                  <a
+                    href="javascript:void(0)"
+                    [class.datatable-icon-right]="!expanded"
+                    [class.datatable-icon-down]="expanded"
+                    [attr.title]="texts.detailToggleTitle"
+                    (click)="toggleUsuarioDetail(row)"
+                  >
+                    <svg [attr.viewBox]="icons.expandMore.viewBox" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      @for (path of icons.expandMore.paths; track path) {
+                        <path [attr.d]="path" fill="currentColor"></path>
+                      }
+                    </svg>
+                  </a>
+                </ng-template>
+              </ngx-datatable-column>
+
+              <ngx-datatable-column
+                [width]="60"
+                [sortable]="false"
+                [draggable]="false"
+                [resizeable]="false"
+                [canAutoResize]="false"
+              >
+                <ng-template ngx-datatable-header-template>
+                  <input
+                    type="checkbox"
+                    [checked]="areAllUsuarioRowsSelected()"
+                    (change)="onUsuarioToggleAllSelection($any($event.target).checked)"
+                  >
+                </ng-template>
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  <input
+                    type="checkbox"
+                    [checked]="isUsuarioRowSelected(row)"
+                    (change)="onUsuarioToggleSelection(row, $any($event.target).checked)"
+                  >
+                </ng-template>
+              </ngx-datatable-column>
+
+              <ngx-datatable-column [name]="texts.columns.correoElectronico" [width]="170">
+                <ng-template let-row="row" ngx-datatable-cell-template>{{ row.correoElectronico }}</ng-template>
+              </ngx-datatable-column>
+
+              <ngx-datatable-column [name]="texts.columns.nombreADesplegar" [width]="130">
+                <ng-template let-row="row" ngx-datatable-cell-template>{{ row.nombreADesplegar }}</ng-template>
+              </ngx-datatable-column>
+
+              <ngx-datatable-column [name]="texts.columns.nacionalidad" [width]="100">
+                <ng-template let-row="row" ngx-datatable-cell-template>{{ row.nacionalidad }}</ng-template>
+              </ngx-datatable-column>
+
+              <ngx-datatable-column [name]="texts.columns.activo" [width]="60">
+                <ng-template let-row="row" ngx-datatable-cell-template>{{ getUsuarioStatusLabel(row) }}</ng-template>
+              </ngx-datatable-column>
+
+              <ngx-datatable-column [name]="texts.columns.acciones" [sortable]="false" [width]="260">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  <span class="d-inline-flex align-items-center flex-nowrap">
+                    @if (usuarioActionVisibility.traceability && canViewUsuarioTraceability()) {
+                      <button
+                        class="btn h-auto btn-tbl-edit"
+                        [title]="texts.actions.traceability"
+                        (click)="openUsuarioTraceability(row)"
+                      >
+                        <svg width="24" height="24" [attr.viewBox]="icons.traceability.viewBox" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                          @for (path of icons.traceability.paths; track path) {
+                            <path [attr.d]="path" fill="currentColor"></path>
+                          }
+                        </svg>
+                      </button>
+                    }
+
+                    @if (!row.usuarioBase) {
+                      @if (usuarioActionVisibility.edit) {
+                        <button
+                          class="btn btn-tbl-edit h-auto"
+                          title="{{ texts.actions.edit }}"
+                          [disabled]="isUsuarioRowBusy(row)"
+                          (click)="openEditUsuarioDialog(row, usuarioDialog)"
+                        >
+                          <svg width="24" height="24" [attr.viewBox]="icons.edit.viewBox" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            @for (path of icons.edit.paths; track path) {
+                              <path [attr.d]="path" fill="currentColor"></path>
+                            }
+                          </svg>
+                        </button>
+                      }
+
+                      @if (usuarioActionVisibility.changeEmail) {
+                        <button
+                          class="btn btn-tbl-edit h-auto"
+                          title="{{ texts.actions.changeEmail }}"
+                          [disabled]="isUsuarioRowBusy(row)"
+                          (click)="openEmailUsuarioDialog(row, usuarioEmailDialog)"
+                        >
+                          <svg width="24" height="24" [attr.viewBox]="icons.emailEdit.viewBox" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            @for (path of icons.emailEdit.paths; track path) {
+                              <path [attr.d]="path" fill="currentColor"></path>
+                            }
+                          </svg>
+                        </button>
+                      }
+
+                      @if (usuarioActionVisibility.delete) {
+                        <button
+                          class="btn btn-tbl-delete h-auto"
+                          title="{{ texts.actions.delete }}"
+                          disabled
+                        >
+                          <svg width="24" height="24" [attr.viewBox]="icons.delete.viewBox" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            @for (path of icons.delete.paths; track path) {
+                              <path [attr.d]="path" fill="currentColor"></path>
+                            }
+                          </svg>
+                        </button>
+                      }
+
+                      @if (usuarioActionVisibility.toggleStatus) {
+                        @if (!row.activo) {
+                          <button
+                            class="btn h-auto tblEditBtn1"
+                            title="{{ texts.actions.activate }}"
+                            [disabled]="isUsuarioRowBusy(row)"
+                            (click)="toggleUsuarioStatus(row)"
+                          >
+                            <svg width="24" height="24" [attr.viewBox]="icons.activate.viewBox" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                              @for (path of icons.activate.paths; track path) {
+                                <path [attr.d]="path" fill="currentColor"></path>
+                              }
+                            </svg>
+                          </button>
+                        } @else {
+                          <button
+                            class="btn h-auto tblDelBtn2"
+                            title="{{ texts.actions.deactivate }}"
+                            [disabled]="isUsuarioRowBusy(row)"
+                            (click)="toggleUsuarioStatus(row)"
+                          >
+                            <svg width="24" height="24" [attr.viewBox]="icons.deactivate.viewBox" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                              @for (path of icons.deactivate.paths; track path) {
+                                <path [attr.d]="path" fill="currentColor"></path>
+                              }
+                            </svg>
+                          </button>
+                        }
+                      }
+                    }
+                  </span>
+                </ng-template>
+              </ngx-datatable-column>
+
+              <ngx-datatable-footer>
+                <ng-template
+                  ngx-datatable-footer-template
+                  let-pageSize="pageSize"
+                  let-curPage="curPage"
+                >
+                  <div class="d-flex w-100 align-items-center px-3 gap-3 flex-nowrap">
+                    <div class="fw-bold text-dark mb-0 flex-shrink-0">
+                      {{ selectedUsuarioCount() }} {{ texts.footer.selectedLabel }} / {{ usuarioTotalCount() }} {{ texts.footer.totalLabel }}
+                    </div>
+
+                    <div class="d-flex flex-grow-1 justify-content-center">
+                      <datatable-pager
+                        [pagerLeftArrowIcon]="'datatable-icon-left'"
+                        [pagerRightArrowIcon]="'datatable-icon-right'"
+                        [pagerPreviousIcon]="'datatable-icon-prev'"
+                        [pagerNextIcon]="'datatable-icon-skip'"
+                        [page]="curPage"
+                        [size]="pageSize"
+                        [count]="usuarioTotalCount()"
+                        (change)="onUsuarioPageChange($event)"
+                      ></datatable-pager>
+                    </div>
+
+                    <div class="d-flex align-items-center gap-2 flex-shrink-0 flex-nowrap">
+                      <label class="d-flex align-items-center gap-2 mb-0 flex-nowrap">
+                        <span>{{ texts.footer.rowsPerPage }}</span>
+                        <select
+                          class="form-select form-select-sm"
+                          [value]="usuarioPageLimit()"
+                          (change)="changeUsuarioPageLimit($any($event.target).value)"
+                        >
+                          @for (pageSize of usuarioPageSizeOptions; track pageSize) {
+                            <option [value]="pageSize">{{ pageSize }}</option>
+                          }
+                        </select>
+                      </label>
+                    </div>
+                  </div>
+                </ng-template>
+              </ngx-datatable-footer>
+            </ngx-datatable>
+
+            @if (!loadingUsuarioPage() && !loadingUsuarioCatalogs() && !usuarioRows().length) {
+              <div class="alert alert-light border mt-3 mb-0">
+                <strong>{{ texts.emptyTitle }}</strong> {{ texts.emptyDescription }}
+              </div>
+            }
+
+            <ng-template #usuarioDialog let-modal>
+              <div class="modal-header editRowModal">
+                <h4 class="modal-title" id="modal-basic-title">
+                  <div class="table-modal-header">
+                    <div class="modal-about">
+                      <div class="fw-bold p-t-10 font-17">
+                        {{ texts.modal.editTitle }}
+                      </div>
+                    </div>
+                  </div>
+                </h4>
+                <button type="button" class="close" [attr.aria-label]="texts.modalCloseAction" (click)="modal.dismiss()">
+                  <span aria-hidden="true"><i class="material-icons">close</i></span>
+                </button>
+              </div>
+
+              <div class="modal-body">
+                @if (usuarioDialogError()) {
+                  <div class="alert alert-danger">{{ usuarioDialogError() }}</div>
+                }
+
+                <form class="register-form" [formGroup]="usuarioForm" (ngSubmit)="saveUsuarioForm(modal)">
+                  <input formControlName="idUsuario" class="form-control" type="hidden">
+
+                  <div class="row">
+                    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4 col-xs-5 mb-1">
+                      <label>{{ texts.fields.correoElectronico }}</label>
+                    </div>
+                    <div class="col-xl-9 col-lg-9 col-md-8 col-sm-8 col-xs-7 mb-1">
+                      <input
+                        type="text"
+                        class="form-control"
+                        [placeholder]="texts.placeholders.correoElectronico"
+                        formControlName="correoElectronico"
+                        readonly
+                      >
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4 col-xs-5 mb-1">
+                      <label>{{ texts.fields.numeroDeTelefono }}</label>
+                    </div>
+                    <div class="col-xl-9 col-lg-9 col-md-8 col-sm-8 col-xs-7 mb-1">
+                      <input type="text" class="form-control" [placeholder]="texts.placeholders.numeroDeTelefono" formControlName="numeroDeTelefono">
+                      @if (isUsuarioFormControlInvalid('numeroDeTelefono')) {
+                        <small class="form-text text-danger">{{ getUsuarioFormControlError('numeroDeTelefono') }}</small>
+                      }
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4 col-xs-5 mb-1">
+                      <label>{{ texts.fields.nacionalidad }} <span class="text-danger">*</span></label>
+                    </div>
+                    <div class="col-xl-9 col-lg-9 col-md-8 col-sm-8 col-xs-7 mb-1">
+                      <select class="form-control form-select" formControlName="nacionalidad">
+                        <option value=""></option>
+                        @for (option of nacionalidadOptions(); track option.value) {
+                          <option [value]="option.value">{{ option.label }}</option>
+                        }
+                      </select>
+                      @if (isUsuarioFormControlInvalid('nacionalidad')) {
+                        <small class="form-text text-danger">{{ getUsuarioFormControlError('nacionalidad') }}</small>
+                      }
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4 col-xs-5 mb-1">
+                      <label>{{ texts.fields.tipoDeUsuario }} <span class="text-danger">*</span></label>
+                    </div>
+                    <div class="col-xl-9 col-lg-9 col-md-8 col-sm-8 col-xs-7 mb-1">
+                      <select class="form-control form-select" formControlName="tipoDeUsuario">
+                        <option value=""></option>
+                        @for (option of tipoDeUsuarioOptions(); track option.value) {
+                          <option [value]="option.value">{{ option.label }}</option>
+                        }
+                      </select>
+                      @if (isUsuarioFormControlInvalid('tipoDeUsuario')) {
+                        <small class="form-text text-danger">{{ getUsuarioFormControlError('tipoDeUsuario') }}</small>
+                      }
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4 col-xs-5 mb-1">
+                      <label>{{ texts.fields.documentoDeIdentidad }} <span class="text-danger">*</span></label>
+                    </div>
+                    <div class="col-xl-9 col-lg-9 col-md-8 col-sm-8 col-xs-7 mb-1">
+                      <select class="form-control form-select" formControlName="documentoDeIdentidad">
+                        <option value=""></option>
+                        @for (option of documentoDeIdentidadOptions(); track option.value) {
+                          <option [value]="option.value">{{ option.label }}</option>
+                        }
+                      </select>
+                      @if (isUsuarioFormControlInvalid('documentoDeIdentidad')) {
+                        <small class="form-text text-danger">{{ getUsuarioFormControlError('documentoDeIdentidad') }}</small>
+                      }
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4 col-xs-5 mb-1">
+                      <label>{{ texts.fields.numeroDeDocumento }} <span class="text-danger">*</span></label>
+                    </div>
+                    <div class="col-xl-9 col-lg-9 col-md-8 col-sm-8 col-xs-7 mb-1">
+                      <input type="text" class="form-control" [placeholder]="texts.placeholders.numeroDeDocumento" formControlName="numeroDeDocumento">
+                      @if (isUsuarioFormControlInvalid('numeroDeDocumento')) {
+                        <small class="form-text text-danger">{{ getUsuarioFormControlError('numeroDeDocumento') }}</small>
+                      }
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4 col-xs-5 mb-1">
+                      <label>{{ texts.fields.codigoValidadorDocumento }} <span class="text-danger">*</span></label>
+                    </div>
+                    <div class="col-xl-9 col-lg-9 col-md-8 col-sm-8 col-xs-7 mb-1">
+                      <input type="text" class="form-control" [placeholder]="texts.placeholders.codigoValidadorDocumento" formControlName="codigoValidadorDocumento">
+                      @if (isUsuarioFormControlInvalid('codigoValidadorDocumento')) {
+                        <small class="form-text text-danger">{{ getUsuarioFormControlError('codigoValidadorDocumento') }}</small>
+                      }
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4 col-xs-5 mb-1">
+                      <label>{{ texts.fields.primerNombre }} <span class="text-danger">*</span></label>
+                    </div>
+                    <div class="col-xl-9 col-lg-9 col-md-8 col-sm-8 col-xs-7 mb-1">
+                      <input type="text" class="form-control" [placeholder]="texts.placeholders.primerNombre" formControlName="primerNombre">
+                      @if (isUsuarioFormControlInvalid('primerNombre')) {
+                        <small class="form-text text-danger">{{ getUsuarioFormControlError('primerNombre') }}</small>
+                      }
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4 col-xs-5 mb-1">
+                      <label>{{ texts.fields.segundoNombre }}</label>
+                    </div>
+                    <div class="col-xl-9 col-lg-9 col-md-8 col-sm-8 col-xs-7 mb-1">
+                      <input type="text" class="form-control" [placeholder]="texts.placeholders.segundoNombre" formControlName="segundoNombre">
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4 col-xs-5 mb-1">
+                      <label>{{ texts.fields.primerApellido }} <span class="text-danger">*</span></label>
+                    </div>
+                    <div class="col-xl-9 col-lg-9 col-md-8 col-sm-8 col-xs-7 mb-1">
+                      <input type="text" class="form-control" [placeholder]="texts.placeholders.primerApellido" formControlName="primerApellido">
+                      @if (isUsuarioFormControlInvalid('primerApellido')) {
+                        <small class="form-text text-danger">{{ getUsuarioFormControlError('primerApellido') }}</small>
+                      }
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4 col-xs-5 mb-1">
+                      <label>{{ texts.fields.segundoApellido }}</label>
+                    </div>
+                    <div class="col-xl-9 col-lg-9 col-md-8 col-sm-8 col-xs-7 mb-1">
+                      <input type="text" class="form-control" [placeholder]="texts.placeholders.segundoApellido" formControlName="segundoApellido">
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4 col-xs-5 mb-1">
+                      <label>{{ texts.fields.sexoDeclarativo }} <span class="text-danger">*</span></label>
+                    </div>
+                    <div class="col-xl-9 col-lg-9 col-md-8 col-sm-8 col-xs-7 mb-1">
+                      <select class="form-control form-select" formControlName="sexoDeclarativo">
+                        <option value=""></option>
+                        @for (option of sexoDeclarativoOptions(); track option.value) {
+                          <option [value]="option.value">{{ option.label }}</option>
+                        }
+                      </select>
+                      @if (isUsuarioFormControlInvalid('sexoDeclarativo')) {
+                        <small class="form-text text-danger">{{ getUsuarioFormControlError('sexoDeclarativo') }}</small>
+                      }
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4 col-xs-5 mb-1">
+                      <label>{{ texts.fields.sexoRegistral }} <span class="text-danger">*</span></label>
+                    </div>
+                    <div class="col-xl-9 col-lg-9 col-md-8 col-sm-8 col-xs-7 mb-1">
+                      <select class="form-control form-select" formControlName="sexoRegistral">
+                        <option value=""></option>
+                        @for (option of sexoRegistralOptions(); track option.value) {
+                          <option [value]="option.value">{{ option.label }}</option>
+                        }
+                      </select>
+                      @if (isUsuarioFormControlInvalid('sexoRegistral')) {
+                        <small class="form-text text-danger">{{ getUsuarioFormControlError('sexoRegistral') }}</small>
+                      }
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4 col-xs-5 mb-1">
+                      <label>{{ texts.fields.fechaDeNacimiento }} <span class="text-danger">*</span></label>
+                    </div>
+                    <div class="col-xl-9 col-lg-9 col-md-8 col-sm-8 col-xs-7 mb-1">
+                      <input type="date" class="form-control" formControlName="fechaDeNacimiento">
+                      @if (isUsuarioFormControlInvalid('fechaDeNacimiento')) {
+                        <small class="form-text text-danger">{{ getUsuarioFormControlError('fechaDeNacimiento') }}</small>
+                      }
+                    </div>
+                  </div>
+
+                  <div class="modal-footer d-flex justify-content-center align-items-center gap-2 flex-nowrap">
+                    <button type="button" class="btn btn-light flex-shrink-0" [disabled]="savingUsuarioForm()" (click)="resetUsuarioForm()">
+                      {{ texts.actions.clear }}
+                    </button>
+                    <button type="button" class="btn btn-light flex-shrink-0" [disabled]="savingUsuarioForm()" (click)="modal.dismiss()">
+                      {{ texts.actions.cancel }}
+                    </button>
+                    <button type="submit" class="btn btn-primary flex-shrink-0" [disabled]="savingUsuarioForm() || usuarioForm.invalid">
+                      {{ texts.actions.saveEdit }}
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </ng-template>
+
+            <ng-template #usuarioEmailDialog let-modal>
+              <div class="modal-header editRowModal">
+                <h4 class="modal-title" id="modal-email-title">
+                  <div class="table-modal-header">
+                    <div class="modal-about">
+                      <div class="fw-bold p-t-10 font-17">
+                        {{ texts.modal.emailTitle }}
+                      </div>
+                    </div>
+                  </div>
+                </h4>
+                <button type="button" class="close" [attr.aria-label]="texts.modalCloseAction" (click)="modal.dismiss()">
+                  <span aria-hidden="true"><i class="material-icons">close</i></span>
+                </button>
+              </div>
+
+              <div class="modal-body">
+                @if (usuarioEmailDialogError()) {
+                  <div class="alert alert-danger">{{ usuarioEmailDialogError() }}</div>
+                }
+
+                <p class="mb-3">{{ texts.modal.emailDescription }}</p>
+
+                <form class="register-form" [formGroup]="usuarioEmailChangeForm" (ngSubmit)="saveUsuarioEmailForm(modal)">
+                  <input formControlName="idUsuario" class="form-control" type="hidden">
+
+                  <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-5 mb-1">
+                      <label>{{ texts.fields.correoElectronico }}</label>
+                    </div>
+                    <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-xs-7 mb-1">
+                      <input
+                        type="text"
+                        class="form-control"
+                        [placeholder]="texts.placeholders.correoElectronico"
+                        formControlName="correoElectronicoActual"
+                        readonly
+                      >
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-5 mb-1">
+                      <label>{{ texts.fields.nuevoCorreoElectronico }} <span class="text-danger">*</span></label>
+                    </div>
+                    <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-xs-7 mb-1">
+                      <input
+                        type="email"
+                        class="form-control"
+                        [placeholder]="texts.placeholders.nuevoCorreoElectronico"
+                        formControlName="nuevoCorreoElectronico"
+                      >
+                      @if (isUsuarioEmailFormControlInvalid('nuevoCorreoElectronico')) {
+                        <small class="form-text text-danger">{{ texts.validation.nuevoCorreoElectronico }}</small>
+                      }
+                    </div>
+                  </div>
+
+                  <div class="modal-footer d-flex justify-content-center align-items-center gap-2 flex-nowrap">
+                    <button type="button" class="btn btn-light flex-shrink-0" [disabled]="savingUsuarioEmailChange()" (click)="modal.dismiss()">
+                      {{ texts.actions.cancel }}
+                    </button>
+                    <button type="submit" class="btn btn-primary flex-shrink-0" [disabled]="savingUsuarioEmailChange() || usuarioEmailChangeForm.invalid">
+                      {{ texts.actions.saveEmail }}
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </ng-template>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

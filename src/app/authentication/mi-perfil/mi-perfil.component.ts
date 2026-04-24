@@ -24,10 +24,10 @@ import { EnumerationService } from '@core/enumerations/enumeration.service';
 import { formatApiError } from '@core/service/api-error.util';
 import {
   buildModificaUsuarioPayload,
-  createUserProfileForm,
+  createModificaUsuarioProfileForm,
   isNationalUser,
   matchingPasswordsValidator,
-  patchUserProfileForm,
+  patchModificaUsuarioProfileForm,
   passwordPolicyValidator,
 } from '../shared/user-profile-form';
 
@@ -55,7 +55,7 @@ export class MiPerfilComponent implements OnInit {
   private readonly router = inject(Router);
   private readonly destroyRef = inject(DestroyRef);
 
-  readonly profileForm = createUserProfileForm(this.formBuilder);
+  readonly profileForm = createModificaUsuarioProfileForm(this.formBuilder);
   readonly emailChangeForm = this.formBuilder.nonNullable.group({
     idUsuario: [''],
     nuevoCorreoElectronico: ['', [Validators.required, Validators.email, Validators.minLength(5)]],
@@ -512,7 +512,7 @@ export class MiPerfilComponent implements OnInit {
       return;
     }
 
-    patchUserProfileForm(this.profileForm, profile);
+    patchModificaUsuarioProfileForm(this.profileForm, profile);
     this.emailChangeForm.reset(
       {
         idUsuario: profile.id ?? '',
@@ -544,9 +544,6 @@ export class MiPerfilComponent implements OnInit {
       'idUsuario',
       'correoElectronico',
       'tipoDeUsuario',
-      'password',
-      'confirmaPassword',
-      'terminosYCondiciones',
     ] as const;
 
     this.profileForm.enable({ emitEvent: false });

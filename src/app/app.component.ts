@@ -25,7 +25,8 @@ export class AppComponent {
     '/authentication/signin',
     '/authentication/signup',
     '/authentication/confirm-email',
-    '/authentication/forgot'
+    '/authentication/forgot',
+    '/authentication/reset'
   ];
 
   constructor(
