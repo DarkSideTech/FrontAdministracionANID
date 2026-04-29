@@ -111,6 +111,14 @@ export class AccountApi {
     });
   }
 
+  buscarRolesPaginados(options: { body?: Models.BuscarRolesPaginadosViewModel; headers?: Record<string, string>; context?: HttpContext } = {}): Observable<unknown> {
+    return this.http.request<unknown>('POST', `${this.accountUrl}/buscarrolespaginados`, {
+      body: options.body as Models.BuscarRolesPaginadosViewModel,
+      headers: options.headers ? new HttpHeaders(options.headers) : undefined,
+      context: options.context,
+    });
+  }
+
   modificaUsuario(options: { body?: Models.ModificaUsuarioViewModel; headers?: Record<string, string>; context?: HttpContext } = {}): Observable<unknown> {
     return this.http.request<unknown>('POST', `${this.accountUrl}/modificausuario`, {
       body: options.body as Models.ModificaUsuarioViewModel,
@@ -130,6 +138,78 @@ export class AccountApi {
   desactivarUsuario(options: { body?: Models.DesactivarUsuarioViewModel; headers?: Record<string, string>; context?: HttpContext } = {}): Observable<unknown> {
     return this.http.request<unknown>('PUT', `${this.accountUrl}/desactivarusuario`, {
       body: options.body as Models.DesactivarUsuarioViewModel,
+      headers: options.headers ? new HttpHeaders(options.headers) : undefined,
+      context: options.context,
+    });
+  }
+
+  modificarRol(options: { body?: Models.ModificaRolViewModel; headers?: Record<string, string>; context?: HttpContext } = {}): Observable<unknown> {
+    return this.http.request<unknown>('POST', `${this.accountUrl}/modificarol`, {
+      body: options.body as Models.ModificaRolViewModel,
+      headers: options.headers ? new HttpHeaders(options.headers) : undefined,
+      context: options.context,
+    });
+  }
+
+  activarRol(options: { body?: Models.ActivarRolViewModel; headers?: Record<string, string>; context?: HttpContext } = {}): Observable<unknown> {
+    return this.http.request<unknown>('PUT', `${this.accountUrl}/activarrol`, {
+      body: options.body as Models.ActivarRolViewModel,
+      headers: options.headers ? new HttpHeaders(options.headers) : undefined,
+      context: options.context,
+    });
+  }
+
+  desactivarRol(options: { body?: Models.DesactivarRolViewModel; headers?: Record<string, string>; context?: HttpContext } = {}): Observable<unknown> {
+    return this.http.request<unknown>('PUT', `${this.accountUrl}/desactivarrol`, {
+      body: options.body as Models.DesactivarRolViewModel,
+      headers: options.headers ? new HttpHeaders(options.headers) : undefined,
+      context: options.context,
+    });
+  }
+
+  requiereValidacionAlSerAsignado(options: { body?: Models.RequiereValidacionAlSerAsignadoViewModel; headers?: Record<string, string>; context?: HttpContext } = {}): Observable<unknown> {
+    return this.http.request<unknown>('PUT', `${this.accountUrl}/requierevalidacionalserasignado`, {
+      body: options.body as Models.RequiereValidacionAlSerAsignadoViewModel,
+      headers: options.headers ? new HttpHeaders(options.headers) : undefined,
+      context: options.context,
+    });
+  }
+
+  noRequiereValidacionAlSerAsignado(options: { body?: Models.NoRequiereValidacionAlSerAsignadoViewModel; headers?: Record<string, string>; context?: HttpContext } = {}): Observable<unknown> {
+    return this.http.request<unknown>('PUT', `${this.accountUrl}/norequierevalidacionalserasignado`, {
+      body: options.body as Models.NoRequiereValidacionAlSerAsignadoViewModel,
+      headers: options.headers ? new HttpHeaders(options.headers) : undefined,
+      context: options.context,
+    });
+  }
+
+  activaValidacionDeAsignacionDeRoles(options: { body?: Models.ActivaValidacionDeAsignacionDeRolesViewModel; headers?: Record<string, string>; context?: HttpContext } = {}): Observable<unknown> {
+    return this.http.request<unknown>('PUT', `${this.accountUrl}/activavalidaciondeasignacionderoles`, {
+      body: options.body as Models.ActivaValidacionDeAsignacionDeRolesViewModel,
+      headers: options.headers ? new HttpHeaders(options.headers) : undefined,
+      context: options.context,
+    });
+  }
+
+  desactivaValidacionDeAsignacionDeRoles(options: { body?: Models.DesactivaValidacionDeAsignacionDeRolesViewModel; headers?: Record<string, string>; context?: HttpContext } = {}): Observable<unknown> {
+    return this.http.request<unknown>('PUT', `${this.accountUrl}/desactivavalidaciondeasignacionderoles`, {
+      body: options.body as Models.DesactivaValidacionDeAsignacionDeRolesViewModel,
+      headers: options.headers ? new HttpHeaders(options.headers) : undefined,
+      context: options.context,
+    });
+  }
+
+  activaDetalleDeAutorizaciones(options: { body?: Models.ActivaDetalleDeAutorizacionesViewModel; headers?: Record<string, string>; context?: HttpContext } = {}): Observable<unknown> {
+    return this.http.request<unknown>('PUT', `${this.accountUrl}/activadetalledeautorizaciones`, {
+      body: options.body as Models.ActivaDetalleDeAutorizacionesViewModel,
+      headers: options.headers ? new HttpHeaders(options.headers) : undefined,
+      context: options.context,
+    });
+  }
+
+  desactivaDetalleDeAutorizaciones(options: { body?: Models.DesactivaDetalleDeAutorizacionesViewModel; headers?: Record<string, string>; context?: HttpContext } = {}): Observable<unknown> {
+    return this.http.request<unknown>('PUT', `${this.accountUrl}/desactivadetalledeautorizaciones`, {
+      body: options.body as Models.DesactivaDetalleDeAutorizacionesViewModel,
       headers: options.headers ? new HttpHeaders(options.headers) : undefined,
       context: options.context,
     });

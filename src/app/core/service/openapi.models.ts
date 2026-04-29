@@ -10,6 +10,10 @@ export interface ActivarUsuarioViewModel {
   idUsuario?: string | null;
 }
 
+export interface ActivarRolViewModel {
+  idRol?: string | null;
+}
+
 export interface ActivarOrganizacionViewModel {
   id?: string | null;
 }
@@ -217,6 +221,19 @@ export interface BuscarUsuariosPaginadosResponse {
   items?: UsuarioPaginadoItemResponse[] | null;
 }
 
+export interface BuscarRolesPaginadosViewModel {
+  numeroDePagina?: number | null;
+  cantidadPorPagina?: number | null;
+  busqueda?: string | null;
+}
+
+export interface BuscarRolesPaginadosResponse {
+  numeroDePagina?: number | null;
+  cantidadPorPagina?: number | null;
+  total?: number | null;
+  items?: RolPaginadoItemResponse[] | null;
+}
+
 export interface LoginOrganizacionViewModel {
   organizacion?: string | null;
 }
@@ -322,6 +339,41 @@ export interface ConfirmaRecuperacionClaveViewModel {
 
 export interface DesactivarUsuarioViewModel {
   idUsuario?: string | null;
+}
+
+export interface DesactivarRolViewModel {
+  idRol?: string | null;
+}
+
+export interface RequiereValidacionAlSerAsignadoViewModel {
+  idRol?: string | null;
+}
+
+export interface NoRequiereValidacionAlSerAsignadoViewModel {
+  idRol?: string | null;
+}
+
+export interface ActivaValidacionDeAsignacionDeRolesViewModel {
+  idRol?: string | null;
+}
+
+export interface DesactivaValidacionDeAsignacionDeRolesViewModel {
+  idRol?: string | null;
+}
+
+export interface ActivaDetalleDeAutorizacionesViewModel {
+  idRol?: string | null;
+}
+
+export interface DesactivaDetalleDeAutorizacionesViewModel {
+  idRol?: string | null;
+}
+
+export interface ModificaRolViewModel {
+  idRol?: string | null;
+  descripcion?: string | null;
+  validaEnrrolamiento?: boolean | null;
+  validaAsignacionDeRoles?: boolean | null;
 }
 
 export interface ModificarOrganizacionViewModel {
@@ -449,6 +501,19 @@ export interface ResendEmailConfirmationTokenRequest {
 export interface ActivarDesactivarUsuarioResponse {
   idUsuario?: string | null;
   message?: string | null;
+}
+
+export interface RolPaginadoItemResponse {
+  id?: string | null;
+  nombre?: string | null;
+  nombreNormalizado?: string | null;
+  descripcion?: string | null;
+  activaDetalleDeAutorizaciones?: boolean | null;
+  requiereValidacionDeAsignacion?: boolean | null;
+  validaAsignacionDeRoles?: boolean | null;
+  validaEnrrolamiento?: boolean | null;
+  rolBase?: boolean | null;
+  activo?: boolean | null;
 }
 
 export interface UsuarioPaginadoItemResponse {

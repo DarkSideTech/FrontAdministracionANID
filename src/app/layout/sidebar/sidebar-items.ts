@@ -179,6 +179,18 @@ export const ROUTES: RouteInfo[] = [
             active: false,
           },
           {
+            path: '/dominios/administracion/entidades/rol',
+            title: 'Rol',
+            iconType: '',
+            icon: '',
+            class: 'ml-menu',
+            groupTitle: false,
+            badge: '',
+            badgeClass: '',
+            submenu: [],
+            active: false,
+          },
+          {
             path: '/dominios/administracion/entidades/organizacion',
             title: 'Organizacion',
             iconType: '',
