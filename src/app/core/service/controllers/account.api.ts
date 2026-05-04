@@ -119,6 +119,14 @@ export class AccountApi {
     });
   }
 
+  buscarRoles(options: { body?: Models.BuscarRolesViewModel; headers?: Record<string, string>; context?: HttpContext } = {}): Observable<unknown> {
+    return this.http.request<unknown>('POST', `${this.accountUrl}/buscarroles`, {
+      body: options.body as Models.BuscarRolesViewModel,
+      headers: options.headers ? new HttpHeaders(options.headers) : undefined,
+      context: options.context,
+    });
+  }
+
   modificaUsuario(options: { body?: Models.ModificaUsuarioViewModel; headers?: Record<string, string>; context?: HttpContext } = {}): Observable<unknown> {
     return this.http.request<unknown>('POST', `${this.accountUrl}/modificausuario`, {
       body: options.body as Models.ModificaUsuarioViewModel,

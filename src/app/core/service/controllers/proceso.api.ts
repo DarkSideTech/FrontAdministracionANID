@@ -58,6 +58,13 @@ export class ProcesoApi {
     });
   }
 
+  buscarActivosParaSeleccion(options: { headers?: Record<string, string>; context?: HttpContext } = {}): Observable<Models.ProcesoSeleccionViewModel[]> {
+    return this.http.request<Models.ProcesoSeleccionViewModel[]>('GET', `${this.procesoUrl}/BuscarActivosParaSeleccion`, {
+      headers: options.headers ? new HttpHeaders(options.headers) : undefined,
+      context: options.context,
+    });
+  }
+
   buscarPorId(options: { id: string; headers?: Record<string, string>; context?: HttpContext }): Observable<Models.ProcesoViewModel> {
     const params = new HttpParams().set('id', options.id);
 

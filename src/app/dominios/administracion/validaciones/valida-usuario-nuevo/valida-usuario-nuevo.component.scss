@@ -1,0 +1,16 @@
+/* estilos delegados a src/assets/scss */
+
+.valida-usuario-toolbar,
+.valida-usuario-actions .tbl-btn-style {
+  gap: 0.75rem;
+}
+
+.valida-usuario-actions .tbl-btn-style {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.valida-usuario-footer {
+  min-width: 720px;
+}

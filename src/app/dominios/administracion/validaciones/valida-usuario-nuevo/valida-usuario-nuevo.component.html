@@ -1,0 +1,205 @@
+<section class="main-content">
+  <ul class="breadcrumb breadcrumb-style ">
+    <li class="breadcrumb-item">
+      <a routerLink="/paneles/estadisticas-usuarios" class="breadcrumb-p">
+        {{ texts.breadcrumbHome }}
+      </a>
+    </li>
+    <li class="breadcrumb-item bcrumb-1">{{ texts.breadcrumbDomain }}</li>
+    <li class="breadcrumb-item bcrumb-1">{{ texts.breadcrumbSection }}</li>
+    <li class="breadcrumb-item">{{ texts.breadcrumbCurrent }}</li>
+  </ul>
+
+  <div class="section-body">
+    <div class="row clearfix">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+          <div class="p-10">
+            @if (pageError()) {
+              <div class="alert alert-danger">{{ pageError() }}</div>
+            }
+
+            <div class="ngxTableHeader valida-usuario-toolbar">
+              <div class="table-search-area search-container">
+                <span class="me-2 fw-bold">{{ texts.searchLabel }}</span>
+                <label for="search-input-valida-usuario-nuevo">
+                  <img src="assets/icon/Lupa.svg" class="search-icon" [attr.alt]="texts.searchIconAlt">
+                </label>
+                <input
+                  id="search-input-valida-usuario-nuevo"
+                  type="text"
+                  class="browser-default search-field"
+                  [value]="searchTerm()"
+                  [placeholder]="texts.searchPlaceholder"
+                  [disabled]="loading() || validating()"
+                  (input)="onSearchChange($any($event.target).value)"
+                >
+              </div>
+
+              <div class="header-buttons-left valida-usuario-actions">
+                <div class="tbl-btn-style">
+                  @if (hasSearchTerm) {
+                    <button
+                      type="button"
+                      class="btn-icon icon-left btn-light rounded-button"
+                      [disabled]="loading() || validating()"
+                      [attr.title]="texts.clearSearchAction"
+                      [attr.aria-label]="texts.clearSearchAction"
+                      (click)="clearSearch()"
+                    >
+                      <svg [attr.viewBox]="icons.clear.viewBox" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        @for (path of icons.clear.paths; track path) {
+                          <path [attr.d]="path" fill="currentColor"></path>
+                        }
+                      </svg>
+                    </button>
+                  }
+
+                  <button
+                    type="button"
+                    class="btn btn-light"
+                    [disabled]="loading() || validating()"
+                    (click)="refresh()"
+                  >
+                    {{ texts.refreshAction }}
+                  </button>
+
+                  <button
+                    type="button"
+                    class="btn btn-primary"
+                    [disabled]="!canValidate()"
+                    (click)="validateSelected()"
+                  >
+                    {{ texts.validateSelectedAction }}
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <ngx-datatable
+              #usuariosTable
+              class="material"
+              [rows]="rows()"
+              [count]="total()"
+              [offset]="pageNumber() - 1"
+              [externalPaging]="true"
+              [loadingIndicator]="loading() || validating()"
+              columnMode="force"
+              [headerHeight]="config.tableHeaderHeight"
+              [footerHeight]="config.tableFooterHeight"
+              rowHeight="auto"
+              [limit]="pageLimit()"
+              [scrollbarH]="scrollBarHorizontal"
+              [reorderable]="true"
+              (page)="onPage($event)"
+            >
+              <ngx-datatable-column
+                [name]="texts.columns.seleccionar"
+                [width]="70"
+                [sortable]="false"
+                [draggable]="false"
+                [resizeable]="false"
+                [canAutoResize]="false"
+              >
+                <ng-template ngx-datatable-header-template>
+                  <input
+                    type="checkbox"
+                    [checked]="allVisibleRowsSelected()"
+                    [disabled]="loading() || validating() || !rows().length"
+                    (change)="toggleVisibleRows($any($event.target).checked)"
+                  >
+                </ng-template>
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  <input
+                    type="checkbox"
+                    [checked]="isUserSelected(row)"
+                    [disabled]="loading() || validating()"
+                    (change)="toggleUser(row, $any($event.target).checked)"
+                  >
+                </ng-template>
+              </ngx-datatable-column>
+
+              <ngx-datatable-column [name]="texts.columns.nombre" [width]="170">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  <strong>{{ getUserDisplayName(row) }}</strong>
+                </ng-template>
+              </ngx-datatable-column>
+
+              <ngx-datatable-column [name]="texts.columns.correo" [width]="180">
+                <ng-template let-row="row" ngx-datatable-cell-template>{{ row.correoElectronico }}</ng-template>
+              </ngx-datatable-column>
+
+              <ngx-datatable-column [name]="texts.columns.tipoDeUsuario" [width]="130">
+                <ng-template let-row="row" ngx-datatable-cell-template>{{ row.tipoDeUsuario }}</ng-template>
+              </ngx-datatable-column>
+
+              <ngx-datatable-column [name]="texts.columns.documento" [width]="170">
+                <ng-template let-row="row" ngx-datatable-cell-template>{{ getDocumentLabel(row) }}</ng-template>
+              </ngx-datatable-column>
+
+              <ngx-datatable-column [name]="texts.columns.nacionalidad" [width]="130">
+                <ng-template let-row="row" ngx-datatable-cell-template>{{ row.nacionalidad || texts.status.noData }}</ng-template>
+              </ngx-datatable-column>
+
+              <ngx-datatable-column [name]="texts.columns.estado" [width]="150">
+                <ng-template let-row="row" ngx-datatable-cell-template>{{ row.estadoDeUsuario }}</ng-template>
+              </ngx-datatable-column>
+
+              <ngx-datatable-column [name]="texts.columns.correoConfirmado" [width]="110">
+                <ng-template let-row="row" ngx-datatable-cell-template>{{ getBooleanLabel(row.correoElectronicoConfirmado) }}</ng-template>
+              </ngx-datatable-column>
+
+              <ngx-datatable-column [name]="texts.columns.requiereValidacion" [width]="120">
+                <ng-template let-row="row" ngx-datatable-cell-template>{{ getBooleanLabel(row.requiereValidacionEnrrolamiento) }}</ng-template>
+              </ngx-datatable-column>
+
+              <ngx-datatable-footer>
+                <ng-template ngx-datatable-footer-template let-pageSize="pageSize" let-curPage="curPage">
+                  <div class="d-flex w-100 align-items-center px-3 gap-3 flex-nowrap valida-usuario-footer">
+                    <div class="fw-bold text-dark mb-0 flex-shrink-0">
+                      {{ selectedIds().size }} {{ texts.footer.selectedLabel }} / {{ total() }} {{ texts.footer.totalLabel }}
+                    </div>
+
+                    <div class="d-flex flex-grow-1 justify-content-center">
+                      <datatable-pager
+                        [pagerLeftArrowIcon]="'datatable-icon-left'"
+                        [pagerRightArrowIcon]="'datatable-icon-right'"
+                        [pagerPreviousIcon]="'datatable-icon-prev'"
+                        [pagerNextIcon]="'datatable-icon-skip'"
+                        [page]="curPage"
+                        [size]="pageSize"
+                        [count]="total()"
+                      ></datatable-pager>
+                    </div>
+
+                    <div class="d-flex align-items-center gap-2 flex-shrink-0 flex-nowrap">
+                      <label class="d-flex align-items-center gap-2 mb-0 flex-nowrap">
+                        <span>{{ texts.footer.rowsPerPage }}</span>
+                        <select
+                          class="form-select form-select-sm"
+                          [value]="pageLimit()"
+                          [disabled]="loading() || validating()"
+                          (change)="changePageLimit($any($event.target).value)"
+                        >
+                          @for (pageSizeOption of pageSizeOptions; track pageSizeOption) {
+                            <option [value]="pageSizeOption">{{ pageSizeOption }}</option>
+                          }
+                        </select>
+                      </label>
+                    </div>
+                  </div>
+                </ng-template>
+              </ngx-datatable-footer>
+            </ngx-datatable>
+
+            @if (!loading() && !rows().length && !pageError()) {
+              <div class="alert alert-light border mt-3 mb-0">
+                <strong>{{ texts.emptyTitle }}</strong>
+              </div>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

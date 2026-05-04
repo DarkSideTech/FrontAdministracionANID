@@ -142,8 +142,7 @@ dist
 
 # Node modules and dependency files
 /node_modules/
-# package-lock.json must be tracked for reproducible CI/CD builds.
-# /package-lock.json
+/package-lock.json
 /yarn.lock
 
 # Environment files
