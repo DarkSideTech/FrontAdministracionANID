@@ -8,12 +8,5 @@ export const DOMINIOS_ROUTE : Route[] = [
         (m) => m.ADMINISTRACION_ROUTE
       ),
   },
-  {
-    path: 'autorizacion',
-    loadChildren: () =>
-      import('./autorizacion/autorizacion.routes').then(
-        (m) => m.AUTORIZACION_ROUTE
-      ),
-  },
 ];
 

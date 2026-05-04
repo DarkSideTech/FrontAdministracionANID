@@ -35,6 +35,22 @@ export class ServicioDeDominioApi {
     });
   }
 
+  buscarUnidadesOrganizacionalesParaAsignarOrganizacion(options: { body?: Models.BuscarUnidadesOrganizacionalesParaAsignarOrganizacionServicioDeDominioViewModel; headers?: Record<string, string>; context?: HttpContext } = {}): Observable<unknown> {
+    return this.http.request<unknown>('POST', `${this.servicioDeDominioUrl}/BuscarUnidadesOrganizacionalesParaAsignarOrganizacion`, {
+      body: options.body as Models.BuscarUnidadesOrganizacionalesParaAsignarOrganizacionServicioDeDominioViewModel,
+      headers: options.headers ? new HttpHeaders(options.headers) : undefined,
+      context: options.context,
+    });
+  }
+
+  sincronizarUnidadesOrganizacionalesOrganizacion(options: { body?: Models.SincronizarUnidadesOrganizacionalesOrganizacionServicioDeDominioViewModel; headers?: Record<string, string>; context?: HttpContext } = {}): Observable<unknown> {
+    return this.http.request<unknown>('POST', `${this.servicioDeDominioUrl}/SincronizarUnidadesOrganizacionalesOrganizacion`, {
+      body: options.body as Models.SincronizarUnidadesOrganizacionalesOrganizacionServicioDeDominioViewModel,
+      headers: options.headers ? new HttpHeaders(options.headers) : undefined,
+      context: options.context,
+    });
+  }
+
   buscarEntidadesParaAsignarPoliticaPorOrganizacion(options: { id_Organizacion: string; headers?: Record<string, string>; context?: HttpContext }): Observable<Models.EntidadParaAsignarPoliticaViewModel[]> {
     const params = new HttpParams().set('id_Organizacion', options.id_Organizacion);
 

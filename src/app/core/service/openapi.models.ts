@@ -616,6 +616,41 @@ export interface SincronizarPoliticasAsignadasServicioDeDominioViewModel {
   items?: SincronizarPoliticaAsignadaEntidadItemViewModel[] | null;
 }
 
+export interface BuscarUnidadesOrganizacionalesParaAsignarOrganizacionServicioDeDominioViewModel {
+  id_Organizacion?: string | null;
+}
+
+export interface UnidadOrganizacionalParaAsignarOrganizacionViewModel {
+  idUnidadOrganizacional?: string | null;
+  idOrganizacionActual?: string | null;
+  codigoUnidadOrganizacional?: string | null;
+  nombreUnidadOrganizacional?: string | null;
+  descripcionUnidadOrganizacional?: string | null;
+  unidadOrganizacionalBase?: boolean | null;
+  activo?: boolean | null;
+  codigoOrganizacionActual?: string | null;
+  nombreOrganizacionActual?: string | null;
+  asignadaAOrganizacion?: boolean | null;
+  tieneEntidadPrincipal?: boolean | null;
+  cantidadEntidadesPrincipales?: number | null;
+}
+
+export interface SincronizarUnidadesOrganizacionalesOrganizacionServicioDeDominioViewModel {
+  id_Organizacion?: string | null;
+  unidadesAsignar?: string[] | null;
+  unidadesDesasignar?: string[] | null;
+}
+
+export interface SincronizarUnidadesOrganizacionalesOrganizacionResultadoViewModel {
+  asignadas?: number | null;
+  reasignadas?: number | null;
+  entidadesEliminadas?: number | null;
+  politicasAsignadasEliminadas?: number | null;
+  omitidasPorExistir?: number | null;
+  omitidasPorError?: number | null;
+  errores?: string[] | null;
+}
+
 export interface SincronizarPoliticaAsignadaEntidadItemViewModel {
   idEntidad?: string | null;
   politicas?: SincronizarPoliticaAsignadaItemViewModel[] | null;
