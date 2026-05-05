@@ -17,6 +17,14 @@ export const APP_ROUTE: Route[] = [
           import('./dominios/dominios.routes').then((m) => m.DOMINIOS_ROUTE),
       },
       {
+        path: 'administracion',
+        canActivate: [authenticatedGuard],
+        loadChildren: () =>
+          import('./dominios/administracion/administracion.routes').then(
+            (m) => m.ADMINISTRACION_ROUTE,
+          ),
+      },
+      {
         path: 'paneles',
         canActivate: [authenticatedGuard],
         loadChildren: () =>

@@ -1,6 +1,6 @@
 import { Route } from '@angular/router';
 
-import { authenticatedMatchGuard, validaEnrrolamientoGuard } from '@core/auth/auth.guard';
+import { authenticatedMatchGuard } from '@core/auth/auth.guard';
 
 export const ADMINISTRACION_ROUTE: Route[] = [
   {
@@ -21,7 +21,7 @@ export const ADMINISTRACION_ROUTE: Route[] = [
   },
   {
     path: 'validaciones',
-    canMatch: [validaEnrrolamientoGuard],
+    canMatch: [authenticatedMatchGuard],
     loadChildren: () =>
       import('./validaciones/validaciones.routes').then(
         (m) => m.VALIDACIONES_ADMINISTRACION_ROUTE,
