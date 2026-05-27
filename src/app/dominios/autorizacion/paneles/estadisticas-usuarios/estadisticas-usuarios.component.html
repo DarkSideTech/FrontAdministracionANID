@@ -1,0 +1,132 @@
+<section class="main-content">
+    <ul class="breadcrumb breadcrumb-style ">
+        <li class="breadcrumb-item">
+            <a routerLink="/paneles/estadisticas-usuarios" class="breadcrumb-p">
+              Home
+            </a>
+        </li>
+        <li class="breadcrumb-item bcrumb-1">
+            Paneles
+        </li>
+        <li class="breadcrumb-item">Estadisticas</li>
+    </ul>
+    <div class="section-body">
+        <div class="row">
+            <div class="col-12 col-md-6 col-lg-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Evolucion del Presupuesto por estado</h4>
+                    </div>
+                    <div class="card-body">
+                        <div style="height: 400px">
+                            <ngx-charts-bar-vertical [scheme]="colorScheme" [results]="single" [gradient]="gradient"
+                                [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend"
+                                [legendPosition]="legendPosition" [showXAxisLabel]="showXAxisLabel"
+                                [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="vbarxAxisLabel"
+                                [yAxisLabel]="vbaryAxisLabel">
+                            </ngx-charts-bar-vertical>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Monto asignado por estado</h4>
+                    </div>
+                    <div class="card-body">
+                        <div echarts [options]="pie_chart" class="echart-height"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 col-md-8 col-lg-8">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Lineas Presupuestarias</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>Linea Presupuestaria</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <ngx-datatable #table class="material" [rows]="rows"
+                                            [loadingIndicator]="loadingIndicator" columnMode="force" [headerHeight]="50"
+                                            [footerHeight]="50" [rowHeight]="50" [limit]="10" [scrollbarH]="true"
+                                            [reorderable]="reorderable">
+                                            <ngx-datatable-column [width]="250" name="Nombre" [frozenLeft]="true">
+                                                <ng-template let-row="row" let-value="value" let-i="index"
+                                                    ngx-datatable-cell-template>
+                                                    <div class="name-col-style">
+                                                        <div>{{row.codigo}}&nbsp;</div>
+                                                    </div>
+                                                    <div class="name-col-style">
+                                                        <div>{{row.nombre}}</div>
+                                                    </div>
+                                                </ng-template>
+                                            </ngx-datatable-column>
+                                            <ngx-datatable-column name="Presupuesto" [width]="70">
+                                                <ng-template let-row="row" ngx-datatable-cell-template>
+                                                    {{row.presupuesto}}
+                                                </ng-template>
+                                            </ngx-datatable-column>
+                                            <ngx-datatable-column name="PreAfectado" [width]="70">
+                                                <ng-template let-row="row" ngx-datatable-cell-template>
+                                                    {{row.preAfectado}}
+                                                </ng-template>
+                                            </ngx-datatable-column>
+                                            <ngx-datatable-column name="Afectado" [width]="50">
+                                                <ng-template let-row="row" ngx-datatable-cell-template>
+                                                    {{row.afectado}}
+                                                </ng-template>
+                                            </ngx-datatable-column>
+                                            <ngx-datatable-column name="Comprometido" [width]="70">
+                                                <ng-template let-row="row" ngx-datatable-cell-template>
+                                                    {{row.comprometido}}
+                                                </ng-template>
+                                            </ngx-datatable-column>
+                                            <ngx-datatable-column name="Devengado" [width]="50">
+                                                <ng-template let-row="row" ngx-datatable-cell-template>
+                                                    {{row.devengado}}
+                                                </ng-template>
+                                            </ngx-datatable-column>
+                                            <ngx-datatable-column name="Pagado" [width]="50">
+                                                <ng-template let-row="row" ngx-datatable-cell-template>
+                                                    {{row.pagado}}
+                                                </ng-template>
+                                            </ngx-datatable-column>
+                                            <ngx-datatable-column name="Graficar" [sortable]="false" [width]="50">
+                                                <ng-template let-value="value" let-row="row" let-rowIndex="rowIndex"
+                                                    ngx-datatable-cell-template>
+                                                        <button class="btn btn-tbl-edit h-auto"
+                                                            (click)='graphRow(row, rowIndex)'>
+                                                            <i class="fas fa-chart-pie"></i>
+                                                        </button>
+                                                </ng-template>
+                                            </ngx-datatable-column>
+                                        </ngx-datatable>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-4 col-lg-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Linea presupuestaria {{lineaPresupuestaria}} Monto asignado por estado</h4>
+                    </div>
+                    <div class="card-body">
+                        <div echarts [options]="lane_pie_chart" class="echart-height"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

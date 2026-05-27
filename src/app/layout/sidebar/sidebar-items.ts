@@ -41,7 +41,7 @@ export const ROUTES: RouteInfo[] = [
         badgeClass: '',
         submenu: [
           {
-            path: '/paneles/estadisticas-usuarios',
+            path: 'dominios/autorizacion/paneles/estadisticas-usuarios',
             title: 'Estadísticas Usuarios',
             iconType: '',
             icon: '',
@@ -79,8 +79,8 @@ export const ROUTES: RouteInfo[] = [
         badgeClass: '',
         submenu: [
           {
-            path: '/administracion/validaciones/valida-usuario-nuevo',
-            title: 'Valida Usuario Nuevo',
+            path: 'dominios/autorizacion/validaciones/valida-enrrolamiento',
+            title: 'Valida Enrrolamiento',
             iconType: '',
             icon: '',
             class: 'ml-menu',
@@ -91,8 +91,8 @@ export const ROUTES: RouteInfo[] = [
             active: false,
           },
           {
-            path: '/administracion/validaciones/valida-asigna-roles',
-            title: 'Valida Asignacion Roles',
+            path: 'dominios/autorizacion/validaciones/valida-asignacion-rol-a-perfil-entidad',
+            title: 'Valida Asignación Rol a Perfil-Entidad',
             iconType: '',
             icon: '',
             class: 'ml-menu',
@@ -117,8 +117,8 @@ export const ROUTES: RouteInfo[] = [
         badgeClass: '',
         submenu: [
           {
-            path: '/dominios/administracion/asignaciones/usuario-a-unidad-organizacional',
-            title: 'Asigna Usuario - Unidad Organizacional',
+            path: 'dominios/autorizacion/asignaciones/crea-perfil-usuario-entidad',
+            title: 'Crea Perfil Usuario',
             iconType: '',
             icon: '',
             class: 'ml-menu',
@@ -129,8 +129,8 @@ export const ROUTES: RouteInfo[] = [
             active: false,
           },
           {
-            path: '/dominios/administracion/asignaciones/asigna-unidadorganizacional-organizacion',
-            title: 'Asigna Unidad Organizacional a Organizacion',
+            path: 'dominios/autorizacion/asignaciones/asigna-rol-a-perfil',
+            title: 'Asigna Roles a Perfiles',
             iconType: '',
             icon: '',
             class: 'ml-menu',
@@ -141,8 +141,8 @@ export const ROUTES: RouteInfo[] = [
             active: false,
           },
           {
-            path: '/dominios/administracion/asignaciones/asigna-rol-proceso-a-entidad',
-            title: 'Asigna Rol/Proceso a Entidad',
+            path: 'dominios/autorizacion/asignaciones/dependencia-entidad',
+            title: 'Asigna Dependencia Entidades',
             iconType: '',
             icon: '',
             class: 'ml-menu',

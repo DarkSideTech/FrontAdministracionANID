@@ -1,0 +1,186 @@
+<section class="main-content">
+    <ul class="breadcrumb breadcrumb-style ">
+        <li class="breadcrumb-item">
+          <a routerLink="/paneles/estadisticas-usuarios" class="breadcrumb-p">
+            Home
+          </a>
+        </li>
+        <li class="breadcrumb-item bcrumb-1">
+            Administración
+        </li>
+        <li class="breadcrumb-item">Asigna Perfiles Para Validacion de Enrrolamiento</li>
+    </ul>
+    <div class="section-body">
+        <div class="row clearfix">
+            <!-- Busca Perfiless Para Asignar Roles -->
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                <div class="card">
+                    <div class="p-10">
+
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="row m-0">
+                                    <div class="col-auto p-0">
+                                        <div class="ngxTableHeader">
+                                            <div class="table-title">
+                                                <h2><strong>Perfiles</strong></h2>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-8 p-0">
+                                        <div class="ngxTableHeader">
+                                            <div class="table-search-area search-container">
+
+                                                    <label for="search-input"><img src="assets/icon/Lupa.svg" class="search-icon" alt="icono Lupa"></label>
+                                                    <input placeholder="{{'HEADER.SEARCH.TEXT' | translate}}" type="text"
+                                                        class="browser-default search-field"
+                                                        (keyup)="perfilFilterDatatable($event)" aria-label="Search box">
+
+                                            </div>
+                                            <div class="header-buttons-left">
+                                                <div class="tbl-btn-style">
+                                                    <button
+                                                        title="Asignacion masiva de roles a Perfiles"
+                                                        class="btn-icon icon-left btn-primary1 rounded-button"
+                                                        (click)='asignacionMasivaDeRolesSeleccionados()'>
+                                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                            <path d="M19 13H13V19H11V13H5V11H11V5H13V11H19V13Z" fill="currentColor"/>
+                                                        </svg>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <ngx-datatable #table class="material" [rows]="perfilData" [loadingIndicator]="loadingIndicator"
+                            columnMode="force" [headerHeight]="60" [footerHeight]="80" rowHeight="auto" [limit]="10"
+                            [scrollbarH]="scrollBarHorizontal" [reorderable]="reorderable" [selected]="perfilSelected"
+                            [selectionType]="selection" (select)='onPerfilSelect($event)'>
+
+                            <ngx-datatable-column [width]="60" [sortable]="false" [draggable]="false"
+                                [resizeable]="false" [canAutoResize]="false" [headerCheckboxable]="true"
+                                [checkboxable]="true">
+                            </ngx-datatable-column>
+
+                            <ngx-datatable-column name="Codigo" [width]="60">
+                                <ng-template let-row="row" ngx-datatable-cell-template>
+                                    {{row.codigo}}
+                                </ng-template>
+                            </ngx-datatable-column>
+
+                            <ngx-datatable-column name="Nombre" [width]="60">
+                                <ng-template let-row="row" ngx-datatable-cell-template>
+                                    {{row.nombre}}
+                                </ng-template>
+                            </ngx-datatable-column>
+
+                            <ngx-datatable-column name="Acciones" [sortable]="false" [width]="60">
+                                <ng-template let-value="value" let-row="row" let-rowIndex="rowIndex"
+                                    ngx-datatable-cell-template>
+                                    <span>
+                                        <button class="btn-tbl-edit h-auto btn-primary"
+                                            title="Asigna Perfile"
+                                            (click)='asignacionMasivaDeRolesSuccess()'>
+                                           <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M13 7H11V11H7V13H11V17H13V13H17V11H13V7ZM12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 20C7.59 20 4 16.41 4 12C4 7.59 7.59 4 12 4C16.41 4 20 7.59 20 12C20 16.41 16.41 20 12 20Z" fill="currentColor"/>
+                                           </svg>
+                                        </button>
+                                    </span>
+                                </ng-template>
+                            </ngx-datatable-column>
+                        </ngx-datatable>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- Asigna Perfiles a Roles -->
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                <div class="card">
+                    <div class="p-10">
+
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="row m-0">
+                                    <div class="col-lg-8 p-0">
+                                        <div class="ngxTableHeader">
+                                            <div class="table-title">
+                                                <h2><strong>Valida Enrrolamiento</strong></h2>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 p-0">
+                                        <div class="ngxTableHeader">
+                                            <div class="header-buttons-left">
+                                                <div class="tbl-btn-style">
+                                                    <button
+                                                        title="Eliminacion masiva de perfiles a Roles"
+                                                        class="btn-icon icon-left btn-danger rounded-button"
+                                                        (click)='eliminacionMasivaDePerfilesSuccess()'>
+                                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                           <path d="M6 19C6 20.1 6.9 21 8 21H16C17.1 21 18 20.1 18 19V7H6V19ZM8 9H16V19H8V9ZM15.5 4L14.5 3H9.5L8.5 4H5V6H19V4H15.5Z" fill="currentColor"/>
+                                                        </svg>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <ngx-datatable #table class="material" [rows]="rolData" [loadingIndicator]="loadingIndicator"
+                            columnMode="force" [headerHeight]="60" [footerHeight]="80" rowHeight="auto" [limit]="10"
+                            [scrollbarH]="scrollBarHorizontal" [reorderable]="reorderable" [selected]="rolSelected"
+                            [selectionType]="selection" (select)='onRolSelect($event)'>
+
+
+                            <ngx-datatable-column [width]="60" [resizeable]="false" [sortable]="false"
+                                [draggable]="false" [canAutoResize]="false">
+                            </ngx-datatable-column>
+
+                            <ngx-datatable-column [width]="60" [sortable]="false" [draggable]="false"
+                                [resizeable]="false" [canAutoResize]="false" [headerCheckboxable]="true"
+                                [checkboxable]="true">
+                            </ngx-datatable-column>
+
+                            <ngx-datatable-column name="Codigo" [width]="60">
+                                <ng-template let-row="row" ngx-datatable-cell-template>
+                                    {{row.codigo}}
+                                </ng-template>
+                            </ngx-datatable-column>
+
+                            <ngx-datatable-column name="Nombre" [width]="60">
+                                <ng-template let-row="row" ngx-datatable-cell-template>
+                                    {{row.nombre}}
+                                </ng-template>
+                            </ngx-datatable-column>
+
+                            <ngx-datatable-column name="Acciones" [sortable]="false" [width]="60">
+                                <ng-template let-value="value" let-row="row" let-rowIndex="rowIndex"
+                                    ngx-datatable-cell-template>
+                                    <span>
+                                        <button
+                                            title="Elimina Perfil"
+                                            class="btn-tbl-delete h-auto"
+                                            (click)='eliminacionMasivaDeRolesSuccess()'>
+                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                             <path d="M6 19C6 20.1 6.9 21 8 21H16C17.1 21 18 20.1 18 19V7H6V19ZM8 9H16V19H8V9ZM15.5 4L14.5 3H9.5L8.5 4H5V6H19V4H15.5Z" fill="currentColor"/>
+                                            </svg>
+                                        </button>
+                                    </span>
+                                </ng-template>
+                            </ngx-datatable-column>
+
+                        </ngx-datatable>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

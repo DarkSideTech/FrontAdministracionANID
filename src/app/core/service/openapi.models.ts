@@ -150,10 +150,6 @@ export interface EliminarEntidadViewModel {
   id?: string | null;
 }
 
-export interface EliminarEntidadServicioDeDominioViewModel {
-  idEntidad?: string | null;
-}
-
 export interface EliminarOrganizacionViewModel {
   id?: string | null;
 }
@@ -204,18 +200,6 @@ export interface EntidadViewModel {
   entidadBase?: boolean | null;
 }
 
-export interface EntidadParaAsignarPoliticaViewModel {
-  idEntidad?: string | null;
-  idUsuario?: string | null;
-  nombreUsuario?: string | null;
-  idUnidadOrganizacional?: string | null;
-  codigoUnidadOrganizacional?: string | null;
-  nombreUnidadOrganizacional?: string | null;
-  tipoDeEntidad?: string | null;
-  correoElectronico?: string | null;
-  principal?: boolean | null;
-}
-
 export interface FinalizaAsignacionPoliticaAsignadaViewModel {
   id?: string | null;
 }
@@ -248,19 +232,6 @@ export interface BuscarRolesPaginadosResponse {
   cantidadPorPagina?: number | null;
   total?: number | null;
   items?: RolPaginadoItemResponse[] | null;
-}
-
-export interface BuscarRolesViewModel {
-  estado?: string | null;
-}
-
-export interface BuscarRolesResponse {
-  items?: RolListaItemResponse[] | null;
-}
-
-export interface RolListaItemResponse {
-  id?: string | null;
-  nombreNormalizado?: string | null;
 }
 
 export interface LoginOrganizacionViewModel {
@@ -465,18 +436,6 @@ export interface PoliticaAsignadaViewModel {
   politicaAsignadaBase?: boolean | null;
 }
 
-export interface PoliticaAsignadaParaEntidadViewModel {
-  idPoliticaAsignada?: string | null;
-  idEntidad?: string | null;
-  idRol?: string | null;
-  nombreRol?: string | null;
-  idProceso?: string | null;
-  codigoProceso?: string | null;
-  nombreProceso?: string | null;
-  rolRequiereValidacion?: boolean | null;
-  rolAsignadoValidado?: boolean | null;
-}
-
 export interface ProcesoActivoDTO {
   codigo?: string | null;
   roles?: string[] | null;
@@ -499,12 +458,6 @@ export interface ProcesoViewModel {
   procesoBase?: boolean | null;
   maximaAsignacionDeRoles?: number | null;
   activo?: boolean | null;
-}
-
-export interface ProcesoSeleccionViewModel {
-  id?: string | null;
-  codigo?: string | null;
-  nombre?: string | null;
 }
 
 export interface ProveedorViewModel {
@@ -609,57 +562,6 @@ export interface ValidaAsignacionDeRolPoliticaAsignadaViewModel {
 export interface ValidaAsignacionDeRolServicioDeDominioViewModel {
   id_PoliticaAsignada?: string | null;
   id_Usuario_ValidaAsignacionRol?: string | null;
-}
-
-export interface SincronizarPoliticasAsignadasServicioDeDominioViewModel {
-  accion?: string | null;
-  items?: SincronizarPoliticaAsignadaEntidadItemViewModel[] | null;
-}
-
-export interface BuscarUnidadesOrganizacionalesParaAsignarOrganizacionServicioDeDominioViewModel {
-  id_Organizacion?: string | null;
-}
-
-export interface UnidadOrganizacionalParaAsignarOrganizacionViewModel {
-  idUnidadOrganizacional?: string | null;
-  idOrganizacionActual?: string | null;
-  codigoUnidadOrganizacional?: string | null;
-  nombreUnidadOrganizacional?: string | null;
-  descripcionUnidadOrganizacional?: string | null;
-  unidadOrganizacionalBase?: boolean | null;
-  activo?: boolean | null;
-  codigoOrganizacionActual?: string | null;
-  nombreOrganizacionActual?: string | null;
-  asignadaAOrganizacion?: boolean | null;
-  tieneEntidadPrincipal?: boolean | null;
-  cantidadEntidadesPrincipales?: number | null;
-}
-
-export interface SincronizarUnidadesOrganizacionalesOrganizacionServicioDeDominioViewModel {
-  id_Organizacion?: string | null;
-  unidadesAsignar?: string[] | null;
-  unidadesDesasignar?: string[] | null;
-}
-
-export interface SincronizarUnidadesOrganizacionalesOrganizacionResultadoViewModel {
-  asignadas?: number | null;
-  reasignadas?: number | null;
-  entidadesEliminadas?: number | null;
-  politicasAsignadasEliminadas?: number | null;
-  omitidasPorExistir?: number | null;
-  omitidasPorError?: number | null;
-  errores?: string[] | null;
-}
-
-export interface SincronizarPoliticaAsignadaEntidadItemViewModel {
-  idEntidad?: string | null;
-  politicas?: SincronizarPoliticaAsignadaItemViewModel[] | null;
-}
-
-export interface SincronizarPoliticaAsignadaItemViewModel {
-  idRol?: string | null;
-  idProceso?: string | null;
-  rolRequiereValidacion?: boolean | null;
 }
 
 export interface ValidaEnrrolamientoServicioDeDominioViewModel {
