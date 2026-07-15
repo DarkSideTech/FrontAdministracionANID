@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { provideRouter } from '@angular/router';
 import { provideToastr } from 'ngx-toastr';
 
 import { AsignaRolAValidaAsignacionComponent } from './asigna-rol-a-valida-asignacion.component';
@@ -11,7 +12,7 @@ describe('AsignaRolAValidaAsignacionComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [AsignaRolAValidaAsignacionComponent],
-      providers: [provideAnimationsAsync(), provideToastr()],
+      providers: [provideAnimationsAsync(), provideToastr(), provideRouter([])],
     })
     .compileComponents();
 
