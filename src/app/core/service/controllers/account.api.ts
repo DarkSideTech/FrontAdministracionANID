@@ -27,7 +27,7 @@ export class AccountApi {
     });
   }
 
-  loginClaveUnica(options: { body?: { clientId?: string; redirectUri?: string; code?: string; state?: string }; headers?: Record<string, string>; context?: HttpContext } = {}): Observable<unknown> {
+  loginClaveUnica(options: { body?: { code?: string }; headers?: Record<string, string>; context?: HttpContext } = {}): Observable<unknown> {
     return this.http.request<unknown>('POST', `${this.accountUrl}/loginclaveunica`, {
       body: options.body,
       headers: options.headers ? new HttpHeaders(options.headers) : undefined,

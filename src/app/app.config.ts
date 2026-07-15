@@ -2,7 +2,6 @@ import { HttpClient, provideHttpClient, withFetch, withInterceptors } from '@ang
 import { APP_INITIALIZER, ApplicationConfig, importProvidersFrom, provideBrowserGlobalErrorListeners } from '@angular/core';
 import { APP_ROUTE } from './app.routes';
 import { provideRouter } from '@angular/router';
-import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { DirectionService, LanguageService } from '@core';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -43,7 +42,6 @@ export const appConfig: ApplicationConfig = {
             useFactory: initializeAuthentication,
             deps: [AccountAuthService],
         },
-        { provide: LocationStrategy, useClass: HashLocationStrategy },
         DirectionService, LanguageService,
         importProvidersFrom(
             TranslateModule.forRoot({
