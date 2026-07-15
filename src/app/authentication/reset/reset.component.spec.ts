@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
 
 import { ResetComponent } from './reset.component';
 
@@ -8,7 +9,8 @@ describe('ResetComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-    imports: [ResetComponent]
+    imports: [ResetComponent],
+    providers: [provideRouter([])],
 })
     .compileComponents();
   });

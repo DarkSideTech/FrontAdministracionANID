@@ -1,11 +1,15 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { importProvidersFrom } from '@angular/core';
+import { FeatherModule } from 'angular-feather';
+import { allIcons } from 'angular-feather/icons';
 import { SidebarComponent } from './sidebar.component';
 describe('SidebarComponent', () => {
   let component: SidebarComponent;
   let fixture: ComponentFixture<SidebarComponent>;
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [SidebarComponent]
+    imports: [SidebarComponent],
+    providers: [importProvidersFrom(FeatherModule.pick(allIcons))],
 }).compileComponents();
   }));
   beforeEach(() => {

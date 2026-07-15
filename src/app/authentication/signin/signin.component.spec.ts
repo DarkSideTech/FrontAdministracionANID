@@ -1,11 +1,15 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { importProvidersFrom } from '@angular/core';
+import { FeatherModule } from 'angular-feather';
+import { allIcons } from 'angular-feather/icons';
 import { SigninComponent } from './signin.component';
 describe('SigninComponent', () => {
   let component: SigninComponent;
   let fixture: ComponentFixture<SigninComponent>;
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [SigninComponent]
+    imports: [SigninComponent],
+    providers: [importProvidersFrom(FeatherModule.pick(allIcons))],
 }).compileComponents();
   }));
   beforeEach(() => {

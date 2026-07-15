@@ -1,4 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { provideToastr } from 'ngx-toastr';
 
 import { DependenciaEntidadComponent } from './dependencia-entidad.component';
 
@@ -8,7 +10,8 @@ describe('DependenciaEntidadComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [DependenciaEntidadComponent]
+      imports: [DependenciaEntidadComponent],
+      providers: [provideAnimationsAsync(), provideToastr()],
     })
     .compileComponents();
 

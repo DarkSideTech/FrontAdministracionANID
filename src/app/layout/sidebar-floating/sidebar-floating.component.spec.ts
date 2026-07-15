@@ -1,4 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { importProvidersFrom } from '@angular/core';
+import { FeatherModule } from 'angular-feather';
+import { allIcons } from 'angular-feather/icons';
 
 import { SidebarFloatingComponent } from './sidebar-floating.component';
 
@@ -8,7 +11,8 @@ describe('SidebarFloatingComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SidebarFloatingComponent]
+      imports: [SidebarFloatingComponent],
+      providers: [importProvidersFrom(FeatherModule.pick(allIcons))],
     })
     .compileComponents();
 
