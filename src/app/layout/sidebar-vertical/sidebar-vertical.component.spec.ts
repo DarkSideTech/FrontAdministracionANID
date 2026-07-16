@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { importProvidersFrom } from '@angular/core';
 import { provideRouter } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import { FeatherModule } from 'angular-feather';
 import { allIcons } from 'angular-feather/icons';
 
@@ -12,7 +13,7 @@ describe('SidebarVerticalComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SidebarVerticalComponent],
+      imports: [SidebarVerticalComponent, TranslateModule.forRoot()],
       providers: [importProvidersFrom(FeatherModule.pick(allIcons)), provideRouter([])],
     })
     .compileComponents();
