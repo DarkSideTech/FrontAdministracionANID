@@ -1,14 +1,15 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router, RouterModule } from '@angular/router';
-import { LoginClaveUnicaInterface } from '@core/models/login-clave-unica.interface';
+import { switchMap, take } from 'rxjs';
+
 import { AccountAuthService } from '@core/auth/account-auth.service';
-import { formatApiError } from '@core/service/api-error.util';
 import {
   clearAuthProvider,
   consumeClaveUnicaState,
   setClaveUnicaAuthProvider,
 } from '@core/auth/clave-unica-session';
-import { environment } from 'environments/environment';
+import { LoginClaveUnicaInterface } from '@core/models/login-clave-unica.interface';
+import { formatApiError } from '@core/service/api-error.util';
 
 @Component({
   selector: 'app-callback-clave-unica',
@@ -17,59 +18,52 @@ import { environment } from 'environments/environment';
   templateUrl: './callback-clave-unica.component.html',
   styleUrl: './callback-clave-unica.component.scss',
 })
-export class CallbackClaveUnicaComponent implements OnInit{
+export class CallbackClaveUnicaComponent implements OnInit {
+  private readonly activateRoute = inject(ActivatedRoute);
+  private readonly accountAuthService = inject(AccountAuthService);
+  private readonly router = inject(Router);
 
-  private activateRoute  = inject(ActivatedRoute);
-  private accountAuthService = inject(AccountAuthService);
-  private router         = inject( Router );
-
-  clientId       = environment.clientIdClaveUnica;
-  redirectUri    = environment.redirecUriClaveUnica;
-  code:  string  = '';
-  state: string  = '';
+  private code = '';
+  private state = '';
 
   ngOnInit(): void {
-    this.activateRoute.queryParams.subscribe( (params: Params)  =>{
-        if( params['code'] && params['state']){
+    this.activateRoute.queryParams.pipe(take(1)).subscribe((params: Params) => {
+      if (!params['code'] || !params['state']) {
+        void this.router.navigateByUrl('/authentication/signin');
+        return;
+      }
 
-          this.code  = params['code'];
-          this.state = params['state'];
-          
-          this.loginClaveUnica();
-          
-        }else{
-
-          void this.router.navigateByUrl('/authentication/signin');
-        }
+      this.code = params['code'];
+      this.state = params['state'];
+      this.loginClaveUnica();
     });
   }
 
-  loginClaveUnica(){
+  private loginClaveUnica(): void {
     const expectedState = consumeClaveUnicaState();
     if (!expectedState || expectedState !== this.state) {
       clearAuthProvider();
       void this.router.navigateByUrl('/authentication/signin');
       return;
     }
-    
-    const loginClaveUnicaInterface :LoginClaveUnicaInterface = {
-      clientId : this.clientId,
-      redirectUri: this.redirectUri,
-      code: this.code,
-      state: this.state,
-    }
 
-    this.accountAuthService.loginClaveUnica(loginClaveUnicaInterface)
-    .subscribe({
-      next: () => {
-        setClaveUnicaAuthProvider();
-        void this.router.navigateByUrl(this.accountAuthService.resolvePostLoginUrl());
-      },
-      error: (error: unknown) =>{
-        console.error(formatApiError(error));
-        clearAuthProvider();
-        void this.router.navigateByUrl('/authentication/signin');
-      },
-    });
+    const payload: LoginClaveUnicaInterface = { code: this.code };
+    this.accountAuthService
+      .ensureCsrfToken()
+      .pipe(
+        switchMap(() => this.accountAuthService.loginClaveUnica(payload)),
+        take(1),
+      )
+      .subscribe({
+        next: () => {
+          setClaveUnicaAuthProvider();
+          void this.router.navigateByUrl(this.accountAuthService.resolvePostLoginUrl());
+        },
+        error: (error: unknown) => {
+          console.error(formatApiError(error));
+          clearAuthProvider();
+          void this.router.navigateByUrl('/authentication/signin');
+        },
+      });
   }
 }

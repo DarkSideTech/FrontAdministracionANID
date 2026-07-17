@@ -4,6 +4,13 @@ declare global {
   interface Window {
     __AUT2_CONFIG__?: {
       apiBaseUrl?: string;
+      claveUnica?: {
+        clientId?: string;
+        redirectUri?: string;
+        logoutRedirectUri?: string;
+        authorizationUrl?: string;
+        logoutUrl?: string;
+      };
     };
   }
 }
