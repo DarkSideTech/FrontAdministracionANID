@@ -19,9 +19,13 @@ import { finalize } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { nanoid } from 'nanoid';
 
-import { environment } from 'environments/environment';
 import { AccountAuthService } from '@core/auth/account-auth.service';
 import { clearAuthProvider, rememberClaveUnicaState } from '@core/auth/clave-unica-session';
+import {
+  createClaveUnicaAuthorizationUrl,
+  getClaveUnicaConfiguration,
+  isClaveUnicaConfigured,
+} from '@core/auth/clave-unica.config';
 import { formatApiError } from '@core/service/api-error.util';
 
 @Component({
@@ -49,9 +53,7 @@ export class SigninComponent implements OnInit {
   readonly errorMessage = signal('');
   readonly successMessage = signal('');
 
-  clientId = environment.clientIdClaveUnica;
-  redirectUri = environment.redirecUriClaveUnica;
-  claveUnicaUrl = environment.claveUnicaUrl;
+  private readonly claveUnicaConfiguration = getClaveUnicaConfiguration();
 
   form!: UntypedFormGroup;
   submitted = false;
@@ -102,12 +104,15 @@ export class SigninComponent implements OnInit {
   }
 
   goClaveUnica(): void {
-    const encodedUrl = encodeURIComponent(this.redirectUri);
-    const state = nanoid();
-    const params = `client_id=${this.clientId}&response_type=code&scope=openid run name&redirect_uri=${encodedUrl}&state=${state}`;
+    if (!isClaveUnicaConfigured(this.claveUnicaConfiguration)) {
+      this.errorMessage.set('Clave Unica no esta disponible: falta la configuracion publica del sandbox.');
+      return;
+    }
+
+    const state = nanoid(32);
 
     rememberClaveUnicaState(state);
-    window.location.href = this.claveUnicaUrl + params;
+    window.location.assign(createClaveUnicaAuthorizationUrl(this.claveUnicaConfiguration, state));
   }
 
   selectTab(tab: 'claveunica' | 'extranjero') {

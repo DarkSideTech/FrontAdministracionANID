@@ -1,0 +1,18 @@
+[build]
+  command = "npm run build:sandbox"
+  publish = "dist/DSTServices/browser"
+
+  [build.environment]
+    NODE_VERSION = "22"
+
+[context.sandbox-aut2-claveunica]
+  command = "npm run build:sandbox"
+  publish = "dist/DSTServices/browser"
+
+[[plugins]]
+  package = "./netlify/plugins/configure-api-proxy"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

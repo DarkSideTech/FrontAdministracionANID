@@ -13,7 +13,7 @@ import {
   computed,
   DestroyRef
 } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { finalize } from 'rxjs';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgbDropdown, NgbDropdownToggle, NgbDropdownMenu } from '@ng-bootstrap/ng-bootstrap';
@@ -55,6 +55,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   private readonly authStore = inject(AuthStore);
   private readonly destroyRef = inject(DestroyRef);
   private readonly toastr = inject(ToastrService);
+  private readonly router = inject(Router);
 
   readonly homeView = computed(() => ({
     profile: this.authStore.user(),
@@ -289,8 +290,8 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   }
 
   logout() {
-    this.accountAuthService.logout().pipe(takeUntilDestroyed(this.destroyRef)).subscribe();
- }
+    void this.router.navigateByUrl('/authentication/logout');
+  }
 
   private resolveMenuType(type: string | null | undefined): 'horizontal' | 'vertical' | 'floating' {
     switch ((type ?? '').trim()) {
