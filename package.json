@@ -6,6 +6,7 @@
     "start": "ng serve --port 4210",
     "dev:full": "powershell -ExecutionPolicy Bypass -File .\\scripts\\start-dev.ps1",
     "build": "ng build",
+    "build:sandbox": "node scripts/build-sandbox.mjs",
     "test": "ng test",
     "lint": "ng lint"
   },
