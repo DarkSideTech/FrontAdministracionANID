@@ -1,4 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { provideRouter } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+import { provideToastr } from 'ngx-toastr';
 
 import { AsignaRolAPerfilComponent } from './asigna-rol-a-perfil.component';
 
@@ -8,7 +12,8 @@ describe('AsignaRolAPerfilComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AsignaRolAPerfilComponent]
+      imports: [AsignaRolAPerfilComponent, TranslateModule.forRoot()],
+      providers: [provideAnimationsAsync(), provideToastr(), provideRouter([])],
     })
     .compileComponents();
 

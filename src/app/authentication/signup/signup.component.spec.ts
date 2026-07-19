@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { importProvidersFrom } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { of } from 'rxjs';
+import { FeatherModule } from 'angular-feather';
+import { allIcons } from 'angular-feather/icons';
 
 import { AccountAuthService } from '@core/auth/account-auth.service';
 import { EnumerationService, SignupCatalogs } from '@core/enumerations/enumeration.service';
@@ -36,6 +39,7 @@ describe('SignupComponent', () => {
     await TestBed.configureTestingModule({
       imports: [SignupComponent],
       providers: [
+        importProvidersFrom(FeatherModule.pick(allIcons)),
         provideRouter([]),
         { provide: AccountAuthService, useValue: accountAuthServiceSpy },
         { provide: EnumerationService, useValue: enumerationServiceSpy },

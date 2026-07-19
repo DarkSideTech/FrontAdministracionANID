@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
 
 import { CallbackClaveUnicaComponent } from './callback-clave-unica.component';
 
@@ -8,7 +9,8 @@ describe('CallbackClaveUnicaComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CallbackClaveUnicaComponent]
+      imports: [CallbackClaveUnicaComponent],
+      providers: [provideRouter([])],
     })
     .compileComponents();
 

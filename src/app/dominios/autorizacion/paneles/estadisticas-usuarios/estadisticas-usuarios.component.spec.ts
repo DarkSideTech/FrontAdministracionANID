@@ -1,4 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideNoopAnimations } from '@angular/platform-browser/animations';
+import { provideRouter } from '@angular/router';
 
 import { EstadisticasUsuariosComponent } from './estadisticas-usuarios.component';
 
@@ -8,7 +10,8 @@ describe('EstadisticasUsuariosComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [EstadisticasUsuariosComponent]
+      imports: [EstadisticasUsuariosComponent],
+      providers: [provideRouter([]), provideNoopAnimations()],
     })
     .compileComponents();
 
