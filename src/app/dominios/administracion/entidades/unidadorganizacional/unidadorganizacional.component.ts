@@ -203,6 +203,7 @@ export class UnidadOrganizacionalComponent {
 
   openCreateUnidadOrganizacionalDialog(content: TemplateRef<unknown>): void {
     const initialValue = { ...this.config.initialFormValue };
+    this.setUnidadOrganizacionalCreateOnlyValidators(true);
     this.unidadOrganizacionalDialogMode.set('create');
     this.unidadOrganizacionalDialogError.set('');
     this.unidadOrganizacionalFormInitialValue.set(initialValue);
@@ -219,6 +220,7 @@ export class UnidadOrganizacionalComponent {
       descripcion: item.descripcion,
     };
 
+    this.setUnidadOrganizacionalCreateOnlyValidators(false);
     this.unidadOrganizacionalDialogMode.set('edit');
     this.unidadOrganizacionalDialogError.set('');
     this.unidadOrganizacionalFormInitialValue.set(initialValue);
@@ -440,6 +442,19 @@ export class UnidadOrganizacionalComponent {
       nombre: rawValue.nombre?.trim() ?? '',
       descripcion: rawValue.descripcion?.trim() ?? '',
     };
+  }
+
+  private setUnidadOrganizacionalCreateOnlyValidators(required: boolean): void {
+    const validators = required ? [Validators.required] : null;
+    const createOnlyControls = [
+      this.unidadOrganizacionalForm.controls.id_Organizacion,
+      this.unidadOrganizacionalForm.controls.codigo,
+    ];
+
+    createOnlyControls.forEach((control) => {
+      control.setValidators(validators);
+      control.updateValueAndValidity({ emitEvent: false });
+    });
   }
 
   private updateUnidadOrganizacionalRowState(id: string, activo: boolean): void {

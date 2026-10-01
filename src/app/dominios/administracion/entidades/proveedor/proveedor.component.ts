@@ -173,6 +173,7 @@ export class ProveedorComponent {
 
   openCreateProveedorDialog(content: TemplateRef<unknown>): void {
     const initialValue = { ...this.config.initialFormValue };
+    this.setProveedorCreateOnlyValidators(true);
     this.proveedorDialogMode.set('create');
     this.proveedorDialogError.set('');
     this.proveedorFormInitialValue.set(initialValue);
@@ -189,6 +190,7 @@ export class ProveedorComponent {
       apiDeAutenticacion: item.apiDeAutenticacion,
     };
 
+    this.setProveedorCreateOnlyValidators(false);
     this.proveedorDialogMode.set('edit');
     this.proveedorDialogError.set('');
     this.proveedorFormInitialValue.set(initialValue);
@@ -407,6 +409,11 @@ export class ProveedorComponent {
       descripcion: rawValue.descripcion?.trim() ?? '',
       apiDeAutenticacion: rawValue.apiDeAutenticacion?.trim() ?? '',
     };
+  }
+
+  private setProveedorCreateOnlyValidators(required: boolean): void {
+    this.proveedorForm.controls.codigo.setValidators(required ? [Validators.required] : null);
+    this.proveedorForm.controls.codigo.updateValueAndValidity({ emitEvent: false });
   }
 
   private updateProveedorRowState(id: string, activo: boolean): void {

@@ -215,6 +215,7 @@ export class ProcesoComponent {
 
   openCreateProcesoDialog(content: TemplateRef<unknown>): void {
     const initialValue = { ...this.config.initialFormValue };
+    this.setProcesoCreateOnlyValidators(true);
     this.procesoDialogMode.set('create');
     this.procesoDialogError.set('');
     this.procesoFormInitialValue.set(initialValue);
@@ -237,6 +238,7 @@ export class ProcesoComponent {
       maximaAsignacionDeRoles: item.maximaAsignacionDeRoles !== null ? String(item.maximaAsignacionDeRoles) : '',
     };
 
+    this.setProcesoCreateOnlyValidators(false);
     this.procesoDialogMode.set('edit');
     this.procesoDialogError.set('');
     this.procesoFormInitialValue.set(initialValue);
@@ -489,8 +491,21 @@ export class ProcesoComponent {
       url: rawValue.url?.trim() ?? '',
       token: rawValue.token?.trim() ?? '',
       comoDesplegarUrlDeProceso: rawValue.comoDesplegarUrlDeProceso?.trim() ?? '',
-      maximaAsignacionDeRoles: rawValue.maximaAsignacionDeRoles?.trim() ?? '',
+      maximaAsignacionDeRoles: String(rawValue.maximaAsignacionDeRoles ?? '').trim(),
     };
+  }
+
+  private setProcesoCreateOnlyValidators(required: boolean): void {
+    const validators = required ? [Validators.required] : null;
+    const createOnlyControls = [
+      this.procesoForm.controls.idMacro_Proceso,
+      this.procesoForm.controls.codigo,
+    ];
+
+    createOnlyControls.forEach((control) => {
+      control.setValidators(validators);
+      control.updateValueAndValidity({ emitEvent: false });
+    });
   }
 
   private updateProcesoRowState(id: string, activo: boolean): void {

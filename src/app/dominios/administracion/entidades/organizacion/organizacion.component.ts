@@ -172,6 +172,7 @@ export class OrganizacionComponent {
 
   openCreateOrganizacionDialog(content: TemplateRef<unknown>): void {
     const initialValue = { ...this.config.initialFormValue };
+    this.setOrganizacionCreateOnlyValidators(true);
     this.organizacionDialogMode.set('create');
     this.organizacionDialogError.set('');
     this.organizacionFormInitialValue.set(initialValue);
@@ -188,6 +189,7 @@ export class OrganizacionComponent {
       descripcion: item.descripcion,
     };
 
+    this.setOrganizacionCreateOnlyValidators(false);
     this.organizacionDialogMode.set('edit');
     this.organizacionDialogError.set('');
     this.organizacionFormInitialValue.set(initialValue);
@@ -406,6 +408,11 @@ export class OrganizacionComponent {
       nombre: rawValue.nombre?.trim() ?? '',
       descripcion: rawValue.descripcion?.trim() ?? '',
     };
+  }
+
+  private setOrganizacionCreateOnlyValidators(required: boolean): void {
+    this.organizacionForm.controls.codigo.setValidators(required ? [Validators.required] : null);
+    this.organizacionForm.controls.codigo.updateValueAndValidity({ emitEvent: false });
   }
 
   private updateOrganizacionRowState(id: string, activo: boolean): void {
